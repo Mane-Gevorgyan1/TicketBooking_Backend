@@ -16,6 +16,10 @@ module.exports = mongoose => {
             availability: {
                 type: String,
                 default: 'available', // available, saved, sold
+            },
+            amphitheater: {
+                type: Boolean,
+                default: false,
             }
         },
         { timestamps: true },
