@@ -1,6 +1,7 @@
 const db = require('../model/model')
 const Ticket = db.ticket
-const { validationResult } = require('express-validator');
+const { validationResult } = require('express-validator')
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 class TicketController {
 
@@ -23,9 +24,9 @@ class TicketController {
     static async getSeatDetails(req, res) {
         const result = validationResult(req);
         if (result.isEmpty()) {
-            await Ticket.find({ row: req.query.row, seat: req.query.seat })
-                .then(seat => {
-                    res.send({ success: true, seat: seat[0] })
+            await Ticket.find()
+                .then(seats => {
+                    res.send({ success: true, seats })
                 })
                 .catch(err => {
                     res.send({ success: false, err })
@@ -68,6 +69,28 @@ class TicketController {
             res.send({ errors: result.array() });
         }
     }
+
+    static async checkout(req, res) {
+        const session = await stripe.checkout.sessions.create({
+            line_items: [
+                {
+                    // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+                    price: await stripe.prices.create({
+                        unit_amount: 1999,
+                        currency: 'usd',
+                        recurring: { interval: 'month' },
+                        product: 'prod_ObRFdzuEvEDtug',
+                    }),
+                    quantity: 1,
+                },
+            ],
+            mode: 'payment',
+            success_url: `http://localhost:8080/?success=true`,
+            cancel_url: `http://localhost:8080/?canceled=true`,
+        });
+
+        res.redirect(303, session.url);
+    } 
 }
 
 module.exports = TicketController
