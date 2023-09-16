@@ -1,7 +1,7 @@
 const express = require('express')
 const router = require('./router/router')
 const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const db = require('./model/model')
 const session = require('express-session')
@@ -14,20 +14,20 @@ db.mongoose
     dbName: 'TicketsBooking'
   })
   .then(() => {
-    console.log('--->>> Database Connected <<<---');
+    console.log('--->>> Database Connected <<<---')
   })
   .catch((err) => {
-    console.log('--->>> Database Disconnected <<<---');
-    console.log(err);
-    process.exit();
-  });
+    console.log('--->>> Database Disconnected <<<---')
+    console.log(err)
+    process.exit()
+  })
 
 const corsOptions = {
   origin: 'http://localhost:3000',
   credentials: true,            //access-control-allow-credentials:true
 }
-app.use(cookieParser('secretcode'));
-app.use(cors(corsOptions));
+app.use(cookieParser('secretcode'))
+app.use(cors(corsOptions))
 app.use(session({
   secret: 'aksfskldgfjskfkjhb',
   resave: false,
@@ -35,9 +35,9 @@ app.use(session({
   cookie: { maxAge: 99999999999999 }
 }))
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
-app.use('/', router);
+app.use('/', router)
 
 app.listen(process.env.PORT, () => console.log(`Server is running on port ${process.env.PORT}`))

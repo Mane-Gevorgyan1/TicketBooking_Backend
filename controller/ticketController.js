@@ -1,12 +1,18 @@
 const db = require('../model/model')
 const Ticket = db.ticket
 const { validationResult } = require('express-validator')
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc')
 
 class TicketController {
 
+    // const result = validationResult(req)
+    // if (result.isEmpty()) {
+    // } else {
+    //     res.send({ errors: result.array() })
+    // }
+
     static async setPrice(req, res) {
-        const result = validationResult(req);
+        const result = validationResult(req)
         if (result.isEmpty()) {
             const seat = await new Ticket({ ...req.body })
             seat.save(seat)
@@ -17,12 +23,12 @@ class TicketController {
                     res.send({ success: false, err })
                 })
         } else {
-            res.send({ errors: result.array() });
+            res.send({ errors: result.array() })
         }
     }
 
     static async getSeatDetails(req, res) {
-        const result = validationResult(req);
+        const result = validationResult(req)
         if (result.isEmpty()) {
             await Ticket.find()
                 .then(seats => {
@@ -32,12 +38,12 @@ class TicketController {
                     res.send({ success: false, err })
                 })
         } else {
-            res.send({ errors: result.array() });
+            res.send({ errors: result.array() })
         }
     }
 
     static async changePrice(req, res) {
-        const result = validationResult(req);
+        const result = validationResult(req)
         if (result.isEmpty()) {
             await Ticket.findOneAndUpdate({ row: req.body.row, seat: req.body.seat, amphitheater: req.body.amphitheater }, { price: req.body.price })
                 .then(() => {
@@ -47,12 +53,12 @@ class TicketController {
                     res.send({ success: false, err })
                 })
         } else {
-            res.send({ errors: result.array() });
+            res.send({ errors: result.array() })
         }
     }
 
     static async changeAvailability(req, res) {
-        const result = validationResult(req);
+        const result = validationResult(req)
         if (result.isEmpty()) {
             if (req.body.availability === 'available' || req.body.availability === 'saved' || req.body.availability === 'sold') {
                 await Ticket.findOneAndUpdate({ row: req.body.row, seat: req.body.seat, amphitheater: req.body.amphitheater }, { availability: req.body.availability })
@@ -66,31 +72,32 @@ class TicketController {
                 res.send({ success: false, error: 'Wrong availability value' })
             }
         } else {
-            res.send({ errors: result.array() });
+            res.send({ errors: result.array() })
         }
     }
 
-    static async checkout(req, res) {
-        const session = await stripe.checkout.sessions.create({
-            line_items: [
-                {
-                    // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-                    price: await stripe.prices.create({
-                        unit_amount: 1999,
-                        currency: 'usd',
-                        recurring: { interval: 'month' },
-                        product: 'prod_ObRFdzuEvEDtug',
-                    }),
-                    quantity: 1,
-                },
-            ],
-            mode: 'payment',
-            success_url: `http://localhost:8080/?success=true`,
-            cancel_url: `http://localhost:8080/?canceled=true`,
-        });
+    // static async checkout(req, res) {
+    //     const session = await stripe.checkout.sessions.create({
+    //         line_items: [
+    //             {
+    //                 // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+    //                 price: await stripe.prices.create({
+    //                     unit_amount: 1999,
+    //                     currency: 'usd',
+    //                     recurring: { interval: 'month' },
+    //                     product: 'prod_ObRFdzuEvEDtug',
+    //                 }),
+    //                 quantity: 1,
+    //             },
+    //         ],
+    //         mode: 'payment',
+    //         success_url: `http://localhost:8080/?success=true`,
+    //         cancel_url: `http://localhost:8080/?canceled=true`,
+    //     })
 
-        res.redirect(303, session.url);
-    } 
+    //     res.redirect(303, session.url)
+    // }
+
 }
 
 module.exports = TicketController

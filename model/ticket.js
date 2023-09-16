@@ -20,11 +20,35 @@ module.exports = mongoose => {
             amphitheater: {
                 type: Boolean,
                 default: false,
-            }
+            },
+            buyerName: {
+                type: String,
+                default: null,
+            },
+            buyerEmail: {
+                type: String,
+                default: null,
+            },
+            buyerPhone: {
+                type: String,
+                default: null,
+            },
+            buyerNotes: {
+                type: String,
+                default: null,
+            },
+            paymentMethod: {
+                type: String,
+                default: null,
+            },
+            delivery: {
+                type: Boolean,
+                default: false,
+            },
         },
         { timestamps: true },
     );
 
-    const Tickets = mongoose.model("tickets", schema);
+    const Tickets = mongoose.model("tickets", schema)
     return Tickets;
 }; 

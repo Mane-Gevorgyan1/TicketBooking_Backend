@@ -2,12 +2,12 @@
 // Don’t submit any personally identifiable information in requests made with this key.
 // Sign in to see your own test API key embedded in code samples.
 
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
-const express = require('express');
-const app = express();
-app.use(express.static('public'));
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc')
+const express = require('express')
+const app = express()
+app.use(express.static('public'))
 
-const YOUR_DOMAIN = 'http://localhost:4242';
+const YOUR_DOMAIN = 'http://localhost:4242'
 
 app.post('/create-checkout-session', async (req, res) => {
   const session = await stripe.checkout.sessions.create({
@@ -21,9 +21,9 @@ app.post('/create-checkout-session', async (req, res) => {
     mode: 'payment',
     success_url: `${YOUR_DOMAIN}?success=true`,
     cancel_url: `${YOUR_DOMAIN}?canceled=true`,
-  });
+  })
 
-  res.redirect(303, session.url);
-});
+  res.redirect(303, session.url)
+})
 
-app.listen(4242, () => console.log('Running on port 4242'));
+app.listen(4242, () => console.log('Running on port 4242'))
