@@ -13,6 +13,10 @@ module.exports = mongoose => {
                 type: Number,
                 default: null,
             },
+            ticketNumber: {
+                type: Number,
+                default: null,
+            },
             availability: {
                 type: String,
                 default: 'available', // available, saved, sold
@@ -20,6 +24,14 @@ module.exports = mongoose => {
             amphitheater: {
                 type: Boolean,
                 default: false,
+            },
+            lodge: {
+                type: Boolean,
+                default: false,
+            },
+            seatColor: {
+                type: String,
+                default: null,
             },
             buyerName: {
                 type: String,
