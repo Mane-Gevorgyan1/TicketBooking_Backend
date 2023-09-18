@@ -156,10 +156,10 @@ class TicketController {
     //     const result = validationResult(req)
     //     if (result.isEmpty()) {
     //         let allowToBuyTickets
-
     //         req.body.ticketDetails.forEach(async element => {
     //             await Ticket.find({ row: element.row, seat: element.seat, amphitheater: element.amphitheater, lodge: element.lodge })
     //                 .then(ticket => {
+    //                     // console.log(ticket);
     //                     if (ticket.availability === 'sold') {
     //                         allowToBuyTickets = false
     //                         return
@@ -171,6 +171,8 @@ class TicketController {
     //                     res.send({ success: false, message: 'Failed to find ticket', error })
     //                 })
     //         })
+
+    //         // console.log(allowToBuyTickets);
 
     //         if (allowToBuyTickets) {
     //             req.body.ticketDetails.forEach(async element => {
