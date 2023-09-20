@@ -96,11 +96,16 @@ class EventController {
             let events = { ...filter, category: req.body.category }
 
             const itemsPerPage = 21
+            const totalEvents = await Event.countDocuments(events)
+            const currentPage = parseInt(req.query.currentPage) || 1
+            const totalPages = Math.ceil(totalEvents / itemsPerPage)
+            const hasNextPage = currentPage < totalPages
+
             await Event.find(events)
-                .skip((req.query.currentPage - 1) * itemsPerPage)
+                .skip((currentPage - 1) * itemsPerPage)
                 .limit(itemsPerPage)
                 .then(events => {
-                    res.send({ success: true, events })
+                    res.send({ success: true, events, totalPages, hasNextPage })
                 })
                 .catch(error => {
                     res.send({ success: false, error })
