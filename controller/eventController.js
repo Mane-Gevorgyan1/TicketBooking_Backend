@@ -69,13 +69,14 @@ class EventController {
 
     static async getAllEvents(req, res) {
         let filter = {}
-        if (req.body.place && req.body.startDate && req.body.endDate) {
+        if (req.body.place && req.body.startDate && req.body.endDate && req.body.category) {
             filter = {
                 place: req.body.place,
                 date: {
                     $gte: req.body.startDate,
                     $lte: req.body.endDate,
                 },
+                category: req.body.category,
             }
         } else if (req.body.place) {
             filter = {
@@ -88,17 +89,17 @@ class EventController {
                     $lte: req.body.endDate,
                 },
             }
+        } else if (req.body.category) {
+            filter = { category: req.body.category }
         }
 
-        let events = { ...filter, category: req.body.category }
-
         const itemsPerPage = 21
-        const totalEvents = await Event.countDocuments(events)
+        const totalEvents = await Event.countDocuments(filter)
         const currentPage = parseInt(req.query.currentPage) || 1
         const totalPages = Math.ceil(totalEvents / itemsPerPage)
         const hasNextPage = currentPage < totalPages
 
-        await Event.find(events)
+        await Event.find(filter)
             .skip((currentPage - 1) * itemsPerPage)
             .limit(itemsPerPage)
             .then(events => {
