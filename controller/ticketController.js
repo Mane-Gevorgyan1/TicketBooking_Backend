@@ -1,6 +1,6 @@
 const db = require('../model/model')
 const Ticket = db.ticket
-const nodemailer = require('nodemailer')
+// const nodemailer = require('nodemailer')
 const { validationResult } = require('express-validator')
 
 

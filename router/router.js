@@ -49,7 +49,7 @@ router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphit
 router.get('/getGeneralEvents', EventController.getGeneralEvents)
 router.get('/getTopEvents', EventController.getTopEvents)
 router.get('/randomEvents', EventController.randomEvents)
-router.post('/getAllEvents', EventController.getAllEvents)
+router.post('/getAllEvents', body('category').notEmpty().escape(), EventController.getAllEvents)
 router.get('/singleEvent/:id', EventController.singleEvent)
 router.post('/search', EventController.search)
 

@@ -68,38 +68,46 @@ class EventController {
     }
 
     static async getAllEvents(req, res) {
-        let filter = {}
-        if (req.body.place && req.body.startDate && req.body.endDate) {
-            filter = {
-                place: req.body.place,
-                date: {
-                    $gte: req.body.startDate,
-                    $lte: req.body.endDate,
-                },
-            }
-        } else if (req.body.place) {
-            filter = {
-                place: req.body.place,
-            }
-        } else if (req.body.startDate && req.body.endDate) {
-            filter = {
-                date: {
-                    $gte: req.body.startDate,
-                    $lte: req.body.endDate,
-                },
-            }
-        }
+        const result = validationResult(req)
+        if (result.isEmpty()) {
 
-        const itemsPerPage = 21
-        await Event.find(filter)
-            .skip((req.query.currentPage - 1) * itemsPerPage)
-            .limit(itemsPerPage)
-            .then(events => {
-                res.send({ success: true, events })
-            })
-            .catch(error => {
-                res.send({ success: false, error })
-            })
+            let filter = {}
+            if (req.body.place && req.body.startDate && req.body.endDate) {
+                filter = {
+                    place: req.body.place,
+                    date: {
+                        $gte: req.body.startDate,
+                        $lte: req.body.endDate,
+                    },
+                }
+            } else if (req.body.place) {
+                filter = {
+                    place: req.body.place,
+                }
+            } else if (req.body.startDate && req.body.endDate) {
+                filter = {
+                    date: {
+                        $gte: req.body.startDate,
+                        $lte: req.body.endDate,
+                    },
+                }
+            }
+
+            let events = { ...filter, category: req.body.category }
+
+            const itemsPerPage = 21
+            await Event.find(events)
+                .skip((req.query.currentPage - 1) * itemsPerPage)
+                .limit(itemsPerPage)
+                .then(events => {
+                    res.send({ success: true, events })
+                })
+                .catch(error => {
+                    res.send({ success: false, error })
+                })
+        } else {
+            res.send({ errors: result.array() })
+        }
     }
 
     static async singleEvent(req, res) {
