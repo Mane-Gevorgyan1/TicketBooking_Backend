@@ -68,51 +68,45 @@ class EventController {
     }
 
     static async getAllEvents(req, res) {
-        const result = validationResult(req)
-        if (result.isEmpty()) {
-
-            let filter = {}
-            if (req.body.place && req.body.startDate && req.body.endDate) {
-                filter = {
-                    place: req.body.place,
-                    date: {
-                        $gte: req.body.startDate,
-                        $lte: req.body.endDate,
-                    },
-                }
-            } else if (req.body.place) {
-                filter = {
-                    place: req.body.place,
-                }
-            } else if (req.body.startDate && req.body.endDate) {
-                filter = {
-                    date: {
-                        $gte: req.body.startDate,
-                        $lte: req.body.endDate,
-                    },
-                }
+        let filter = {}
+        if (req.body.place && req.body.startDate && req.body.endDate) {
+            filter = {
+                place: req.body.place,
+                date: {
+                    $gte: req.body.startDate,
+                    $lte: req.body.endDate,
+                },
             }
-
-            let events = { ...filter, category: req.body.category }
-
-            const itemsPerPage = 21
-            const totalEvents = await Event.countDocuments(events)
-            const currentPage = parseInt(req.query.currentPage) || 1
-            const totalPages = Math.ceil(totalEvents / itemsPerPage)
-            const hasNextPage = currentPage < totalPages
-
-            await Event.find(events)
-                .skip((currentPage - 1) * itemsPerPage)
-                .limit(itemsPerPage)
-                .then(events => {
-                    res.send({ success: true, events, totalPages, hasNextPage })
-                })
-                .catch(error => {
-                    res.send({ success: false, error })
-                })
-        } else {
-            res.send({ errors: result.array() })
+        } else if (req.body.place) {
+            filter = {
+                place: req.body.place,
+            }
+        } else if (req.body.startDate && req.body.endDate) {
+            filter = {
+                date: {
+                    $gte: req.body.startDate,
+                    $lte: req.body.endDate,
+                },
+            }
         }
+
+        let events = { ...filter, category: req.body.category }
+
+        const itemsPerPage = 21
+        const totalEvents = await Event.countDocuments(events)
+        const currentPage = parseInt(req.query.currentPage) || 1
+        const totalPages = Math.ceil(totalEvents / itemsPerPage)
+        const hasNextPage = currentPage < totalPages
+
+        await Event.find(events)
+            .skip((currentPage - 1) * itemsPerPage)
+            .limit(itemsPerPage)
+            .then(events => {
+                res.send({ success: true, events, totalPages, hasNextPage })
+            })
+            .catch(error => {
+                res.send({ success: false, error })
+            })
     }
 
     static async singleEvent(req, res) {
