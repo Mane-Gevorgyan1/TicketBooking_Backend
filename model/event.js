@@ -9,10 +9,6 @@ module.exports = mongoose => {
                 type: String,
                 default: null,
             },
-            location: {
-                type: String,
-                default: null,
-            },
             date: {
                 type: Date,
                 default: null,
@@ -33,25 +29,30 @@ module.exports = mongoose => {
                 type: Boolean,
                 default: false,
             },
-            category: [String],
-            subcategory: {
-                type: String,
-                default: null,
-            },
-            place: {
-                type: String,
-                default: null,
-            },
-            hall: {
-                type: String,
-                default: null,
-            },
-            genre: [String],
-            sponsors: [String],
             description: {
                 type: String,
                 default: null,
             },
+            category: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'categories',
+            }],
+            genres: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'genres',
+            }],
+            sponsors: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'sponsors',
+            }],
+            sessions: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'sessions',
+            }],
+            halls: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'halls',
+            }],
         },
         { timestamps: true },
     );

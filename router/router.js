@@ -35,9 +35,15 @@ router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphit
 
 // Event Controller
 router.post('/createEvent', upload.single('image'), body([
-    'title', 'location', 'date', 'priceStart', 'priceEnd', 'topEvent',
-    'generalEvent', 'category', 'subcategory', 'place', 'hall', 'genre', 'description'
+    'title', 'date', 'priceStart', 'priceEnd', 'topEvent',
+    'generalEvent', 'category', 'genres', 'description',
+    'halls', 'sessions',
+    // 'subcategory',
 ]).notEmpty().escape(), EventController.createEvent)
+router.patch('/editEvent', upload.single('image'), body([
+    // 'id', 'title', 'location', 'date', 'priceStart', 'priceEnd', 'topEvent',
+    // 'generalEvent', 'category', 'subcategory', 'place', 'hall', 'genre', 'description'
+]).notEmpty().escape(), EventController.editEvent)
 router.get('/getGeneralEvents', EventController.getGeneralEvents)
 router.get('/getTopEvents', EventController.getTopEvents)
 router.get('/randomEvents', EventController.randomEvents)
@@ -45,6 +51,10 @@ router.post('/getAllEvents', EventController.getAllEvents)
 router.get('/singleEvent/:id', EventController.singleEvent)
 router.post('/search', EventController.search)
 
+// router.get('/asd', EventController.asd)
+router.post('/createGenre', body(['name']).notEmpty().escape(), EventController.createGenre)
+router.post('/createSponsor', upload.single('image'), body(['name']).notEmpty().escape(), EventController.createSponsor)
+router.post('/createHall', upload.single('image'), body(['location', 'place', 'hall']).notEmpty().escape(), EventController.createHall)
 
 // Category Controller
 router.post('/createCategory', body('name').notEmpty().escape(), CategoryController.createCategory)

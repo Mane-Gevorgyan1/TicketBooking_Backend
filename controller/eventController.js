@@ -1,5 +1,9 @@
 const db = require('../model/model')
 const Event = db.event
+const Genre = db.genre
+const Sponsor = db.sponsor
+const Hall = db.hall
+const Session = db.session
 const { validationResult } = require('express-validator')
 
 // const result = validationResult(req)
@@ -134,6 +138,90 @@ class EventController {
                 res.send({ success: false, error })
             })
     }
+
+    static async editEvent(req, res) {
+        //     let body = {}
+        //     if (req.file) {
+        //         body = { ...req.body, image: req.file?.filename }
+        //     } else {
+        //         body = { ...req.body }
+        //     }
+        //     await Event.findOneAndUpdate({ _id: req.body.id }, body)
+        //         .then(() => {
+        //             res.send({ success: true, message: 'Update Successful' })
+        //         })
+        //         .catch(err => {
+        //             res.send({ success: false, err })
+        //         })
+    }
+
+    static async createGenre(req, res) {
+        const genre = await new Genre({ name: req.body.name })
+        genre.save(genre)
+            .then(() => {
+                res.send({ sucess: true, genre })
+            })
+            .catch((err) => {
+                res.send({ success: false, err })
+            })
+    }
+
+    static async createSponsor(req, res) {
+        const result = validationResult(req)
+        if (result.isEmpty()) {
+            if (req.file) {
+                const sponsor = await new Sponsor({ ...req.body, image: req.file.filename })
+                sponsor.save(sponsor)
+                    .then(() => {
+                        res.send({ sucess: true, sponsor })
+                    })
+                    .catch((err) => {
+                        res.send({ success: false, err })
+                    })
+            } else {
+                res.send({ success: false, message: 'image field is required' })
+            }
+        } else {
+            res.send({ errors: result.array() })
+        }
+    }
+
+    static async createHall(req, res) {
+        const result = validationResult(req)
+        if (result.isEmpty()) {
+            if (req.file) {
+                const hall = await new Hall({ ...req.body, image: req.file.filename })
+                hall.save(hall)
+                    .then(() => {
+                        res.send({ sucess: true, hall })
+                    })
+                    .catch((err) => {
+                        res.send({ success: false, err })
+                    })
+            } else {
+                res.send({ success: false, message: 'image field is required' })
+            }
+        } else {
+            res.send({ errors: result.array() })
+        }
+    }
+
+    // EXAMPLE OF GETING AN EVENT WITH EVERYTHING
+    // static async GetAllEvetsWithEverything(req, res) {
+    //     await Event.find()
+    //         .populate('genres')
+    //         .populate('sponsors')
+    //         .populate({
+    //             path: 'category',
+    //             populate: { path: 'subcategories' }
+    //         })
+    //         .then(event => {
+    //             res.send({ event })
+    //         })
+    //         .catch(error => {
+    //             res.send({ error })
+    //         })
+    // }
 
 }
 
