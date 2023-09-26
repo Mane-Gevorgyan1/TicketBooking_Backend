@@ -45,6 +45,18 @@ class CategoryController {
         res.send({ success: true, categories })
     }
 
+    static async getSubcategories(req, res) {
+        const result = validationResult(req)
+        if (result.isEmpty()) {
+            await Category.find({ _id: req.body.id }).populate('subcategories')
+                .then(category => {
+                    res.send({ category: category[0] })
+                })
+        } else {
+            res.send({ errors: result.array() })
+        }
+    }
+
 }
 
 module.exports = CategoryController

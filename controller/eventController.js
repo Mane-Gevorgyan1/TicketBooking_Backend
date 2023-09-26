@@ -1,9 +1,6 @@
 const db = require('../model/model')
 const Event = db.event
-const Genre = db.genre
-const Sponsor = db.sponsor
 const Hall = db.hall
-const Session = db.session
 const { validationResult } = require('express-validator')
 
 // const result = validationResult(req)
@@ -45,6 +42,12 @@ class EventController {
     static async getGeneralEvents(req, res) {
         const result = validationResult(req)
         await Event.find({ generalEvent: true })
+            .populate('genres')
+            .populate('sponsors')
+            .populate({
+                path: 'category',
+                populate: { path: 'subcategories' }
+            })
             .then(events => {
                 res.send({ success: true, events })
             })
@@ -56,6 +59,12 @@ class EventController {
     static async getTopEvents(req, res) {
         const result = validationResult(req)
         await Event.find({ topEvent: true })
+            .populate('genres')
+            .populate('sponsors')
+            .populate({
+                path: 'category',
+                populate: { path: 'subcategories' }
+            })
             .then(events => {
                 res.send({ success: true, events })
             })
@@ -66,6 +75,12 @@ class EventController {
 
     static async randomEvents(req, res) {
         const allEvents = await Event.find()
+            .populate('genres')
+            .populate('sponsors')
+            .populate({
+                path: 'category',
+                populate: { path: 'subcategories' }
+            })
         const shuffledEvents = shuffleArray(allEvents)
         const randomEvents = shuffledEvents.slice(0, 12)
         res.send({ success: true, randomEvents })
@@ -104,6 +119,12 @@ class EventController {
         const hasNextPage = currentPage < totalPages
 
         await Event.find(filter)
+            .populate('genres')
+            .populate('sponsors')
+            .populate({
+                path: 'category',
+                populate: { path: 'subcategories' }
+            })
             .skip((currentPage - 1) * itemsPerPage)
             .limit(itemsPerPage)
             .then(events => {
@@ -116,8 +137,21 @@ class EventController {
 
     static async singleEvent(req, res) {
         await Event.find({ _id: req.params.id })
+            .populate('genres')
+            .populate('sponsors')
+            .populate({
+                path: 'category',
+                populate: { path: 'subcategories' }
+            })
             .then(async event => {
-                const recomended = await Event.find({ category: { $in: event[0].category } }).limit(10)
+                const recomended = await Event.find({ category: { $in: event[0].category } })
+                    .populate('genres')
+                    .populate('sponsors')
+                    .populate({
+                        path: 'category',
+                        populate: { path: 'subcategories' }
+                    })
+                    .limit(10)
                 res.send({ success: true, event: event[0], recomended })
             })
             .catch(error => {
@@ -131,6 +165,12 @@ class EventController {
         }
 
         await Event.find(query)
+            .populate('genres')
+            .populate('sponsors')
+            .populate({
+                path: 'category',
+                populate: { path: 'subcategories' }
+            })
             .then(events => {
                 res.send({ success: true, events })
             })
@@ -140,70 +180,19 @@ class EventController {
     }
 
     static async editEvent(req, res) {
-        //     let body = {}
-        //     if (req.file) {
-        //         body = { ...req.body, image: req.file?.filename }
-        //     } else {
-        //         body = { ...req.body }
-        //     }
-        //     await Event.findOneAndUpdate({ _id: req.body.id }, body)
-        //         .then(() => {
-        //             res.send({ success: true, message: 'Update Successful' })
-        //         })
-        //         .catch(err => {
-        //             res.send({ success: false, err })
-        //         })
-    }
-
-    static async createGenre(req, res) {
-        const genre = await new Genre({ name: req.body.name })
-        genre.save(genre)
-            .then(() => {
-                res.send({ sucess: true, genre })
-            })
-            .catch((err) => {
-                res.send({ success: false, err })
-            })
-    }
-
-    static async createSponsor(req, res) {
-        const result = validationResult(req)
-        if (result.isEmpty()) {
+            let body = {}
             if (req.file) {
-                const sponsor = await new Sponsor({ ...req.body, image: req.file.filename })
-                sponsor.save(sponsor)
-                    .then(() => {
-                        res.send({ sucess: true, sponsor })
-                    })
-                    .catch((err) => {
-                        res.send({ success: false, err })
-                    })
+                body = { ...req.body, image: req.file?.filename }
             } else {
-                res.send({ success: false, message: 'image field is required' })
+                body = { ...req.body }
             }
-        } else {
-            res.send({ errors: result.array() })
-        }
-    }
-
-    static async createHall(req, res) {
-        const result = validationResult(req)
-        if (result.isEmpty()) {
-            if (req.file) {
-                const hall = await new Hall({ ...req.body, image: req.file.filename })
-                hall.save(hall)
-                    .then(() => {
-                        res.send({ sucess: true, hall })
-                    })
-                    .catch((err) => {
-                        res.send({ success: false, err })
-                    })
-            } else {
-                res.send({ success: false, message: 'image field is required' })
-            }
-        } else {
-            res.send({ errors: result.array() })
-        }
+            await Event.findOneAndUpdate({ _id: req.body.id }, body)
+                .then((event) => {
+                    res.send({ success: true, message: 'Update Successful', event })
+                })
+                .catch(err => {
+                    res.send({ success: false, err })
+                })
     }
 
     // EXAMPLE OF GETING AN EVENT WITH EVERYTHING
@@ -216,10 +205,10 @@ class EventController {
     //             populate: { path: 'subcategories' }
     //         })
     //         .then(event => {
-    //             res.send({ event })
+    //             res.send({ success: true, event })
     //         })
     //         .catch(error => {
-    //             res.send({ error })
+    //             res.send({ success: false, error })
     //         })
     // }
 

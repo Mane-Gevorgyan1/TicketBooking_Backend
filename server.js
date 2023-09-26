@@ -23,7 +23,7 @@ db.mongoose
   })
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: '*',
   credentials: true,            //access-control-allow-credentials:true
 }
 app.use(cookieParser('secretcode'))

@@ -7,6 +7,9 @@ const CategoryController = require("../controller/categoryController")
 
 /** Multer */
 const multer = require('multer')
+const GenreController = require("../controller/genreController")
+const SponsorController = require("../controller/sponsorController")
+const HallController = require("../controller/hallController")
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'public/images')
@@ -32,17 +35,16 @@ router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphit
 //     'notes', 'delivery', 'paymentMethod'
 // ]).notEmpty().escape(), TicketController.buyTicket)
 
-
 // Event Controller
 router.post('/createEvent', upload.single('image'), body([
-    'title', 'date', 'priceStart', 'priceEnd', 'topEvent',
-    'generalEvent', 'category', 'genres', 'description',
-    'halls', 'sessions',
-    // 'subcategory',
+    'title', 'topEvent', 'generalEvent', 'description',
+    'category', 'genres', 'sponsors',
+    // 'sessions', 'subcategory'
 ]).notEmpty().escape(), EventController.createEvent)
 router.patch('/editEvent', upload.single('image'), body([
-    // 'id', 'title', 'location', 'date', 'priceStart', 'priceEnd', 'topEvent',
-    // 'generalEvent', 'category', 'subcategory', 'place', 'hall', 'genre', 'description'
+    'id', 'title', 'topEvent', 'generalEvent', 'description',
+    'category', 'genres', 'sponsors',
+    // 'sessions', 'subcategory'
 ]).notEmpty().escape(), EventController.editEvent)
 router.get('/getGeneralEvents', EventController.getGeneralEvents)
 router.get('/getTopEvents', EventController.getTopEvents)
@@ -51,14 +53,23 @@ router.post('/getAllEvents', EventController.getAllEvents)
 router.get('/singleEvent/:id', EventController.singleEvent)
 router.post('/search', EventController.search)
 
-// router.get('/asd', EventController.asd)
-router.post('/createGenre', body(['name']).notEmpty().escape(), EventController.createGenre)
-router.post('/createSponsor', upload.single('image'), body(['name']).notEmpty().escape(), EventController.createSponsor)
-router.post('/createHall', upload.single('image'), body(['location', 'place', 'hall']).notEmpty().escape(), EventController.createHall)
+// Genre Controller
+router.post('/createGenre', body(['name']).notEmpty().escape(), GenreController.createGenre)
+router.get('/getAllGenres', GenreController.getAllGenres)
+router.post('/filterByGenre', body(['genreId']).notEmpty().escape(), GenreController.filterByGenre)
+
+// Sponsor Controller
+router.post('/createSponsor', upload.single('image'), body(['name']).notEmpty().escape(), SponsorController.createSponsor)
+router.get('/getAllSponsors', SponsorController.getAllSponsors)
+
+// Hall Controller
+router.post('/createHall', upload.single('image'), body(['location', 'place', 'hall']).notEmpty().escape(), HallController.createHall)
+router.get('/getAllHalls', HallController.getAllHalls)
 
 // Category Controller
 router.post('/createCategory', body('name').notEmpty().escape(), CategoryController.createCategory)
 router.post('/createSubcategory', body(['name', 'categoryId']).notEmpty().escape(), CategoryController.createSubcategory)
 router.get('/getCategories', CategoryController.getCategories)
+router.post('/getSubcategories', body('id').notEmpty().escape(), CategoryController.getSubcategories)
 
 module.exports = router
