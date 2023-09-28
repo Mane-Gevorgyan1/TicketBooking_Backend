@@ -133,6 +133,12 @@ class EventController {
         const result = validationResult(req)
         if (result.isEmpty()) {
 
+            const itemsPerPage = 21
+            const totalEvents = await Event.countDocuments(filter)
+            const currentPage = parseInt(req.query.currentPage) || 1
+            const totalPages = Math.ceil(totalEvents / itemsPerPage)
+            const hasNextPage = currentPage < totalPages
+
             const allEvents = await Event.find()
                 .populate('genres')
                 .populate('sponsors')
@@ -140,6 +146,8 @@ class EventController {
                     path: 'category',
                     populate: { path: 'subcategories' }
                 })
+                .skip((currentPage - 1) * itemsPerPage)
+                .limit(itemsPerPage)
 
             let eventsToShow = []
 
@@ -161,7 +169,7 @@ class EventController {
             } else {
                 eventsToShow = categoriedEvents
             }
-            res.send({ success: true, events: eventsToShow })
+            res.send({ success: true, events: eventsToShow, totalPages, hasNextPage })
 
         } else {
             res.send({ errors: result.array() })
