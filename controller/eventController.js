@@ -134,7 +134,7 @@ class EventController {
         if (result.isEmpty()) {
 
             const itemsPerPage = 21
-            const totalEvents = await Event.countDocuments(filter)
+            const totalEvents = await Event.countDocuments()
             const currentPage = parseInt(req.query.currentPage) || 1
             const totalPages = Math.ceil(totalEvents / itemsPerPage)
             const hasNextPage = currentPage < totalPages
