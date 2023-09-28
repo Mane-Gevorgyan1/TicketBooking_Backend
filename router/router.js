@@ -7,7 +7,6 @@ const CategoryController = require("../controller/categoryController")
 
 /** Multer */
 const multer = require('multer')
-const GenreController = require("../controller/genreController")
 const SponsorController = require("../controller/sponsorController")
 const HallController = require("../controller/hallController")
 const storage = multer.diskStorage({
@@ -37,13 +36,11 @@ router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphit
 
 // Event Controller
 router.post('/createEvent', upload.single('image'), body([
-    'title', 'topEvent', 'generalEvent', 'description',
-    'category', 'sponsors',
+    'title', 'topEvent', 'generalEvent', 'description', 'category', 'subcategories', 'sponsors',
     // 'sessions', 'subcategory',
 ]).notEmpty().escape(), EventController.createEvent)
 router.patch('/editEvent', upload.single('image'), body([
-    'id', 'title', 'topEvent', 'generalEvent', 'description',
-    'category', 'subcategories', 'sponsors',
+    'id', 'title', 'topEvent', 'generalEvent', 'description', 'category', 'subcategories', 'sponsors',
     // 'sessions', 'subcategory'
 ]).notEmpty().escape(), EventController.editEvent)
 router.get('/getGeneralEvents', EventController.getGeneralEvents)
@@ -53,11 +50,6 @@ router.post('/getAllEvents', EventController.getAllEvents)
 router.post('/getCategoryEvents', body(['categoryId']).notEmpty().escape(), EventController.getCategoryEvents)
 router.get('/singleEvent/:id', EventController.singleEvent)
 router.post('/search', EventController.search)
-
-// Genre Controller
-router.post('/createGenre', body(['name']).notEmpty().escape(), GenreController.createGenre)
-router.get('/getAllGenres', GenreController.getAllGenres)
-router.post('/filterByGenre', body(['genreId']).notEmpty().escape(), GenreController.filterByGenre)
 
 // Sponsor Controller
 router.post('/createSponsor', upload.single('image'), body(['name']).notEmpty().escape(), SponsorController.createSponsor)

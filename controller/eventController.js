@@ -11,7 +11,9 @@ const { validationResult } = require('express-validator')
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1))
-        [array[i], array[j]] = [array[j], array[i]] // Swap elements
+        const temp = array[i]  // Store the value at array[i]
+        array[i] = array[j]    // Swap elements
+        array[j] = temp        // Restore the value at array[j]
     }
     return array
 }
@@ -36,8 +38,8 @@ class EventController {
 
     static async getGeneralEvents(req, res) {
         await Event.find({ generalEvent: true })
-            .populate('genres')
             .populate('sponsors')
+            .populate('subcategories')
             .populate({
                 path: 'category',
                 populate: { path: 'subcategories' }
@@ -53,7 +55,7 @@ class EventController {
     static async getTopEvents(req, res) {
         const result = validationResult(req)
         await Event.find({ topEvent: true })
-            .populate('genres')
+            .populate('subcategories')
             .populate('sponsors')
             .populate({
                 path: 'category',
@@ -69,8 +71,8 @@ class EventController {
 
     static async randomEvents(req, res) {
         const allEvents = await Event.find()
-            .populate('genres')
             .populate('sponsors')
+            .populate('subcategories')
             .populate({
                 path: 'category',
                 populate: { path: 'subcategories' }
@@ -113,8 +115,8 @@ class EventController {
         const hasNextPage = currentPage < totalPages
 
         await Event.find(filter)
-            .populate('genres')
             .populate('sponsors')
+            .populate('subcategories')
             .populate({
                 path: 'category',
                 populate: { path: 'subcategories' }
@@ -140,8 +142,8 @@ class EventController {
             const hasNextPage = currentPage < totalPages
 
             const allEvents = await Event.find()
-                .populate('genres')
                 .populate('sponsors')
+                .populate('subcategories')
                 .populate({
                     path: 'category',
                     populate: { path: 'subcategories' }
@@ -178,16 +180,16 @@ class EventController {
 
     static async singleEvent(req, res) {
         await Event.find({ _id: req.params.id })
-            .populate('genres')
             .populate('sponsors')
+            .populate('subcategories')
             .populate({
                 path: 'category',
                 populate: { path: 'subcategories' }
             })
             .then(async event => {
                 const recomended = await Event.find({ category: { $in: event[0].category } })
-                    .populate('genres')
                     .populate('sponsors')
+                    .populate('subcategories')
                     .populate({
                         path: 'category',
                         populate: { path: 'subcategories' }
@@ -206,8 +208,8 @@ class EventController {
         }
 
         await Event.find(query)
-            .populate('genres')
             .populate('sponsors')
+            .populate('subcategories')
             .populate({
                 path: 'category',
                 populate: { path: 'subcategories' }

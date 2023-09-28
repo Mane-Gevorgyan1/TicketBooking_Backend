@@ -29,10 +29,6 @@ module.exports = mongoose => {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'subcategories',
             }],
-            genres: [{
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'genres',
-            }],
             sponsors: [{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'sponsors',
