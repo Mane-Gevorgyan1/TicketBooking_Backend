@@ -227,8 +227,8 @@ class EventController {
                     path: 'category',
                     populate: { path: 'subcategories' }
                 })
-                .populate('genres')
-                .populate('sponsors');
+                .populate('sponsors')
+                .populate('subcategories')
 
             if (!event) {
                 return res.send({ success: false, message: 'Event not found' });
@@ -241,105 +241,25 @@ class EventController {
             event.generalEvent = req.body.generalEvent
             event.description = req.body.description
             event.category = req.body.category
-
-            // req.body.category.forEach(categoryId => {
-            //     event.category.push(categoryId)
-            // })
-
-            event.genres = []
-            req.body.genres.forEach(genreId => {
-                event.genres.push(genreId)
-            })
+            event.subcategories = req.body.subcategories
 
             event.sponsors = []
             req.body.sponsors.forEach(sponsorId => {
                 event.sponsors.push(sponsorId)
             })
 
-            const updatedEvent = await event.save();
-            res.send({ success: true, updatedEvent });
+            await event.save()
+                .then(() => {
+                    res.send({ success: true, message: 'Updated' });
+                })
+                .catch(error => {
+                    res.send({ success: false, error })
+                })
         } catch (error) {
             res.status(500).send({ success: false, message: 'Error while updating', error });
         }
 
     }
-
-    // static async editEvent(req, res) {
-    //     try {
-    //         const event = await Event.findById(req.body.id)
-    //             .populate({
-    //                 path: 'category',
-    //                 populate: { path: 'subcategories' }
-    //             })
-    //             .populate('genres')
-    //             .populate('sponsors')
-
-    //         if (!event) {
-    //             return res.send({ success: false, message: 'Event not found' })
-    //         }
-
-    //         if (req.file) {
-    //             event.image = req.file.filename
-    //         }
-
-    //         event.title = req.body.title
-    //         event.topEvent = req.body.topEvent
-    //         event.generalEvent = req.body.generalEvent
-    //         event.description = req.body.description
-
-    //         // Update event categories and subcategories
-    //         const newCategoryIds = req.body.category;
-
-    //         // Iterate through the new category IDs and update the event's categories
-    //         for (const categoryId of newCategoryIds) {
-    //             // Find the category object in the event's existing categories
-    //             const existingCategory = event.category.find(category => category._id.toString() === categoryId.toString());
-    //                 console.log('subcategories --->>>', event.subcategories);
-    //             console.log('existingCategory', existingCategory);
-
-    //             if (existingCategory) {
-    //                 // Update the existing category or subcategory
-    //                 existingCategory.subcategories = req.body.subcategories[categoryId] || [];
-    //             } else {
-    //                 // Create a new category object and add it to the event's categories array
-    //                 const newCategory = {
-    //                     _id: categoryId,
-    //                     subcategories: req.body.subcategories[categoryId] || [],
-    //                 };
-
-    //                 event.category.push(newCategory);
-    //             }
-    //         }
-
-    //         // Update event genres and sponsors
-    //         event.genres = req.body.genres || []
-    //         event.sponsors = req.body.sponsors || []
-
-    //         const updatedEvent = await event.save()
-    //         res.status(200).send({ success: true, updatedEvent })
-    //     } catch (error) {
-    //         console.log('error --->>>', error)
-    //         res.status(500).send({ success: false, message: 'Error catched', error })
-    //     }
-
-    // }
-
-    // EXAMPLE OF GETING AN EVENT WITH EVERYTHING
-    // static async GetAllEvetsWithEverything(req, res) {
-    //     await Event.find()
-    //         .populate('genres')
-    //         .populate('sponsors')
-    //         .populate({
-    //             path: 'category',
-    //             populate: { path: 'subcategories' }
-    //         })
-    //         .then(event => {
-    //             res.send({ success: true, event })
-    //         })
-    //         .catch(error => {
-    //             res.send({ success: false, error })
-    //         })
-    // }
 
 }
 

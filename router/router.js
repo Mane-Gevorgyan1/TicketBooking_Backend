@@ -39,11 +39,11 @@ router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphit
 router.post('/createEvent', upload.single('image'), body([
     'title', 'topEvent', 'generalEvent', 'description',
     'category', 'sponsors',
-    // 'sessions', 'subcategory', 'genres'
+    // 'sessions', 'subcategory',
 ]).notEmpty().escape(), EventController.createEvent)
 router.patch('/editEvent', upload.single('image'), body([
     'id', 'title', 'topEvent', 'generalEvent', 'description',
-    'category', 'genres', 'sponsors',
+    'category', 'subcategories', 'sponsors',
     // 'sessions', 'subcategory'
 ]).notEmpty().escape(), EventController.editEvent)
 router.get('/getGeneralEvents', EventController.getGeneralEvents)
@@ -69,10 +69,13 @@ router.get('/getAllHalls', HallController.getAllHalls)
 
 // Category Controller
 router.post('/createCategory', body('name').notEmpty().escape(), CategoryController.createCategory)
+router.get('/getCategories', CategoryController.getCategories)
 router.patch('/editCategory', body(['id', 'name']).notEmpty().escape(), CategoryController.editCategory)
 router.delete('/deleteCategory', body(['id']).notEmpty().escape(), CategoryController.deleteCategory)
+
 router.post('/createSubcategory', body(['name', 'categoryId']).notEmpty().escape(), CategoryController.createSubcategory)
-router.get('/getCategories', CategoryController.getCategories)
 router.post('/getSubcategories', body('id').notEmpty().escape(), CategoryController.getSubcategories)
+router.patch('/editSubcategory', body(['id', 'name']).notEmpty().escape(), CategoryController.editSubcategory)
+router.delete('/deleteSubcategory', body(['id']).notEmpty().escape(), CategoryController.deleteSubcategory)
 
 module.exports = router

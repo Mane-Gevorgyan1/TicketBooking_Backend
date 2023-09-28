@@ -22,6 +22,11 @@ class CategoryController {
         }
     }
 
+    static async getCategories(req, res) {
+        const categories = await Category.find().populate('subcategories')
+        res.send({ success: true, categories })
+    }
+
     static async editCategory(req, res) {
         const result = validationResult(req)
         if (result.isEmpty()) {
@@ -38,13 +43,18 @@ class CategoryController {
     }
 
     static async deleteCategory(req, res) {
-        await Category.findOneAndDelete({ _id: req.body.id })
-            .then(() => {
-                res.send({ success: true, message: 'Category Deleted' })
-            })
-            .catch(error => {
-                res.send({ success: false, error })
-            })
+        const result = validationResult(req)
+        if (result.isEmpty()) {
+            await Category.findOneAndDelete({ _id: req.body.id })
+                .then(() => {
+                    res.send({ success: true, message: 'Category Deleted' })
+                })
+                .catch(error => {
+                    res.send({ success: false, error })
+                })
+        } else {
+            res.send({ errors: result.array() })
+        }
     }
 
     static async createSubcategory(req, res) {
@@ -65,17 +75,42 @@ class CategoryController {
         }
     }
 
-    static async getCategories(req, res) {
-        const categories = await Category.find().populate('subcategories')
-        res.send({ success: true, categories })
-    }
-
     static async getSubcategories(req, res) {
         const result = validationResult(req)
         if (result.isEmpty()) {
             await Category.find({ _id: req.body.id }).populate('subcategories')
                 .then(category => {
                     res.send({ category: category[0] })
+                })
+        } else {
+            res.send({ errors: result.array() })
+        }
+    }
+
+    static async editSubcategory(req, res) {
+        const result = validationResult(req)
+        if (result.isEmpty()) {
+            await Subcategory.findByIdAndUpdate(req.body.id, { name: req.body.name }, { new: true })
+                .then(subCategory => {
+                    res.send({ success: true, message: 'Subcategory updated', subCategory })
+                })
+                .catch(error => {
+                    res.send({ success: false, error })
+                })
+        } else {
+            res.send({ errors: result.array() })
+        }
+    }
+
+    static async deleteSubcategory(req, res) {
+        const result = validationResult(req)
+        if (result.isEmpty()) {
+            await Subcategory.findOneAndDelete({ _id: req.body.id })
+                .then(() => {
+                    res.send({ success: true, message: 'Subcategory Deleted' })
+                })
+                .catch(error => {
+                    res.send({ success: false, error })
                 })
         } else {
             res.send({ errors: result.array() })
