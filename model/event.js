@@ -33,10 +33,10 @@ module.exports = mongoose => {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'sponsors',
             }],
-            sessions: [{
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'sessions',
-            }],
+            // sessions: [{
+            //     type: mongoose.Schema.Types.ObjectId,
+            //     ref: 'sessions',
+            // }],
         },
         { timestamps: true },
     );

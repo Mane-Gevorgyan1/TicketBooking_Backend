@@ -260,7 +260,21 @@ class EventController {
         } catch (error) {
             res.status(500).send({ success: false, message: 'Error while updating', error });
         }
+    }
 
+    static async deleteEvent(req, res) {
+        const result = validationResult(req)
+        if (result.isEmpty()) {
+            await Event.findOneAndDelete({ _id: req.body.id })
+                .then(() => {
+                    res.send({ success: true, message: 'Event Deleted' })
+                })
+                .catch(error => {
+                    res.send({ success: false, error })
+                })
+        } else {
+            res.send({ errors: result.array() })
+        }
     }
 
 }

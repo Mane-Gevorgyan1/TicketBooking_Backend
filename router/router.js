@@ -43,6 +43,7 @@ router.patch('/editEvent', upload.single('image'), body([
     'id', 'title', 'topEvent', 'generalEvent', 'description', 'category', 'subcategories', 'sponsors',
     // 'sessions', 'subcategory'
 ]).notEmpty().escape(), EventController.editEvent)
+router.delete('/deleteEvent', body(['id']).notEmpty().escape(), EventController.deleteEvent)
 router.get('/getGeneralEvents', EventController.getGeneralEvents)
 router.get('/getTopEvents', EventController.getTopEvents)
 router.get('/randomEvents', EventController.randomEvents)
@@ -54,6 +55,7 @@ router.post('/search', EventController.search)
 // Sponsor Controller
 router.post('/createSponsor', upload.single('image'), body(['name']).notEmpty().escape(), SponsorController.createSponsor)
 router.get('/getAllSponsors', SponsorController.getAllSponsors)
+router.delete('/deleteSponsor', body(['id']).notEmpty().escape(), SponsorController.deleteSponsor)
 
 // Hall Controller
 router.post('/createHall', upload.single('image'), body(['location', 'place', 'hall']).notEmpty().escape(), HallController.createHall)

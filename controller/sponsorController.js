@@ -8,12 +8,12 @@ class SponsorController {
         const result = validationResult(req)
         if (result.isEmpty()) {
             if (req.file) {
-                const sponsor = await new Sponsor({ ...req.body, image: req.file.filename })
-                sponsor.save(sponsor)
+                const sponsor = await new Sponsor({ name: req.body.name, image: req.file.filename })
+                sponsor.save()
                     .then(() => {
-                        res.send({ sucess: true, sponsor })
+                        res.send({ success: true, sponsor })
                     })
-                    .catch((err) => {
+                    .catch(err => {
                         res.send({ success: false, err })
                     })
             } else {
@@ -32,6 +32,21 @@ class SponsorController {
             .catch(error => {
                 res.send({ success: false, error })
             })
+    }
+
+    static async deleteSponsor(req, res) {
+        const result = validationResult(req)
+        if (result.isEmpty()) {
+            await Sponsor.findOneAndDelete({ _id: req.body.id })
+                .then(() => {
+                    res.send({ success: true, message: 'Sponsor Deleted' })
+                })
+                .catch(error => {
+                    res.send({ success: false, error })
+                })
+        } else {
+            res.send({ errors: result.array() })
+        }
     }
 
 }
