@@ -38,8 +38,8 @@ router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphit
 // Event Controller
 router.post('/createEvent', upload.single('image'), body([
     'title', 'topEvent', 'generalEvent', 'description',
-    'category', 'genres', 'sponsors',
-    // 'sessions', 'subcategory'
+    'category', 'sponsors',
+    // 'sessions', 'subcategory', 'genres'
 ]).notEmpty().escape(), EventController.createEvent)
 router.patch('/editEvent', upload.single('image'), body([
     'id', 'title', 'topEvent', 'generalEvent', 'description',
@@ -50,6 +50,7 @@ router.get('/getGeneralEvents', EventController.getGeneralEvents)
 router.get('/getTopEvents', EventController.getTopEvents)
 router.get('/randomEvents', EventController.randomEvents)
 router.post('/getAllEvents', EventController.getAllEvents)
+router.post('/getCategoryEvents', body(['categoryId']).notEmpty().escape(), EventController.getCategoryEvents)
 router.get('/singleEvent/:id', EventController.singleEvent)
 router.post('/search', EventController.search)
 
@@ -68,6 +69,8 @@ router.get('/getAllHalls', HallController.getAllHalls)
 
 // Category Controller
 router.post('/createCategory', body('name').notEmpty().escape(), CategoryController.createCategory)
+router.patch('/editCategory', body(['id', 'name']).notEmpty().escape(), CategoryController.editCategory)
+router.delete('/deleteCategory', body(['id']).notEmpty().escape(), CategoryController.deleteCategory)
 router.post('/createSubcategory', body(['name', 'categoryId']).notEmpty().escape(), CategoryController.createSubcategory)
 router.get('/getCategories', CategoryController.getCategories)
 router.post('/getSubcategories', body('id').notEmpty().escape(), CategoryController.getSubcategories)

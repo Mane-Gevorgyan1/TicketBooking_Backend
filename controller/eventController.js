@@ -1,6 +1,5 @@
 const db = require('../model/model')
 const Event = db.event
-const Hall = db.hall
 const { validationResult } = require('express-validator')
 
 // const result = validationResult(req)
@@ -24,13 +23,9 @@ class EventController {
         if (result.isEmpty()) {
             if (req.file) {
                 const event = await new Event({ ...req.body, image: req.file.filename })
-                event.save(event)
-                    .then(() => {
-                        res.send({ sucess: true, event })
-                    })
-                    .catch((err) => {
-                        res.send({ success: false, err })
-                    })
+                event.save()
+                res.send({ sucess: true, event })
+
             } else {
                 res.send({ success: false, message: 'image field is required' })
             }
@@ -40,7 +35,6 @@ class EventController {
     }
 
     static async getGeneralEvents(req, res) {
-        const result = validationResult(req)
         await Event.find({ generalEvent: true })
             .populate('genres')
             .populate('sponsors')
@@ -135,6 +129,48 @@ class EventController {
             })
     }
 
+    static async getCategoryEvents(req, res) {
+        const result = validationResult(req)
+        if (result.isEmpty()) {
+
+            const allEvents = await Event.find()
+                .populate('genres')
+                .populate('sponsors')
+                .populate({
+                    path: 'category',
+                    populate: { path: 'subcategories' }
+                })
+
+            let eventsToShow = []
+
+            let categoriedEvents = []
+            allEvents?.forEach(event => {
+                if (event.category?._id == req.body.categoryId) {
+                    categoriedEvents.push(event)
+                }
+            })
+
+            if (req.body.subcategoryId) {
+                let subEvents = []
+                categoriedEvents?.forEach(event => {
+                    if (event?.subcategories.includes(req.body.subcategoryId)) {
+                        subEvents.push(event)
+                    }
+                })
+                eventsToShow = subEvents
+            } else {
+                eventsToShow = categoriedEvents
+            }
+            if (eventsToShow.length) {
+                res.send({ success: true, events: eventsToShow })
+            } else {
+                res.send({ success: false, message: 'S' })
+            }
+        } else {
+            res.send({ errors: result.array() })
+        }
+    }
+
     static async singleEvent(req, res) {
         await Event.find({ _id: req.params.id })
             .populate('genres')
@@ -180,20 +216,108 @@ class EventController {
     }
 
     static async editEvent(req, res) {
-            let body = {}
-            if (req.file) {
-                body = { ...req.body, image: req.file?.filename }
-            } else {
-                body = { ...req.body }
+        try {
+            const event = await Event.findById(req.body.id)
+                .populate({
+                    path: 'category',
+                    populate: { path: 'subcategories' }
+                })
+                .populate('genres')
+                .populate('sponsors');
+
+            if (!event) {
+                return res.send({ success: false, message: 'Event not found' });
             }
-            await Event.findOneAndUpdate({ _id: req.body.id }, body)
-                .then((event) => {
-                    res.send({ success: true, message: 'Update Successful', event })
-                })
-                .catch(err => {
-                    res.send({ success: false, err })
-                })
+            if (req.file) {
+                event.image = req.file.filename
+            }
+            event.title = req.body.title
+            event.topEvent = req.body.topEvent
+            event.generalEvent = req.body.generalEvent
+            event.description = req.body.description
+            event.category = req.body.category
+
+            // req.body.category.forEach(categoryId => {
+            //     event.category.push(categoryId)
+            // })
+
+            event.genres = []
+            req.body.genres.forEach(genreId => {
+                event.genres.push(genreId)
+            })
+
+            event.sponsors = []
+            req.body.sponsors.forEach(sponsorId => {
+                event.sponsors.push(sponsorId)
+            })
+
+            const updatedEvent = await event.save();
+            res.send({ success: true, updatedEvent });
+        } catch (error) {
+            res.status(500).send({ success: false, message: 'Error while updating', error });
+        }
+
     }
+
+    // static async editEvent(req, res) {
+    //     try {
+    //         const event = await Event.findById(req.body.id)
+    //             .populate({
+    //                 path: 'category',
+    //                 populate: { path: 'subcategories' }
+    //             })
+    //             .populate('genres')
+    //             .populate('sponsors')
+
+    //         if (!event) {
+    //             return res.send({ success: false, message: 'Event not found' })
+    //         }
+
+    //         if (req.file) {
+    //             event.image = req.file.filename
+    //         }
+
+    //         event.title = req.body.title
+    //         event.topEvent = req.body.topEvent
+    //         event.generalEvent = req.body.generalEvent
+    //         event.description = req.body.description
+
+    //         // Update event categories and subcategories
+    //         const newCategoryIds = req.body.category;
+
+    //         // Iterate through the new category IDs and update the event's categories
+    //         for (const categoryId of newCategoryIds) {
+    //             // Find the category object in the event's existing categories
+    //             const existingCategory = event.category.find(category => category._id.toString() === categoryId.toString());
+    //                 console.log('subcategories --->>>', event.subcategories);
+    //             console.log('existingCategory', existingCategory);
+
+    //             if (existingCategory) {
+    //                 // Update the existing category or subcategory
+    //                 existingCategory.subcategories = req.body.subcategories[categoryId] || [];
+    //             } else {
+    //                 // Create a new category object and add it to the event's categories array
+    //                 const newCategory = {
+    //                     _id: categoryId,
+    //                     subcategories: req.body.subcategories[categoryId] || [],
+    //                 };
+
+    //                 event.category.push(newCategory);
+    //             }
+    //         }
+
+    //         // Update event genres and sponsors
+    //         event.genres = req.body.genres || []
+    //         event.sponsors = req.body.sponsors || []
+
+    //         const updatedEvent = await event.save()
+    //         res.status(200).send({ success: true, updatedEvent })
+    //     } catch (error) {
+    //         console.log('error --->>>', error)
+    //         res.status(500).send({ success: false, message: 'Error catched', error })
+    //     }
+
+    // }
 
     // EXAMPLE OF GETING AN EVENT WITH EVERYTHING
     // static async GetAllEvetsWithEverything(req, res) {

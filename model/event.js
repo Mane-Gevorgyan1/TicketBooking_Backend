@@ -21,9 +21,13 @@ module.exports = mongoose => {
                 type: String,
                 default: null,
             },
-            category: [{
+            category: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'categories',
+            },
+            subcategories: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'subcategories',
             }],
             genres: [{
                 type: mongoose.Schema.Types.ObjectId,

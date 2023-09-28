@@ -22,6 +22,31 @@ class CategoryController {
         }
     }
 
+    static async editCategory(req, res) {
+        const result = validationResult(req)
+        if (result.isEmpty()) {
+            await Category.findByIdAndUpdate(req.body.id, { name: req.body.name }, { new: true })
+                .then(category => {
+                    res.send({ success: true, message: 'Category updated', category })
+                })
+                .catch(error => {
+                    res.send({ success: false, error })
+                })
+        } else {
+            res.send({ errors: result.array() })
+        }
+    }
+
+    static async deleteCategory(req, res) {
+        await Category.findOneAndDelete({ _id: req.body.id })
+            .then(() => {
+                res.send({ success: true, message: 'Category Deleted' })
+            })
+            .catch(error => {
+                res.send({ success: false, error })
+            })
+    }
+
     static async createSubcategory(req, res) {
         const result = validationResult(req)
         if (result.isEmpty()) {
