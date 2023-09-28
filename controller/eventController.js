@@ -161,11 +161,8 @@ class EventController {
             } else {
                 eventsToShow = categoriedEvents
             }
-            if (eventsToShow.length) {
-                res.send({ success: true, events: eventsToShow })
-            } else {
-                res.send({ success: false, message: 'S' })
-            }
+            res.send({ success: true, events: eventsToShow })
+
         } else {
             res.send({ errors: result.array() })
         }
