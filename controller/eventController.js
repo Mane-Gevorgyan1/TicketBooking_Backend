@@ -58,6 +58,7 @@ class EventController {
         await Event.find({ topEvent: true })
             .populate('subcategories')
             .populate('sponsors')
+            .populate('sessions')
             .populate({
                 path: 'category',
                 populate: { path: 'subcategories' }
@@ -74,6 +75,7 @@ class EventController {
         const allEvents = await Event.find()
             .populate('sponsors')
             .populate('subcategories')
+            .populate('sessions')
             .populate({
                 path: 'category',
                 populate: { path: 'subcategories' }
@@ -126,10 +128,10 @@ class EventController {
             })
             .skip((currentPage - 1) * itemsPerPage)
             .limit(itemsPerPage)
-            .then(async events => {
+            .then(events => {
                 let sessions = []
-                await events?.forEach(async event => {
-                    await event?.sessions?.forEach(async session => {
+                events?.forEach(event => {
+                    event?.sessions?.forEach(async session => {
                         const newSession = await Session.findById(session.id)
                         sessions.push({
                             _id: newSession?._id,
@@ -210,12 +212,28 @@ class EventController {
                 const recomended = await Event.find({ category: { $in: event[0].category } })
                     .populate('sponsors')
                     .populate('subcategories')
+                    .populate('sessions')
                     .populate({
                         path: 'category',
                         populate: { path: 'subcategories' }
                     })
                     .limit(10)
-                res.send({ success: true, event: event[0], recomended })
+                let sessions = []
+                event[0]?.sessions?.forEach(async session => {
+                    const newSession = await Session.findById(session._id)
+                    sessions.push({
+                        _id: newSession?._id,
+                        eventId: newSession?.eventId,
+                        hallId: newSession?.hallId,
+                        priceStart: newSession?.priceStart,
+                        priceEnd: newSession?.priceEnd,
+                        date: newSession?.date,
+                        time: newSession?.time,
+                    })
+                })
+                setTimeout(() => {
+                    res.send({ success: true, event: event[0], recomended, sessions })
+                }, 5000)
             })
             .catch(error => {
                 res.send({ success: false, error })
