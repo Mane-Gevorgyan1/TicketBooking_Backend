@@ -131,13 +131,20 @@ class EventController {
                 await events?.forEach(async event => {
                     await event?.sessions?.forEach(async session => {
                         const newSession = await Session.findById(session.id)
-                        sessions.push(newSession)
+                        sessions.push({
+                            _id: newSession?._id,
+                            eventId: newSession?.eventId,
+                            hallId: newSession?.hallId,
+                            priceStart: newSession?.priceStart,
+                            priceEnd: newSession?.priceEnd,
+                            date: newSession?.date,
+                            time: newSession?.time,
+                        })
                     })
                 })
                 setTimeout(() => {
                     res.send({ success: true, events, totalPages, hasNextPage, sessions })
                 }, 5000)
-
             })
             .catch(error => {
                 res.send({ success: false, error })
