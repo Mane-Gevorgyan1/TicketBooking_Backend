@@ -131,7 +131,7 @@ class EventController {
                 await events?.forEach(async event => {
                     await event?.sessions?.forEach(async session => {
                         const newSession = await Session.findById(session.id)
-                        sessions.push(newSession.seats)
+                        sessions.push(newSession)
                     })
                 })
                 setTimeout(() => {
