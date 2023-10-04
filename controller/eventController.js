@@ -1,5 +1,6 @@
 const db = require('../model/model')
 const Event = db.event
+const Session = db.session
 const { validationResult } = require('express-validator')
 
 // const result = validationResult(req)
@@ -125,8 +126,18 @@ class EventController {
             })
             .skip((currentPage - 1) * itemsPerPage)
             .limit(itemsPerPage)
-            .then(events => {
-                res.send({ success: true, events, totalPages, hasNextPage })
+            .then(async events => {
+                let sessions = []
+                await events?.forEach(async event => {
+                    await event?.sessions?.forEach(async session => {
+                        const newSession = await Session.findById(session.id)
+                        sessions.push(newSession.seats)
+                    })
+                })
+                setTimeout(() => {
+                    res.send({ success: true, events, totalPages, hasNextPage, sessions })
+                }, 5000)
+
             })
             .catch(error => {
                 res.send({ success: false, error })
