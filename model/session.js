@@ -1,13 +1,9 @@
 module.exports = mongoose => {
     const schema = mongoose.Schema(
         {
-            location: {
-                type: String,
-                default: null,
-            },
-            place: {
-                type: String,
-                default: null,
+            eventId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'events',
             },
             hallId: {
                 type: mongoose.Schema.Types.ObjectId,
@@ -25,14 +21,14 @@ module.exports = mongoose => {
                 type: Date,
                 default: null,
             },
-            time: [{
+            time: {
                 type: String,
-                default: null
-            }],
-            duration: {
-                type: Number,
                 default: null,
             },
+            seats: [{
+                type: Object,
+                default: null,
+            }]
         },
         { timestamps: true },
     );

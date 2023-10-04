@@ -5,10 +5,11 @@ const EventController = require("../controller/eventController")
 const TicketController = require("../controller/ticketController")
 const CategoryController = require("../controller/categoryController")
 
-/** Multer */
+/* Multer */
 const multer = require('multer')
 const SponsorController = require("../controller/sponsorController")
 const HallController = require("../controller/hallController")
+const SessionController = require("../controller/sessionController")
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'public/images')
@@ -19,7 +20,6 @@ const storage = multer.diskStorage({
     }
 })
 const upload = multer({ storage })
-
 
 // Ticket Controller
 router.post('/setSeat', body(['row', 'seat', 'price', 'amphitheater', 'lodge', 'seatColor']).notEmpty().escape(), TicketController.setSeat)
@@ -46,6 +46,7 @@ router.patch('/editEvent', upload.single('image'), body([
 router.delete('/deleteEvent', body(['id']).notEmpty().escape(), EventController.deleteEvent)
 router.get('/getGeneralEvents', EventController.getGeneralEvents)
 router.get('/getTopEvents', EventController.getTopEvents)
+router.get('/eventValidity', EventController.eventValidity)
 router.get('/randomEvents', EventController.randomEvents)
 router.post('/getAllEvents', EventController.getAllEvents)
 router.post('/getCategoryEvents', body(['categoryId']).notEmpty().escape(), EventController.getCategoryEvents)
@@ -58,8 +59,9 @@ router.get('/getAllSponsors', SponsorController.getAllSponsors)
 router.delete('/deleteSponsor', body(['id']).notEmpty().escape(), SponsorController.deleteSponsor)
 
 // Hall Controller
-router.post('/createHall', upload.single('image'), body(['location', 'place', 'hall']).notEmpty().escape(), HallController.createHall)
+router.post('/createHall', upload.single('image'), body(['country', 'location', 'place', 'hall', 'eventId']).notEmpty().escape(), HallController.createHall)
 router.get('/getAllHalls', HallController.getAllHalls)
+router.patch('/editHall', HallController.editHall)
 
 // Category Controller
 router.post('/createCategory', body('name').notEmpty().escape(), CategoryController.createCategory)
@@ -71,5 +73,9 @@ router.post('/createSubcategory', body(['name', 'categoryId']).notEmpty().escape
 router.post('/getSubcategories', body('id').notEmpty().escape(), CategoryController.getSubcategories)
 router.patch('/editSubcategory', body(['id', 'name']).notEmpty().escape(), CategoryController.editSubcategory)
 router.delete('/deleteSubcategory', body(['id']).notEmpty().escape(), CategoryController.deleteSubcategory)
+
+// Sessions
+router.post('/createSession', SessionController.createSession)
+router.post('/getAllSessions', SessionController.getAllSessions)
 
 module.exports = router

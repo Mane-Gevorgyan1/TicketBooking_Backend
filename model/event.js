@@ -27,16 +27,24 @@ module.exports = mongoose => {
             },
             subcategories: [{
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'subcategories',
+                ref: 'subcategories', 
             }],
             sponsors: [{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'sponsors',
             }],
-            // sessions: [{
-            //     type: mongoose.Schema.Types.ObjectId,
-            //     ref: 'sessions',
-            // }],
+            halls: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'halls',
+            }],
+            sessions: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'sessions',
+            }],
+            validity: {
+                type: Boolean,
+                default: null,
+            },
         },
         { timestamps: true },
     );

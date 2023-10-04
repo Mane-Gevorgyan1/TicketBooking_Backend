@@ -117,6 +117,8 @@ class EventController {
         await Event.find(filter)
             .populate('sponsors')
             .populate('subcategories')
+            .populate('sessions')
+            .populate('halls')
             .populate({
                 path: 'category',
                 populate: { path: 'subcategories' }
@@ -260,6 +262,11 @@ class EventController {
         } catch (error) {
             res.status(500).send({ success: false, message: 'Error while updating', error });
         }
+    }
+
+    static async eventValidity(req, res) {
+        const valid = await Event.findById('6515818a973806513560ccab')
+        res.send({ valid })
     }
 
     static async deleteEvent(req, res) {
