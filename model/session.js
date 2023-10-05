@@ -1,10 +1,10 @@
 module.exports = mongoose => {
     const schema = mongoose.Schema(
         {
-            eventId: {
+            eventId: [{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'events',
-            },
+            }],
             hallId: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'halls',
@@ -21,14 +21,10 @@ module.exports = mongoose => {
                 type: Date,
                 default: null,
             },
-            time: {
+            time: [{
                 type: String,
                 default: null,
-            },
-            seats: [{
-                type: Object,
-                default: null,
-            }]
+            }],
         },
         { timestamps: true },
     );

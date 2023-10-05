@@ -2,6 +2,7 @@ const db = require('../model/model')
 const Session = db.session
 const Hall = db.hall
 const Event = db.event
+const Price = db.price
 const { validationResult } = require('express-validator')
 
 // const result = validationResult(req)
@@ -14,51 +15,26 @@ class SessionController {
     static async createSession(req, res) {
         const result = validationResult(req)
         if (result.isEmpty()) {
-            const halls = await Hall.find({ _id: req.body.hallId })
-            let seats = halls[0].seats
 
-            req.body.sections.forEach(section => {
-                seats.forEach(seat => {
-                    if (seat.section == section.section) {
-                        seat.value = section.value
-                    }
-                })
+            const session = await new Session({ ...req.body })
+
+            const price = await new Price({ price: req.body.price, sessionId: session?._id })
+
+            req.body.eventId?.forEach(async sessionEventId => {
+                await Event.findByIdAndUpdate(sessionEventId, { $push: { sessions: session._id } })
             })
 
-            const session = await Session.find({ eventId: req.body.eventId, hallId: req.body.hallId })
-            if (session) {
-                console.log('session ------->>>>>>>', session);
-                session.seats = seats
-                session.save()
-            } else {
-                const newSession = await new Session({ ...req.body, seats })
-                newSession.save()
-            }
+            await Session.findByIdAndUpdate(session._id, { price: price?._id })
 
-
-
-            const event = await Event.findByIdAndUpdate(req.body.eventId, { sessions: session }).populate('sessions')
-            // console.log('event', event);
-            // // , { $push: { sessions: session } });
-            // req.body.sections.forEach(section => {
-            //     event.sessions.forEach(event => {
-            //         if (section.section === event.section) {
-            //             event.value = section.value
-            //         }
-            //     })
-            // })
-
-            console.log('session --->>>', session);
-
-            // event.sessions = seats
-
-            event.save()
-                .then(() => {
-                    res.send({ success: true, event })
+            price.save()
+            session.save()
+                .then(session => {
+                    res.send({ success: true, session })
                 })
                 .catch(error => {
-                    res.send({ success: false, message: 'something went wrong while trying to update', error })
+                    res.send({ success: false, error })
                 })
+
         } else {
             res.send({ errors: result.array() })
         }

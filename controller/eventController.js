@@ -1,6 +1,7 @@
 const db = require('../model/model')
 const Event = db.event
 const Session = db.session
+const Hall = db.hall
 const { validationResult } = require('express-validator')
 
 // const result = validationResult(req)
@@ -28,7 +29,6 @@ class EventController {
                 const event = await new Event({ ...req.body, image: req.file.filename })
                 event.save()
                 res.send({ sucess: true, event })
-
             } else {
                 res.send({ success: false, message: 'image field is required' })
             }
@@ -42,8 +42,12 @@ class EventController {
             .populate('sponsors')
             .populate('subcategories')
             .populate({
+                path: 'sessions',
+                populate: { path: 'hallId' }
+            })
+            .populate({
                 path: 'category',
-                populate: { path: 'subcategories' }
+                // populate: { path: 'subcategories' }
             })
             .then(events => {
                 res.send({ success: true, events })
@@ -78,7 +82,7 @@ class EventController {
             .populate('sessions')
             .populate({
                 path: 'category',
-                populate: { path: 'subcategories' }
+                // populate: { path: 'subcategories' }
             })
         const shuffledEvents = shuffleArray(allEvents)
         const randomEvents = shuffledEvents.slice(0, 12)
@@ -121,32 +125,15 @@ class EventController {
             .populate('sponsors')
             .populate('subcategories')
             .populate('sessions')
-            .populate('halls')
+            // .populate('halls')
             .populate({
                 path: 'category',
-                populate: { path: 'subcategories' }
+                // populate: { path: 'subcategories' }
             })
             .skip((currentPage - 1) * itemsPerPage)
             .limit(itemsPerPage)
             .then(events => {
-                let sessions = []
-                events?.forEach(event => {
-                    event?.sessions?.forEach(async session => {
-                        const newSession = await Session.findById(session.id)
-                        sessions.push({
-                            _id: newSession?._id,
-                            eventId: newSession?.eventId,
-                            hallId: newSession?.hallId,
-                            priceStart: newSession?.priceStart,
-                            priceEnd: newSession?.priceEnd,
-                            date: newSession?.date,
-                            time: newSession?.time,
-                        })
-                    })
-                })
-                setTimeout(() => {
-                    res.send({ success: true, events, totalPages, hasNextPage, sessions })
-                }, 5000)
+                res.send({ success: true, events, totalPages, hasNextPage })
             })
             .catch(error => {
                 res.send({ success: false, error })
@@ -156,7 +143,6 @@ class EventController {
     static async getCategoryEvents(req, res) {
         const result = validationResult(req)
         if (result.isEmpty()) {
-
             const itemsPerPage = 21
             const totalEvents = await Event.countDocuments()
             const currentPage = parseInt(req.query.currentPage) || 1
@@ -166,6 +152,7 @@ class EventController {
             const allEvents = await Event.find()
                 .populate('sponsors')
                 .populate('subcategories')
+                .populate('sessions')
                 .populate({
                     path: 'category',
                     populate: { path: 'subcategories' }
@@ -174,26 +161,90 @@ class EventController {
                 .limit(itemsPerPage)
 
             let eventsToShow = []
-
             let categoriedEvents = []
+            let sessionHall = {}
+            let mySessions = []
             allEvents?.forEach(event => {
                 if (event.category?._id == req.body.categoryId) {
-                    categoriedEvents.push(event)
+                    // categoriedEvents.push(event)
+                    categoriedEvents.push({
+                        validity: event?.validity,
+                        _id: event?._id,
+                        image: event?.image,
+                        title: event?.title,
+                        topEvent: event?.topEvent,
+                        generalEvent: event?.generalEvent,
+                        description: event?.description,
+                        category: event?.category,
+                        subcategories: event?.subcategories,
+                        sponsors: event?.sponsors,
+                        sessions: mySessions,
+                    })
+                }
+                event?.sessions.forEach(async session => {
+                    const newSession = await Session.findById(session.id)
+                    if (newSession) {
+                        const hall = await Hall.findById(newSession?.hallId)
+                        if (hall) {
+                            // sessionHall = hall
+                            sessionHall = {
+                                _id: hall?._id,
+                                image: hall?.image,
+                                country: hall?.country,
+                                location: hall?.location,
+                                place: hall?.place,
+                                hall: hall?.hall,
+                                eventId: hall?.eventId
+                            }
+                        } else {
+                            // no hall 
+                            sessionHall = {}
+                        }
+                        mySessions.push({
+                            _id: newSession?._id,
+                            eventId: newSession?.eventId,
+                            hallId: newSession?.hallId,
+                            priceStart: newSession?.priceStart,
+                            priceEnd: newSession?.priceEnd,
+                            date: newSession?.date,
+                            time: newSession?.time,
+                        })
+                    } else {
+                        // no sessions ?
+                    }
+                })
+            })
+
+            let subEvents = []
+            categoriedEvents?.forEach(event => {
+                if (event?.subcategories.includes(req.body.subcategoryId)) {
+                    // subEvents.push(event)
+                    subEvents.push({
+                        validity: event?.validity,
+                        _id: event?._id,
+                        image: event?.image,
+                        title: event?.title,
+                        topEvent: event?.topEvent,
+                        generalEvent: event?.generalEvent,
+                        description: event?.description,
+                        category: event?.category,
+                        subcategories: event?.subcategories,
+                        sponsors: event?.sponsors,
+                        halls: sessionHall,
+                        sessions: mySessions,
+                    })
                 }
             })
 
             if (req.body.subcategoryId) {
-                let subEvents = []
-                categoriedEvents?.forEach(event => {
-                    if (event?.subcategories.includes(req.body.subcategoryId)) {
-                        subEvents.push(event)
-                    }
-                })
                 eventsToShow = subEvents
             } else {
                 eventsToShow = categoriedEvents
             }
-            res.send({ success: true, events: eventsToShow, totalPages, hasNextPage })
+
+            // setTimeout(() => {
+                res.send({ success: true, events: eventsToShow, sessionHall, totalPages, hasNextPage })
+            // }, 2000)
 
         } else {
             res.send({ errors: result.array() })
@@ -204,15 +255,16 @@ class EventController {
         await Event.find({ _id: req.params.id })
             .populate('sponsors')
             .populate('subcategories')
+            .populate('sessions')
             .populate({
                 path: 'category',
-                populate: { path: 'subcategories' }
+                // populate: { path: 'subcategories' }
             })
             .then(async event => {
                 const recomended = await Event.find({ category: { $in: event[0].category } })
                     .populate('sponsors')
                     .populate('subcategories')
-                    .populate('sessions')
+                    // .populate('sessions')
                     .populate({
                         path: 'category',
                         populate: { path: 'subcategories' }
@@ -233,7 +285,7 @@ class EventController {
                 })
                 setTimeout(() => {
                     res.send({ success: true, event: event[0], recomended, sessions })
-                }, 5000)
+                }, 2000)
             })
             .catch(error => {
                 res.send({ success: false, error })
@@ -263,30 +315,26 @@ class EventController {
     static async editEvent(req, res) {
         try {
             const event = await Event.findById(req.body.id)
-                .populate({
-                    path: 'category',
-                    populate: { path: 'subcategories' }
-                })
-                .populate('sponsors')
-                .populate('subcategories')
-
             if (!event) {
                 return res.send({ success: false, message: 'Event not found' });
             }
             if (req.file) {
                 event.image = req.file.filename
             }
-            event.title = req.body.title
-            event.topEvent = req.body.topEvent
-            event.generalEvent = req.body.generalEvent
-            event.description = req.body.description
-            event.category = req.body.category
-            event.subcategories = req.body.subcategories
 
-            event.sponsors = []
-            req.body.sponsors.forEach(sponsorId => {
-                event.sponsors.push(sponsorId)
-            })
+            if (req.body.title) event.title = req.body.title
+            if (req.body.topEvent) event.topEvent = req.body.topEvent
+            if (req.body.generalEvent) event.generalEvent = req.body.generalEvent
+            if (req.body.description) event.description = req.body.description
+            if (req.body.category) event.category = req.body.category
+            if (req.body.subcategories) event.subcategories = req.body.subcategories
+
+            if (req.body.sponsors) {
+                event.sponsors = []
+                req.body.sponsors.forEach(sponsorId => {
+                    event.sponsors.push(sponsorId)
+                })
+            }
 
             await event.save()
                 .then(() => {

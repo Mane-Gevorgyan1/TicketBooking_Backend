@@ -34,14 +34,13 @@ router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphit
 //     'notes', 'delivery', 'paymentMethod'
 // ]).notEmpty().escape(), TicketController.buyTicket)
 
+
 // Event Controller
 router.post('/createEvent', upload.single('image'), body([
     'title', 'topEvent', 'generalEvent', 'description', 'category', 'subcategories', 'sponsors',
-    // 'sessions', 'subcategory',
 ]).notEmpty().escape(), EventController.createEvent)
 router.patch('/editEvent', upload.single('image'), body([
     'id', 'title', 'topEvent', 'generalEvent', 'description', 'category', 'subcategories', 'sponsors',
-    // 'sessions', 'subcategory'
 ]).notEmpty().escape(), EventController.editEvent)
 router.delete('/deleteEvent', body(['id']).notEmpty().escape(), EventController.deleteEvent)
 router.get('/getGeneralEvents', EventController.getGeneralEvents)
@@ -59,9 +58,9 @@ router.get('/getAllSponsors', SponsorController.getAllSponsors)
 router.delete('/deleteSponsor', body(['id']).notEmpty().escape(), SponsorController.deleteSponsor)
 
 // Hall Controller
-router.post('/createHall', upload.single('image'), body(['country', 'location', 'place', 'hall', 'eventId']).notEmpty().escape(), HallController.createHall)
+router.post('/createHall', upload.single('image'), body(['country', 'city', 'location', 'hall', 'eventId']).notEmpty().escape(), HallController.createHall)
 router.get('/getAllHalls', HallController.getAllHalls)
-router.patch('/editHall', HallController.editHall)
+// router.patch('/editHall', HallController.editHall)
 
 // Category Controller
 router.post('/createCategory', body('name').notEmpty().escape(), CategoryController.createCategory)
@@ -75,7 +74,7 @@ router.patch('/editSubcategory', body(['id', 'name']).notEmpty().escape(), Categ
 router.delete('/deleteSubcategory', body(['id']).notEmpty().escape(), CategoryController.deleteSubcategory)
 
 // Sessions
-router.post('/createSession', SessionController.createSession)
+router.post('/createSession', body(['hallId', 'eventId', 'priceStart', 'priceEnd', 'date', 'time', 'price']), SessionController.createSession)
 router.post('/getAllSessions', SessionController.getAllSessions)
 
 module.exports = router

@@ -33,10 +33,6 @@ module.exports = mongoose => {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'sponsors',
             }],
-            halls: [{
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'halls',
-            }],
             sessions: [{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'sessions',

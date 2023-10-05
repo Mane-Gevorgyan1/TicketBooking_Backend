@@ -13,5 +13,6 @@ db.subcategory = require('./subcategory.js')(mongoose)
 db.sponsor = require('./sponsor.js')(mongoose)
 db.hall = require('./hall.js')(mongoose)
 db.session = require('./session.js')(mongoose)
+db.price = require('./price.js')(mongoose)
 
 module.exports = db
