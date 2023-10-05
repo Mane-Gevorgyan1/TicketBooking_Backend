@@ -155,7 +155,7 @@ class EventController {
                 .populate('sessions')
                 .populate({
                     path: 'category',
-                    populate: { path: 'subcategories' }
+                    // populate: { path: 'subcategories' }
                 })
                 .skip((currentPage - 1) * itemsPerPage)
                 .limit(itemsPerPage)
@@ -242,9 +242,7 @@ class EventController {
                 eventsToShow = categoriedEvents
             }
 
-            // setTimeout(() => {
-                res.send({ success: true, events: eventsToShow, sessionHall, totalPages, hasNextPage })
-            // }, 2000)
+            res.send({ success: true, events: eventsToShow, sessionHall, totalPages, hasNextPage })
 
         } else {
             res.send({ errors: result.array() })
@@ -264,10 +262,10 @@ class EventController {
                 const recomended = await Event.find({ category: { $in: event[0].category } })
                     .populate('sponsors')
                     .populate('subcategories')
-                    // .populate('sessions')
+                    .populate('sessions')
                     .populate({
                         path: 'category',
-                        populate: { path: 'subcategories' }
+                        // populate: { path: 'subcategories' }
                     })
                     .limit(10)
                 let sessions = []
@@ -283,9 +281,7 @@ class EventController {
                         time: newSession?.time,
                     })
                 })
-                setTimeout(() => {
-                    res.send({ success: true, event: event[0], recomended, sessions })
-                }, 2000)
+                res.send({ success: true, event: event[0], recomended, sessions })
             })
             .catch(error => {
                 res.send({ success: false, error })
@@ -366,6 +362,56 @@ class EventController {
         } else {
             res.send({ errors: result.array() })
         }
+    }
+
+    static async filterEvents(req, res) {
+        let filter = {}
+        if (req.body.startDate && req.body.endDate) {
+            const startDate = new Date(req.body.startDate)
+            const endDate = new Date(req.body.endDate)
+            if (startDate.toDateString() === endDate.toDateString()) {
+                // When startDate and endDate are the same, create a range for the entire day
+                endDate.setDate(endDate.getDate() + 1) // Increment the endDate to the next day
+            }
+            filter = {
+                date: {
+                    $gte: startDate,
+                    $lt: endDate,
+                }
+            }
+        }
+
+        const itemsPerPage = 21
+        const totalEvents = await Event.countDocuments(filter)
+        const currentPage = parseInt(req.query.currentPage) || 1
+        const totalPages = Math.ceil(totalEvents / itemsPerPage)
+        const hasNextPage = currentPage < totalPages
+
+        const sessions = await Session.find(filter).populate({
+            path: 'eventId',
+        })
+            .populate('hallId')
+
+        let eventsToShow = []
+        if (req.body.category) {
+            sessions?.forEach(session => {
+                session?.eventId?.forEach(event => {
+                    if (event.category == req.body.category) {
+                        eventsToShow.push(session)
+                    }
+                })
+            })
+        } else if (req.body.hall) {
+            sessions?.forEach(session => {
+                if (session?.hallId?._id == req.body.hall) {
+                    eventsToShow.push(session)
+                }
+            })
+        } else {
+            eventsToShow = sessions
+        }
+
+        res.send({ success: true, events: eventsToShow, totalPages, hasNextPage })
     }
 
 }

@@ -51,6 +51,7 @@ router.post('/getAllEvents', EventController.getAllEvents)
 router.post('/getCategoryEvents', body(['categoryId']).notEmpty().escape(), EventController.getCategoryEvents)
 router.get('/singleEvent/:id', EventController.singleEvent)
 router.post('/search', EventController.search)
+router.post('/filterEvents', EventController.filterEvents)
 
 // Sponsor Controller
 router.post('/createSponsor', upload.single('image'), body(['name']).notEmpty().escape(), SponsorController.createSponsor)
@@ -67,7 +68,6 @@ router.post('/createCategory', body('name').notEmpty().escape(), CategoryControl
 router.get('/getCategories', CategoryController.getCategories)
 router.patch('/editCategory', body(['id', 'name']).notEmpty().escape(), CategoryController.editCategory)
 router.delete('/deleteCategory', body(['id']).notEmpty().escape(), CategoryController.deleteCategory)
-
 router.post('/createSubcategory', body(['name', 'categoryId']).notEmpty().escape(), CategoryController.createSubcategory)
 router.post('/getSubcategories', body('id').notEmpty().escape(), CategoryController.getSubcategories)
 router.patch('/editSubcategory', body(['id', 'name']).notEmpty().escape(), CategoryController.editSubcategory)
