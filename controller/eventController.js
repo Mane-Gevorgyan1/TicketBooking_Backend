@@ -397,7 +397,9 @@ class EventController {
             let eventsToShow = []
             sessions?.forEach(session => {
                 session?.eventId?.forEach(event => {
-                    if (event.category == req.body.category && event.subcategories == req.body.subcategory) {
+                    if (req.body.subcategory && event.subcategories == req.body.subcategory && event.category == req.body.category) {
+                        eventsToShow.push(session)
+                    } else if (event.category == req.body.category) {
                         eventsToShow.push(session)
                     }
                 })
