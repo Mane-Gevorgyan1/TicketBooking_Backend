@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb')
 const db = require('../model/model')
 const Event = db.event
 const Session = db.session
@@ -389,17 +390,18 @@ class EventController {
             const totalPages = Math.ceil(totalEvents / itemsPerPage)
             const hasNextPage = currentPage < totalPages
 
-            const sessions = await Session.find(filter).populate({
-                path: 'eventId',
-            })
+            const sessions = await Session.find(filter)
+                .populate({
+                    path: 'eventId',
+                })
                 .populate('hallId')
 
             let eventsToShow = []
             sessions?.forEach(session => {
                 session?.eventId?.forEach(event => {
-                    if (req.body.subcategory && event.subcategories == req.body.subcategory && event.category == req.body.category) {
+                    if (req.body.subcategory && event.subcategories.toHexString() == req.body.subcategory) {
                         eventsToShow.push(session)
-                    } else if (event.category == req.body.category) {
+                    } else if (!req.body.subcategory && event.category.toHexString() == req.body.category) {
                         eventsToShow.push(session)
                     }
                 })
