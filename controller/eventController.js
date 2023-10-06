@@ -80,7 +80,7 @@ class EventController {
         const allEvents = await Event.find()
             .populate('sponsors')
             .populate('subcategories')
-            .populate('sessions')
+            .populate({ path: 'sessions', populate: { path: 'hallId' } })
             .populate({
                 path: 'category',
                 // populate: { path: 'subcategories' }
