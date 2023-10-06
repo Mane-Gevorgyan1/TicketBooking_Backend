@@ -18,15 +18,15 @@ class SessionController {
 
             const session = await new Session({ ...req.body })
 
-            const price = await new Price({ price: req.body.price, sessionId: session?._id })
+            // const price = await new Price({ price: req.body.price, sessionId: session?._id })
 
             req.body.eventId?.forEach(async sessionEventId => {
                 await Event.findByIdAndUpdate(sessionEventId, { $push: { sessions: session._id } })
             })
 
-            await Session.findByIdAndUpdate(session._id, { price: price?._id })
+            // await Session.findByIdAndUpdate(session._id, { price: price?._id })
 
-            price.save()
+            // price.save()
             session.save()
                 .then(session => {
                     res.send({ success: true, session })
