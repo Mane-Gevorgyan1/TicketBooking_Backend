@@ -51,6 +51,10 @@ class SessionController {
         //     })
     }
 
+    static async getPrice(req, res) {
+
+    }   
+
 }
 
 module.exports = SessionController

@@ -76,5 +76,6 @@ router.delete('/deleteSubcategory', body(['id']).notEmpty().escape(), CategoryCo
 // Sessions
 router.post('/createSession', body(['hallId', 'eventId', 'priceStart', 'priceEnd', 'date', 'time', 'price']), SessionController.createSession)
 router.post('/getAllSessions', SessionController.getAllSessions)
+router.get('/getPrice', SessionController.getPrice)
 
 module.exports = router

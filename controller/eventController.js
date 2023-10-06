@@ -253,7 +253,7 @@ class EventController {
         await Event.find({ _id: req.params.id })
             .populate('sponsors')
             .populate('subcategories')
-            .populate('sessions')
+            .populate({ path: 'sessions', populate: { path: 'hallId' } })
             .populate({
                 path: 'category',
                 // populate: { path: 'subcategories' }
@@ -398,6 +398,7 @@ class EventController {
             sessions?.forEach(session => {
                 session?.eventId?.forEach(event => {
                     if (event.category == req.body.category) {
+                        console.log('event --->>>', event);
                         eventsToShow.push(session)
                     }
                 })
