@@ -25,10 +25,10 @@ module.exports = mongoose => {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'categories',
             },
-            subcategories: [{
+            subcategories: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'subcategories', 
-            }],
+            },
             sponsors: [{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'sponsors',

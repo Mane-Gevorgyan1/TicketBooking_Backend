@@ -397,16 +397,13 @@ class EventController {
             let eventsToShow = []
             sessions?.forEach(session => {
                 session?.eventId?.forEach(event => {
-                    if (event.category == req.body.category) {
-                        console.log('event --->>>', event);
+                    if (event.category == req.body.category && event.subcategories == req.body.subcategory) {
                         eventsToShow.push(session)
                     }
                 })
             })
             if (req.body.hall) {
                 eventsToShow = eventsToShow?.filter(session => session?.hallId?._id == req.body.hall)
-            } else {
-                eventsToShow = sessions
             }
 
             res.send({ success: true, sessions: eventsToShow, totalPages, hasNextPage })
