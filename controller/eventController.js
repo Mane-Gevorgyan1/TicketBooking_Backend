@@ -365,35 +365,37 @@ class EventController {
     }
 
     static async filterEvents(req, res) {
-        let filter = {}
-        if (req.body.startDate && req.body.endDate) {
-            const startDate = new Date(req.body.startDate)
-            const endDate = new Date(req.body.endDate)
-            if (startDate.toDateString() === endDate.toDateString()) {
-                // When startDate and endDate are the same, create a range for the entire day
-                endDate.setDate(endDate.getDate() + 1) // Increment the endDate to the next day
-            }
-            filter = {
-                date: {
-                    $gte: startDate,
-                    $lt: endDate,
+        const result = validationResult(req)
+        if (result.isEmpty()) {
+
+            let filter = {}
+            if (req.body.startDate && req.body.endDate) {
+                const startDate = new Date(req.body.startDate)
+                const endDate = new Date(req.body.endDate)
+                if (startDate.toDateString() === endDate.toDateString()) {
+                    // When startDate and endDate are the same, create a range for the entire day
+                    endDate.setDate(endDate.getDate() + 1) // Increment the endDate to the next day
+                }
+                filter = {
+                    date: {
+                        $gte: startDate,
+                        $lt: endDate,
+                    }
                 }
             }
-        }
 
-        const itemsPerPage = 21
-        const totalEvents = await Event.countDocuments(filter)
-        const currentPage = parseInt(req.query.currentPage) || 1
-        const totalPages = Math.ceil(totalEvents / itemsPerPage)
-        const hasNextPage = currentPage < totalPages
+            const itemsPerPage = 21
+            const totalEvents = await Event.countDocuments(filter)
+            const currentPage = parseInt(req.query.currentPage) || 1
+            const totalPages = Math.ceil(totalEvents / itemsPerPage)
+            const hasNextPage = currentPage < totalPages
 
-        const sessions = await Session.find(filter).populate({
-            path: 'eventId',
-        })
-            .populate('hallId')
+            const sessions = await Session.find(filter).populate({
+                path: 'eventId',
+            })
+                .populate('hallId')
 
-        let eventsToShow = []
-        if (req.body.category) {
+            let eventsToShow = []
             sessions?.forEach(session => {
                 session?.eventId?.forEach(event => {
                     if (event.category == req.body.category) {
@@ -401,17 +403,16 @@ class EventController {
                     }
                 })
             })
-        } else if (req.body.hall) {
-            sessions?.forEach(session => {
-                if (session?.hallId?._id == req.body.hall) {
-                    eventsToShow.push(session)
-                }
-            })
-        } else {
-            eventsToShow = sessions
-        }
+            if (req.body.hall) {
+                eventsToShow = eventsToShow?.filter(session => session?.hallId?._id == req.body.hall)
+            } else {
+                eventsToShow = sessions
+            }
 
-        res.send({ success: true, events: eventsToShow, totalPages, hasNextPage })
+            res.send({ success: true, events: eventsToShow, totalPages, hasNextPage })
+        } else {
+            res.send({ errors: result.array() })
+        }
     }
 
 }

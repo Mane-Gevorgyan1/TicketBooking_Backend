@@ -51,7 +51,7 @@ router.post('/getAllEvents', EventController.getAllEvents)
 router.post('/getCategoryEvents', body(['categoryId']).notEmpty().escape(), EventController.getCategoryEvents)
 router.get('/singleEvent/:id', EventController.singleEvent)
 router.post('/search', EventController.search)
-router.post('/filterEvents', EventController.filterEvents)
+router.post('/filterEvents',  EventController.filterEvents)
 
 // Sponsor Controller
 router.post('/createSponsor', upload.single('image'), body(['name']).notEmpty().escape(), SponsorController.createSponsor)
