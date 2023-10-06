@@ -367,7 +367,6 @@ class EventController {
     static async filterEvents(req, res) {
         const result = validationResult(req)
         if (result.isEmpty()) {
-
             let filter = {}
             if (req.body.startDate && req.body.endDate) {
                 const startDate = new Date(req.body.startDate)
@@ -409,7 +408,7 @@ class EventController {
                 eventsToShow = sessions
             }
 
-            res.send({ success: true, events: eventsToShow, totalPages, hasNextPage })
+            res.send({ success: true, sessions: eventsToShow, totalPages, hasNextPage })
         } else {
             res.send({ errors: result.array() })
         }
