@@ -1,33 +1,129 @@
 const db = require('../model/model')
 const Ticket = db.ticket
-// const nodemailer = require('nodemailer')
+const Session = db.session
+const nodemailer = require('nodemailer')
 const { validationResult } = require('express-validator')
+const QRCode = require('qrcode')
+const { PDFDocument, rgb } = require('pdf-lib')
+const fs = require('fs').promises
 
 
-// const transporter = nodemailer.createTransport({
-//     service: 'gmail',
-//     auth: {
-//         user: process.env.EMAIL,
-//         pass: process.env.PASSWORD
-//     }
-// })
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
+    }
+})
 
-// const message = {
-//     from: process.env.EMAIL,
-//     to: req.body.email,
-//     subject: 'Hi dear ' + req.body.name + '. Sending Email using Node.js',
-//     html: `<h1>Dear ${req.body.name}</h1>
-//             <a href = "http://localhost:8080/verifyEmail?email=${req.body.email}&token=${token}">Click on this link to verify your email</a>`
-// }
-// transporter.sendMail(message, async (err, info) => {
-//     if (err) {
-//         res.send("email is invalid");
-//     } else {
-//         await User.create({ ...req.body });
-//         delete req.session.sxal;
-//         res.redirect('/');
-//     }
-// })
+const generateTableRows = (data) => {
+    let tableRows = '';
+    let tex = ''
+    let total = 0
+    data.forEach((item) => {
+        if (item.parterre) {
+            tex = 'Партер'
+        } else if (item.amphitheater) {
+            tex = 'Амфитеатр'
+        } else if (item?.lodge) {
+            tex = 'Лодж'
+        }
+        total += item?.total
+        tableRows += `
+          <tr>
+             <td style="border-bottom:1px solid #DDD; text-align: left; padding: 8px">${tex}</td>
+             <td style="border-bottom:1px solid #DDD; text-align: left; padding: 8px">${item?.ticketCount}</td>
+             <td style="border-bottom:1px solid #DDD; text-align: left; padding: 8px">${item.row}</td>
+             <td style="border-bottom:1px solid #DDD; text-align: left; padding: 8px">${item.seat}</td>
+             <td style="border-bottom:1px solid #DDD; text-align: left; padding: 8px">${item.price} AMD</td>
+          </tr>
+       `;
+    });
+    return tableRows;
+};
+
+const emailTemplate = (data) => {
+    let total = 0
+    data.forEach(element => {
+        total += element.total
+    })
+    return `
+   <html>
+   <body>
+   <h1>Здравствуйте, ${data[0]?.buyerName}!</h1>
+   <p>Ваш заказ для мероприятия "${data[0]?.title}" на сумму ${total} AMD оплачен !</p>
+   <p>Список билетов: </p>
+   <table style="border-collapse:collapse; width:100%;">
+        <thead>
+            <tr>
+            <th style="border-bottom:1px solid #DDD; text-align: left; padding: 8px">Партер/Амфитеатр/Лодж</th>
+               <th style="border-bottom:1px solid #DDD; text-align: left; padding: 8px">Номер билета</th>
+               <th style="border-bottom:1px solid #DDD; text-align: left; padding: 8px">Ряд</th>
+               <th style="border-bottom:1px solid #DDD; text-align: left; padding: 8px">Место</th>
+               <th style="border-bottom:1px solid #DDD; text-align: left; padding: 8px">Цена</th>
+            </tr>
+         </thead>
+         <tbody>
+            ${generateTableRows(data)}
+         </tbody>
+    </table>
+    <p>Желаем сполна насладиться мероприятием!</p>
+    <p>По вопросам звоните по телефону 090 00 00 00</p>
+   </body>
+   </html>
+`};
+
+// Function to create a QR code as a Data URI
+async function createQRCode(data) {
+    try {
+        const qrCode = await QRCode.toDataURL(data);
+        return qrCode;
+    } catch (error) {
+        console.error('Error generating QR code:', error);
+        throw error;
+    }
+}
+
+// Function to create a new PDF with a QR code
+async function createPDFWithQRCode(outputFilePath, qrCodeData) {
+    try {
+        const details = JSON.parse(qrCodeData)
+        const pdfDoc = await PDFDocument.create();
+        const page = pdfDoc.addPage([300, 200]);
+
+        const qrCode = await createQRCode(qrCodeData);
+        const qrCodeImage = await pdfDoc.embedPng(qrCode);
+
+        page.drawImage(qrCodeImage, {
+            x: 10, // Adjust the position where you want to place the QR code
+            y: 140,
+            width: 50,
+            height: 50,
+        });
+        let tex = ''
+        if (details.parterre) {
+            tex = 'Parterre'
+        } else if (details.amphitheater) {
+            tex = 'Amphitheater'
+        } else if (details?.lodge) {
+            tex = 'Lodge'
+        }
+        page.drawText(`Event: Buratino`, { x: 10, y: 120, size: 6 })
+        page.drawText(`Location: ${details?.country}, ${details?.location}, Karen Demirjyan`, { x: 10, y: 110, size: 6 })
+        page.drawText(`Date: ${details?.date.split('T')[0]}`, { x: 10, y: 100, size: 6 })
+        page.drawText(`Time: ${details?.time}`, { x: 10, y: 90, size: 6 })
+        page.drawText(`Ticket Number: ${details?.ticketNumber}`, { x: 10, y: 80, size: 6 })
+        page.drawText(`${tex}, row: ${details?.row}, seat: ${details?.seat}`, { x: 10, y: 70, size: 6 })
+        page.drawText(`price: ${details?.price} AMD`, { x: 10, y: 60, size: 6 })
+        const pdfBytes = await pdfDoc.save();
+        await fs.writeFile(outputFilePath, pdfBytes);
+
+        return outputFilePath
+    } catch (error) {
+        console.error('Error creating PDF with QR code:', error);
+        throw error;
+    }
+}
 
 class TicketController {
 
@@ -152,57 +248,98 @@ class TicketController {
         }
     }
 
-    // static async buyTicket(req, res) {
-    //     const result = validationResult(req)
-    //     if (result.isEmpty()) {
-    //         let allowToBuyTickets
-    //         req.body.ticketDetails.forEach(async element => {
-    //             await Ticket.find({ row: element.row, seat: element.seat, amphitheater: element.amphitheater, lodge: element.lodge })
-    //                 .then(ticket => {
-    //                     // console.log(ticket);
-    //                     if (ticket.availability === 'sold') {
-    //                         allowToBuyTickets = false
-    //                         return
-    //                     } else {
-    //                         allowToBuyTickets = true
-    //                     }
-    //                 })
-    //                 .catch(error => {
-    //                     res.send({ success: false, message: 'Failed to find ticket', error })
-    //                 })
-    //         })
+    static async buyTicket(req, res) {
+        const result = validationResult(req)
+        if (result.isEmpty()) {
+            // payment success: true-ic heto
 
-    //         // console.log(allowToBuyTickets);
+            const session = await Session.findById(req.body.sessionId)
+                .populate('eventId')
+                .populate('hallId')
 
-    //         if (allowToBuyTickets) {
-    //             req.body.ticketDetails.forEach(async element => {
-    //                 await Ticket.findOneAndUpdate({
-    //                     row: element.row,
-    //                     seat: element.seat,
-    //                     amphitheater: element.amphitheater,
-    //                     lodge: element.lodge
-    //                 }, {
-    //                     availability: 'sold',
-    //                     buyerName: req.body.name,
-    //                     buyerEmail: req.body.email,
-    //                     buyerPhone: req.body.phone,
-    //                     buyerNotes: req.body.notes,
-    //                     paymentMethod: req.body.paymentMethod,
-    //                     delivery: req.body.delivery,
-    //                 })
-    //                     .then(ticket => {
-    //                         res.send({ success: true, ticket })
-    //                     })
-    //                     .catch(error => {
-    //                         res.send({ success: false, error })
-    //                     })
-    //             })
-    //         }
+            let PDFs = []
+            let tickets = []
+            let total = 0
+            if (session) {
+                req.body.tickets?.forEach(async (element, index) => {
+                    let ticketCount = ''
+                    ticketCount = await Ticket.countDocuments() + index + 1
+                    if (ticketCount <= 9) {
+                        ticketCount = '000' + ticketCount
+                    } else if (ticketCount <= 99) {
+                        ticketCount = '00' + ticketCount
+                    } else if (ticketCount <= 999) {
+                        ticketCount = '0' + ticketCount
+                    }
+                    total = + element?.price
+                    tickets.push({
+                        parterre: element?.parterre,
+                        amphitheater: element?.amphitheater,
+                        lodge: element?.lodge,
+                        row: element?.row,
+                        seat: element?.seat,
+                        price: element?.price,
+                        buyerName: req.body?.buyerName,
+                        ticketCount,
+                        total,
+                        title: session?.eventId[0]?.title
+                    })
+                    const ticket = await new Ticket({
+                        ...element,
+                        buyerName: req.body.buyerName,
+                        buyerEmail: req.body.buyerEmail,
+                        buyerPhone: req.body.buyerPhone,
+                        buyerNotes: req.body.buyerNotes,
+                        paymentMethod: req.body.paymentMethod,
+                        delivery: req.body.delivery,
+                        sessionId: req.body.sessionId,
+                        ticketNumber: ticketCount,
+                    })
+                    ticket.save()
 
-    //     } else {
-    //         res.send({ errors: result.array() })
-    //     }
-    // }
+                    const outputFilePath = `public/pdf/${ticket._id}.pdf`; // Specify the desired output PDF file path
+                    const qrCodeData = JSON.stringify({
+                        title: session?.eventId[0]?.title,
+                        country: session?.hallId?.country,
+                        location: session?.hallId?.location,
+                        place: session?.hallId?.place,
+                        date: session?.date,
+                        time: session?.time[0], // es petqa zangvac chlini
+                        ticketNumber: ticketCount,
+                        parterre: element?.parterre,
+                        amphitheater: element?.amphitheater,
+                        lodge: element?.lodge,
+                        row: element?.row,
+                        seat: element?.seat,
+                        price: element?.price,
+                    })
+                    const pdf = await createPDFWithQRCode(outputFilePath, qrCodeData)
+                    PDFs.push({ filename: pdf.split('public/pdf/')[1], path: pdf })
+                })
+
+                setTimeout(() => {
+                    const message = {
+                        from: process.env.EMAIL,
+                        to: req.body.buyerEmail,
+                        subject: 'Shine tickets',
+                        attachments: PDFs,
+                        html: emailTemplate(tickets),
+                    }
+                    transporter.sendMail(message, async (err, info) => {
+                        if (err) {
+                            res.send("email is invalid");
+                        } else {
+                            res.send({ success: true, message: 'Ticket is sent to your email' })
+                        }
+                    })
+                }, 2000)
+            } else {
+                res.send({ success: false, message: 'Wrong session id' })
+            }
+        } else {
+            res.send({ errors: result.array() })
+        }
+    }
 
 }
 

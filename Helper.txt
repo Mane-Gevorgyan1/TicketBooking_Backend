@@ -1,0 +1,768 @@
+Create session for Hall - Karen Demirjyan poqr dahlij (2000 tex)
+
+{
+    "hallId": "651f000aa605f707c24812ea",
+    "eventId": [
+        "652076ae68a29e9903238d76"
+    ],
+    "priceStart": 10000,
+    "priceEnd": 30000,
+    "date": "09-10-2023",
+    "time": [
+        "13:00",
+        "15:00"
+    ],
+    "price": [
+        {
+            "section": 1,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                },
+                {
+                    "row": 6,
+                    "price": 10000
+                },
+                {
+                    "row": 7,
+                    "price": 10000
+                },
+                {
+                    "row": 8,
+                    "price": 10000
+                },
+                {
+                    "row": 9,
+                    "price": 10000
+                },
+                {
+                    "row": 10,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 2,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                },
+                {
+                    "row": 6,
+                    "price": 10000
+                },
+                {
+                    "row": 7,
+                    "price": 10000
+                },
+                {
+                    "row": 8,
+                    "price": 10000
+                },
+                {
+                    "row": 9,
+                    "price": 10000
+                },
+                {
+                    "row": 10,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 3,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                },
+                {
+                    "row": 6,
+                    "price": 10000
+                },
+                {
+                    "row": 7,
+                    "price": 10000
+                },
+                {
+                    "row": 8,
+                    "price": 10000
+                },
+                {
+                    "row": 9,
+                    "price": 10000
+                },
+                {
+                    "row": 10,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 4,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                },
+                {
+                    "row": 6,
+                    "price": 10000
+                },
+                {
+                    "row": 7,
+                    "price": 10000
+                },
+                {
+                    "row": 8,
+                    "price": 10000
+                },
+                {
+                    "row": 9,
+                    "price": 10000
+                },
+                {
+                    "row": 10,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 5,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                },
+                {
+                    "row": 6,
+                    "price": 10000
+                },
+                {
+                    "row": 7,
+                    "price": 10000
+                },
+                {
+                    "row": 8,
+                    "price": 10000
+                },
+                {
+                    "row": 9,
+                    "price": 10000
+                },
+                {
+                    "row": 10,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 6,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 7,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 8,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 9,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 10,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 11,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 12,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 13,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 14,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 15,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 16,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                },
+                {
+                    "row": 6,
+                    "price": 10000
+                },
+                {
+                    "row": 7,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 17,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                },
+                {
+                    "row": 6,
+                    "price": 10000
+                },
+                {
+                    "row": 7,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 18,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                },
+                {
+                    "row": 6,
+                    "price": 10000
+                },
+                {
+                    "row": 7,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 19,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                },
+                {
+                    "row": 6,
+                    "price": 10000
+                },
+                {
+                    "row": 7,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 20,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                },
+                {
+                    "row": 6,
+                    "price": 10000
+                },
+                {
+                    "row": 7,
+                    "price": 10000
+                },
+                {
+                    "row": 8,
+                    "price": 10000
+                },
+                {
+                    "row": 9,
+                    "price": 10000
+                },
+                {
+                    "row": 10,
+                    "price": 10000
+                },
+                {
+                    "row": 11,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 21,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                },
+                {
+                    "row": 6,
+                    "price": 10000
+                },
+                {
+                    "row": 7,
+                    "price": 10000
+                },
+                {
+                    "row": 8,
+                    "price": 10000
+                },
+                {
+                    "row": 9,
+                    "price": 10000
+                },
+                {
+                    "row": 10,
+                    "price": 10000
+                },
+                {
+                    "row": 11,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 22,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                },
+                {
+                    "row": 2,
+                    "price": 10000
+                },
+                {
+                    "row": 3,
+                    "price": 10000
+                },
+                {
+                    "row": 4,
+                    "price": 10000
+                },
+                {
+                    "row": 5,
+                    "price": 10000
+                },
+                {
+                    "row": 6,
+                    "price": 10000
+                },
+                {
+                    "row": 7,
+                    "price": 10000
+                },
+                {
+                    "row": 8,
+                    "price": 10000
+                },
+                {
+                    "row": 9,
+                    "price": 10000
+                },
+                {
+                    "row": 10,
+                    "price": 10000
+                },
+                {
+                    "row": 11,
+                    "price": 10000
+                }
+            ]
+        },
+        {
+            "section": 23,
+            "price": [
+                {
+                    "row": 1,
+                    "price": 10000
+                }
+            ]
+        }
+    ]
+}

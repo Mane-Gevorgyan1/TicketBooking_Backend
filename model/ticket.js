@@ -14,12 +14,12 @@ module.exports = mongoose => {
                 default: null,
             },
             ticketNumber: {
-                type: Number,
-                default: null,
-            },
-            availability: {
                 type: String,
-                default: 'available', // available, saved, sold
+                autoIncrement: true,
+            },
+            parterre: {
+                type: Boolean,
+                default: false,
             },
             amphitheater: {
                 type: Boolean,
@@ -28,10 +28,6 @@ module.exports = mongoose => {
             lodge: {
                 type: Boolean,
                 default: false,
-            },
-            seatColor: {
-                type: String,
-                default: null,
             },
             buyerName: {
                 type: String,
@@ -56,6 +52,10 @@ module.exports = mongoose => {
             delivery: {
                 type: Boolean,
                 default: false,
+            },
+            sessionId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'sessions'
             },
         },
         { timestamps: true },

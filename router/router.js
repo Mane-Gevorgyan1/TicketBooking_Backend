@@ -28,11 +28,7 @@ router.patch('/changePrice', body(['row', 'seat', 'price', 'amphitheater']).notE
 router.patch('/returnTicket', body('ticketNumber').notEmpty().escape(), TicketController.returnTicket)
 router.get('/getSeats', TicketController.getSeatDetails)
 router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphitheater']).notEmpty().escape(), TicketController.changeAvailability)
-// router.patch('/buyTicket', body([
-//     // ticketDetails = [{'row', 'seat', 'amphitheater', 'lodge'}],
-//     'ticketDetails', 'name', 'email', 'phone',
-//     'notes', 'delivery', 'paymentMethod'
-// ]).notEmpty().escape(), TicketController.buyTicket)
+router.post('/buyTicket', TicketController.buyTicket)
 
 
 // Event Controller
@@ -53,15 +49,17 @@ router.get('/singleEvent/:id', EventController.singleEvent)
 router.post('/search', EventController.search)
 router.post('/filterEvents', EventController.filterEvents)
 
+
 // Sponsor Controller
 router.post('/createSponsor', upload.single('image'), body(['name']).notEmpty().escape(), SponsorController.createSponsor)
 router.get('/getAllSponsors', SponsorController.getAllSponsors)
 router.delete('/deleteSponsor', body(['id']).notEmpty().escape(), SponsorController.deleteSponsor)
 
+
 // Hall Controller
 router.post('/createHall', upload.single('image'), body(['country', 'city', 'location', 'hall', 'eventId']).notEmpty().escape(), HallController.createHall)
 router.get('/getAllHalls', HallController.getAllHalls)
-// router.patch('/editHall', HallController.editHall)
+
 
 // Category Controller
 router.post('/createCategory', body('name').notEmpty().escape(), CategoryController.createCategory)
@@ -73,9 +71,8 @@ router.post('/getSubcategories', body('id').notEmpty().escape(), CategoryControl
 router.patch('/editSubcategory', body(['id', 'name']).notEmpty().escape(), CategoryController.editSubcategory)
 router.delete('/deleteSubcategory', body(['id']).notEmpty().escape(), CategoryController.deleteSubcategory)
 
+
 // Sessions
 router.post('/createSession', body(['hallId', 'eventId', 'priceStart', 'priceEnd', 'date', 'time', 'price']), SessionController.createSession)
-router.post('/getAllSessions', SessionController.getAllSessions)
-router.get('/getPrice', SessionController.getPrice)
 
 module.exports = router

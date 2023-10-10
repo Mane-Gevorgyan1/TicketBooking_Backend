@@ -24,20 +24,6 @@ class HallController {
         }
     }
 
-    // static async editHall(req, res) {
-    //     const hall = await Hall.findById(req.body.id);
-
-    //     let newSeats = [...hall.seats, ...seats]
-    //     hall.seats = newSeats
-    //     hall.save()
-    //         .then(hall => {
-    //             res.send({ success: true, hall })
-    //         })
-    //         .catch(error => {
-    //             res.send({ success: false, error })
-    //         })
-    // }
-
     static async getAllHalls(req, res) {
         await Hall.find()
             .then(halls => {
