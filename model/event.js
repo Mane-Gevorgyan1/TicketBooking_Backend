@@ -9,6 +9,14 @@ module.exports = mongoose => {
                 type: String,
                 default: null,
             },
+            title_en: {
+                type: String,
+                default: null,
+            },
+            title_ru: {
+                type: String,
+                default: null,
+            },
             topEvent: {
                 type: Boolean,
                 default: false,
@@ -21,13 +29,21 @@ module.exports = mongoose => {
                 type: String,
                 default: null,
             },
+            description_en: {
+                type: String,
+                default: null,
+            },
+            description_ru: {
+                type: String,
+                default: null,
+            },
             category: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'categories',
             },
             subcategories: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'subcategories', 
+                ref: 'subcategories',
             },
             sponsors: [{
                 type: mongoose.Schema.Types.ObjectId,

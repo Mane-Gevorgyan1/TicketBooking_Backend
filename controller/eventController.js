@@ -29,7 +29,7 @@ class EventController {
             if (req.file) {
                 const event = await new Event({ ...req.body, image: req.file.filename })
                 event.save()
-                res.send({ sucess: true, event })
+                res.send({ success: true, event })
             } else {
                 res.send({ success: false, message: 'image field is required' })
             }
@@ -320,9 +320,13 @@ class EventController {
             }
 
             if (req.body.title) event.title = req.body.title
+            if (req.body.title_en) event.title_en = req.body.title_en
+            if (req.body.title_ru) event.title_ru = req.body.title_ru
             if (req.body.topEvent) event.topEvent = req.body.topEvent
             if (req.body.generalEvent) event.generalEvent = req.body.generalEvent
             if (req.body.description) event.description = req.body.description
+            if (req.body.description_en) event.description_en = req.body.description_en
+            if (req.body.description_ru) event.description_ru = req.body.description_ru
             if (req.body.category) event.category = req.body.category
             if (req.body.subcategories) event.subcategories = req.body.subcategories
 
