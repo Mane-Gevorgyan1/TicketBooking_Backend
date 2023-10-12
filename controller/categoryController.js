@@ -14,7 +14,7 @@ class CategoryController {
     static async createCategory(req, res) {
         const result = validationResult(req)
         if (result.isEmpty()) {
-            const category = await new Category({ name: req.body.name });
+            const category = await new Category({ name: req.body.name, name_en: req.body.name_en, name_ru: req.body.name_ru });
             await category.save()
             res.send({ success: true, category })
         } else {
@@ -30,7 +30,7 @@ class CategoryController {
     static async editCategory(req, res) {
         const result = validationResult(req)
         if (result.isEmpty()) {
-            await Category.findByIdAndUpdate(req.body.id, { name: req.body.name }, { new: true })
+            await Category.findByIdAndUpdate(req.body.id, { name: req.body.name, name_en: req.body.name_en, name_ru: req.body.name_ru }, { new: true })
                 .then(category => {
                     res.send({ success: true, message: 'Category updated', category })
                 })
@@ -60,7 +60,7 @@ class CategoryController {
     static async createSubcategory(req, res) {
         const result = validationResult(req)
         if (result.isEmpty()) {
-            const subCategory = await new Subcategory({ name: req.body.name, categoryId: req.body.categoryId });
+            const subCategory = await new Subcategory({ name: req.body.name, name_en: req.body.name_en, name_ru: req.body.name_ru, categoryId: req.body.categoryId });
             subCategory.save()
             const category = await Category.findByIdAndUpdate(req.body.categoryId, { $push: { subcategories: subCategory._id } });
             category.save()
@@ -90,7 +90,7 @@ class CategoryController {
     static async editSubcategory(req, res) {
         const result = validationResult(req)
         if (result.isEmpty()) {
-            await Subcategory.findByIdAndUpdate(req.body.id, { name: req.body.name }, { new: true })
+            await Subcategory.findByIdAndUpdate(req.body.id, { name: req.body.name, name_en: req.body.name_en, name_ru: req.body.name_ru }, { new: true })
                 .then(subCategory => {
                     res.send({ success: true, message: 'Subcategory updated', subCategory })
                 })

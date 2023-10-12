@@ -5,6 +5,14 @@ module.exports = mongoose => {
                 type: String,
                 default: null,
             },
+            name_en: {
+                type: String,
+                default: null,
+            },
+            name_ru: {
+                type: String,
+                default: null,
+            },
             subcategories: [{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'subcategories'
