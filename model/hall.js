@@ -9,11 +9,23 @@ module.exports = mongoose => {
                 type: String,
                 default: null,
             },
-            eventId: [{
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'event',
-            }],
+            country_en: {
+                type: String,
+                default: null,
+            },
+            country_ru: {
+                type: String,
+                default: null,
+            },
             location: {
+                type: String,
+                default: null,
+            },
+            location_en: {
+                type: String,
+                default: null,
+            },
+            location_ru: {
                 type: String,
                 default: null,
             },
@@ -21,12 +33,24 @@ module.exports = mongoose => {
                 type: String,
                 default: null,
             },
+            place_en: {
+                type: String,
+                default: null,
+            },
+            place_ru: {
+                type: String,
+                default: null,
+            },
             hall: {
                 type: String,
                 default: null,
             },
-            session: {
-                type: Object,
+            hall_en: {
+                type: String,
+                default: null,
+            },
+            hall_ru: {
+                type: String,
                 default: null,
             },
         },
