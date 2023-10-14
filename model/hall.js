@@ -53,6 +53,10 @@ module.exports = mongoose => {
                 type: String,
                 default: null,
             },
+            price: [{
+                type: Object,
+                default: null,
+            }],
         },
         { timestamps: true },
     );

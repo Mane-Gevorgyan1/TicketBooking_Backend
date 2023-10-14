@@ -147,7 +147,7 @@ class TicketController {
                             const seat = await new Ticket({ ...req.body, ticketNumber: seatNumber })
                             seat.save(seat)
                                 .then(() => {
-                                    res.send({ sucess: true, seat })
+                                    res.send({ success: true, seat })
                                 })
                                 .catch((err) => {
                                     res.send({ success: false, err })

@@ -141,6 +141,16 @@ class EventController {
             })
     }
 
+    static async getAllSessionEvents(req, res) {
+        await Event.find()
+            .then(events => {
+                res.send({ success: true, events })
+            })
+            .catch(error => {
+                res.send({ success: false, error })
+            })
+    }
+
     static async getCategoryEvents(req, res) {
         const result = validationResult(req)
         if (result.isEmpty()) {
@@ -255,19 +265,13 @@ class EventController {
             .populate('sponsors')
             .populate('subcategories')
             .populate({ path: 'sessions', populate: { path: 'hallId' } })
-            .populate({
-                path: 'category',
-                // populate: { path: 'subcategories' }
-            })
+            .populate('category')
             .then(async event => {
                 const recomended = await Event.find({ category: { $in: event[0].category } })
                     .populate('sponsors')
                     .populate('subcategories')
                     .populate('sessions')
-                    .populate({
-                        path: 'category',
-                        // populate: { path: 'subcategories' }
-                    })
+                    .populate('category')
                     .limit(10)
                 let sessions = []
                 event[0]?.sessions?.forEach(async session => {

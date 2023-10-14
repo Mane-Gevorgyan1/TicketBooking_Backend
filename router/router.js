@@ -44,6 +44,7 @@ router.get('/getTopEvents', EventController.getTopEvents)
 router.get('/eventValidity', EventController.eventValidity)
 router.get('/randomEvents', EventController.randomEvents)
 router.post('/getAllEvents', EventController.getAllEvents)
+router.get('/getAllSessionEvents', EventController.getAllSessionEvents)
 router.post('/getCategoryEvents', body(['categoryId']).notEmpty().escape(), EventController.getCategoryEvents)
 router.get('/singleEvent/:id', EventController.singleEvent)
 router.post('/search', EventController.search)
@@ -56,8 +57,10 @@ router.delete('/deleteSponsor', body(['id']).notEmpty().escape(), SponsorControl
 
 
 // Hall Controller
-router.post('/createHall', upload.single('image'), body(['country', 'city', 'location', 'hall', 'eventId']).notEmpty().escape(), HallController.createHall)
+router.post('/createHall', upload.single('image'), body(['country', 'location', 'place', 'hall']).notEmpty().escape(), HallController.createHall)
 router.get('/getAllHalls', HallController.getAllHalls)
+router.get('/singleHall/:id', HallController.singleHall)
+router.patch('/editHall/:id', upload.single('image'), HallController.editHall)
 
 
 // Category Controller
@@ -73,5 +76,8 @@ router.delete('/deleteSubcategory', body(['id']).notEmpty().escape(), CategoryCo
 
 // Sessions
 router.post('/createSession', body(['hallId', 'eventId', 'priceStart', 'priceEnd', 'date', 'time', 'price']), SessionController.createSession)
+router.get('/getAllSessions', SessionController.getAllSessions)
+router.get('/singleSession/:id', SessionController.singleSession)
+router.delete('/deleteSession', body(['id']).notEmpty().escape(), SessionController.deleteSession)
 
 module.exports = router
