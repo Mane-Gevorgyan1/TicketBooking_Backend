@@ -406,13 +406,11 @@ class EventController {
 
             let eventsToShow = []
             sessions?.forEach(session => {
-                session?.eventId?.forEach(event => {
-                    if (req.body.subcategory && event.subcategories.toHexString() == req.body.subcategory) {
-                        eventsToShow.push(session)
-                    } else if (!req.body.subcategory && event.category.toHexString() == req.body.category) {
-                        eventsToShow.push(session)
-                    }
-                })
+                if (req.body.subcategory && session?.eventId?.subcategories.toHexString() == req.body.subcategory) {
+                    eventsToShow.push(session)
+                } else if (!req.body.subcategory && session?.eventId?.category.toHexString() == req.body.category) {
+                    eventsToShow.push(session)
+                }
             })
             if (req.body.hall) {
                 eventsToShow = eventsToShow?.filter(session => session?.hallId?._id == req.body.hall)

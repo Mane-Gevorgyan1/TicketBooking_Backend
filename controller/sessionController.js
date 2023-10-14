@@ -11,7 +11,6 @@ const { validationResult } = require('express-validator')
 class SessionController {
 
     static async createSession(req, res) {
-        console.log(req.body);
         const result = validationResult(req)
         if (result.isEmpty()) {
             const session = await new Session({ ...req.body })
