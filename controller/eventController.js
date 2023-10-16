@@ -401,6 +401,7 @@ class EventController {
             const sessions = await Session.find(filter)
                 .populate({
                     path: 'eventId',
+                    populate: { path: 'sponsors' },
                 })
                 .populate('hallId')
 
