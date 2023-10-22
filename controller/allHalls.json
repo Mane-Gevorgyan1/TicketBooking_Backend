@@ -3030,6 +3030,10 @@
         "section": 12,
         "price": [
             {
+                "row": 1,
+                "price": ""
+            },
+            {
                 "row": 2,
                 "price": ""
             },
@@ -3039,10 +3043,6 @@
             },
             {
                 "row": 4,
-                "price": ""
-            },
-            {
-                "row": 5,
                 "price": ""
             }
         ]
@@ -3051,6 +3051,10 @@
         "section": 13,
         "price": [
             {
+                "row": 1,
+                "price": ""
+            },
+            {
                 "row": 2,
                 "price": ""
             },
@@ -3060,10 +3064,6 @@
             },
             {
                 "row": 4,
-                "price": ""
-            },
-            {
-                "row": 5,
                 "price": ""
             }
         ]
@@ -3072,6 +3072,10 @@
         "section": 14,
         "price": [
             {
+                "row": 1,
+                "price": ""
+            },
+            {
                 "row": 2,
                 "price": ""
             },
@@ -3081,10 +3085,6 @@
             },
             {
                 "row": 4,
-                "price": ""
-            },
-            {
-                "row": 5,
                 "price": ""
             }
         ]
@@ -3093,6 +3093,10 @@
         "section": 15,
         "price": [
             {
+                "row": 1,
+                "price": ""
+            },
+            {
                 "row": 2,
                 "price": ""
             },
@@ -3102,10 +3106,6 @@
             },
             {
                 "row": 4,
-                "price": ""
-            },
-            {
-                "row": 5,
                 "price": ""
             }
         ]
@@ -3114,6 +3114,10 @@
         "section": 16,
         "price": [
             {
+                "row": 1,
+                "price": ""
+            },
+            {
                 "row": 2,
                 "price": ""
             },
@@ -3123,10 +3127,6 @@
             },
             {
                 "row": 4,
-                "price": ""
-            },
-            {
-                "row": 5,
                 "price": ""
             }
         ]
@@ -3135,6 +3135,10 @@
         "section": 17,
         "price": [
             {
+                "row": 1,
+                "price": ""
+            },
+            {
                 "row": 2,
                 "price": ""
             },
@@ -3144,10 +3148,6 @@
             },
             {
                 "row": 4,
-                "price": ""
-            },
-            {
-                "row": 5,
                 "price": ""
             }
         ]
@@ -3176,5 +3176,25 @@
                 "price": ""
             }
         ]
+    },
+]
+
+// mutqavjar
+"price": [
+    {
+        "section": 1,
+        "price": [
+            {
+                "row": 1,
+                "type": "Fan zone",
+                "price": ""
+            },
+            {
+                "row": 2,
+                "type": "VIP zone",
+                "price": ""
+            },
+        ],
+        "ticketQuantity": 100
     },
 ]

@@ -5,6 +5,10 @@ module.exports = mongoose => {
                 type: String,
                 default: null,
             },
+            sectionImage: {
+                type: String,
+                default: null,
+            },
             country: {
                 type: String,
                 default: null,

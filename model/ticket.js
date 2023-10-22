@@ -17,6 +17,10 @@ module.exports = mongoose => {
                 type: String,
                 autoIncrement: true,
             },
+            sold: {
+                type: Boolean,
+                default: false,
+            },
             parterre: {
                 type: Boolean,
                 default: false,
