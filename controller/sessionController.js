@@ -62,6 +62,16 @@ class SessionController {
             })
     }
 
+    static async editSession(req, res) {
+        await Session.findByIdAndUpdate(req.body.id, { ...req.body })
+            .then(() => {
+                res.send({ success: true, message: 'Session successfuly edited' })
+            })
+            .catch(error => {
+                res.send({ success: false, error })
+            })
+    }
+
 }
 
 module.exports = SessionController

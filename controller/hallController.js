@@ -13,10 +13,10 @@ class HallController {
     static async createHall(req, res) {
         const result = validationResult(req)
         if (result.isEmpty()) {
-            if (req.file) {
+            // if (req.file) {
                 const hall = await new Hall({
                     ...req.body,
-                    image: req.file?.filename,
+                    // image: req.file?.filename,
                     "price": [
                         {
                             "section": 1,
@@ -49,18 +49,6 @@ class HallController {
                                     "row": 7,
                                     "price": ""
                                 },
-                                {
-                                    "row": 8,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 9,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 10,
-                                    "price": ""
-                                }
                             ]
                         },
                         {
@@ -104,6 +92,14 @@ class HallController {
                                 },
                                 {
                                     "row": 10,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 11,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 12,
                                     "price": ""
                                 }
                             ]
@@ -150,6 +146,22 @@ class HallController {
                                 {
                                     "row": 10,
                                     "price": ""
+                                },
+                                {
+                                    "row": 11,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 12,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 13,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 14,
+                                    "price": ""
                                 }
                             ]
                         },
@@ -194,6 +206,22 @@ class HallController {
                                 },
                                 {
                                     "row": 10,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 11,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 12,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 13,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 14,
                                     "price": ""
                                 }
                             ]
@@ -240,6 +268,14 @@ class HallController {
                                 {
                                     "row": 10,
                                     "price": ""
+                                },
+                                {
+                                    "row": 11,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 12,
+                                    "price": ""
                                 }
                             ]
                         },
@@ -265,6 +301,18 @@ class HallController {
                                 {
                                     "row": 5,
                                     "price": ""
+                                },
+                                {
+                                    "row": 6,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 7,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 8,
+                                    "price": ""
                                 }
                             ]
                         },
@@ -277,18 +325,6 @@ class HallController {
                                 },
                                 {
                                     "row": 2,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 3,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 4,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 5,
                                     "price": ""
                                 }
                             ]
@@ -315,6 +351,26 @@ class HallController {
                                 {
                                     "row": 5,
                                     "price": ""
+                                },
+                                {
+                                    "row": 6,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 7,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 8,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 9,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 10,
+                                    "price": ""
                                 }
                             ]
                         },
@@ -340,6 +396,26 @@ class HallController {
                                 {
                                     "row": 5,
                                     "price": ""
+                                },
+                                {
+                                    "row": 6,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 7,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 8,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 9,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 10,
+                                    "price": ""
                                 }
                             ]
                         },
@@ -352,18 +428,6 @@ class HallController {
                                 },
                                 {
                                     "row": 2,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 3,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 4,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 5,
                                     "price": ""
                                 }
                             ]
@@ -397,10 +461,6 @@ class HallController {
                             "section": 12,
                             "price": [
                                 {
-                                    "row": 1,
-                                    "price": ""
-                                },
-                                {
                                     "row": 2,
                                     "price": ""
                                 },
@@ -422,11 +482,19 @@ class HallController {
                             "section": 13,
                             "price": [
                                 {
-                                    "row": 1,
+                                    "row": 2,
                                     "price": ""
                                 },
                                 {
-                                    "row": 2,
+                                    "row": 3,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 4,
+                                    "price": ""
+                                },
+                                {
+                                    "row": 5,
                                     "price": ""
                                 }
                             ]
@@ -434,10 +502,6 @@ class HallController {
                         {
                             "section": 14,
                             "price": [
-                                {
-                                    "row": 1,
-                                    "price": ""
-                                },
                                 {
                                     "row": 2,
                                     "price": ""
@@ -460,10 +524,6 @@ class HallController {
                             "section": 15,
                             "price": [
                                 {
-                                    "row": 1,
-                                    "price": ""
-                                },
-                                {
                                     "row": 2,
                                     "price": ""
                                 },
@@ -485,10 +545,6 @@ class HallController {
                             "section": 16,
                             "price": [
                                 {
-                                    "row": 1,
-                                    "price": ""
-                                },
-                                {
                                     "row": 2,
                                     "price": ""
                                 },
@@ -502,14 +558,6 @@ class HallController {
                                 },
                                 {
                                     "row": 5,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 6,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 7,
                                     "price": ""
                                 }
                             ]
@@ -518,10 +566,6 @@ class HallController {
                             "section": 17,
                             "price": [
                                 {
-                                    "row": 1,
-                                    "price": ""
-                                },
-                                {
                                     "row": 2,
                                     "price": ""
                                 },
@@ -535,14 +579,6 @@ class HallController {
                                 },
                                 {
                                     "row": 5,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 6,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 7,
                                     "price": ""
                                 }
                             ]
@@ -569,206 +605,9 @@ class HallController {
                                 {
                                     "row": 5,
                                     "price": ""
-                                },
-                                {
-                                    "row": 6,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 7,
-                                    "price": ""
                                 }
                             ]
                         },
-                        {
-                            "section": 19,
-                            "price": [
-                                {
-                                    "row": 1,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 2,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 3,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 4,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 5,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 6,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 7,
-                                    "price": ""
-                                }
-                            ]
-                        },
-                        {
-                            "section": 20,
-                            "price": [
-                                {
-                                    "row": 1,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 2,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 3,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 4,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 5,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 6,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 7,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 8,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 9,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 10,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 11,
-                                    "price": ""
-                                }
-                            ]
-                        },
-                        {
-                            "section": 21,
-                            "price": [
-                                {
-                                    "row": 1,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 2,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 3,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 4,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 5,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 6,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 7,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 8,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 9,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 10,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 11,
-                                    "price": ""
-                                }
-                            ]
-                        },
-                        {
-                            "section": 22,
-                            "price": [
-                                {
-                                    "row": 1,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 2,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 3,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 4,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 5,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 6,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 7,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 8,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 9,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 10,
-                                    "price": ""
-                                },
-                                {
-                                    "row": 11,
-                                    "price": ""
-                                }
-                            ]
-                        },
-                        {
-                            "section": 23,
-                            "price": [
-                                {
-                                    "row": 1,
-                                    "price": ""
-                                }
-                            ]
-                        }
                     ]
                 })
                 hall.save()
@@ -778,9 +617,9 @@ class HallController {
                     .catch((err) => {
                         res.send({ success: false, err })
                     })
-            } else {
-                res.send({ success: false, message: 'image field is required' })
-            }
+            // } else {
+                // res.send({ success: false, message: 'image field is required' })
+            // }
         } else {
             res.send({ errors: result.array() })
         }

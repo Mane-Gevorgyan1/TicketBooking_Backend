@@ -79,5 +79,6 @@ router.post('/createSession', body(['hallId', 'eventId', 'priceStart', 'priceEnd
 router.get('/getAllSessions', SessionController.getAllSessions)
 router.get('/singleSession/:id', SessionController.singleSession)
 router.delete('/deleteSession', body(['id']).notEmpty().escape(), SessionController.deleteSession)
+router.post('/editSession', SessionController.editSession)
 
 module.exports = router

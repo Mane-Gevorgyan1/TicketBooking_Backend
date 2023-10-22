@@ -1,0 +1,3180 @@
+// karen demirjyan (2000)
+"price": [
+    {
+        "section": 1,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 2,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 3,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 4,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 5,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 6,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 7,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 8,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 9,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 10,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 11,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 12,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 13,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 14,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 15,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 16,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 17,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 18,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 19,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 20,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 21,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 22,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 23,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            }
+        ]
+    }
+]
+// Karen demirjyan (7000)
+"price": [
+    {
+        "section": 1,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 2,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 3,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 4,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 5,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 6,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 7,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 8,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 9,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 10,
+        "price": [
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            },
+            {
+                "row": 13,
+                "price": ""
+            },
+            {
+                "row": 14,
+                "price": ""
+            },
+            {
+                "row": 15,
+                "price": ""
+            },
+            {
+                "row": 16,
+                "price": ""
+            },
+            {
+                "row": 17,
+                "price": ""
+            },
+            {
+                "row": 18,
+                "price": ""
+            },
+        ]
+    },
+    {
+        "section": 11,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            },
+            {
+                "row": 13,
+                "price": ""
+            },
+            {
+                "row": 14,
+                "price": ""
+            },
+            {
+                "row": 15,
+                "price": ""
+            },
+            {
+                "row": 16,
+                "price": ""
+            },
+            {
+                "row": 17,
+                "price": ""
+            },
+            {
+                "row": 18,
+                "price": ""
+            },
+            {
+                "row": 19,
+                "price": ""
+            },
+            {
+                "row": 20,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 12,
+        "price": [
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            },
+            {
+                "row": 13,
+                "price": ""
+            },
+            {
+                "row": 14,
+                "price": ""
+            },
+            {
+                "row": 15,
+                "price": ""
+            },
+            {
+                "row": 16,
+                "price": ""
+            },
+            {
+                "row": 17,
+                "price": ""
+            },
+            {
+                "row": 18,
+                "price": ""
+            },
+            {
+                "row": 19,
+                "price": ""
+            },
+            {
+                "row": 20,
+                "price": ""
+            },
+            {
+                "row": 21,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 13,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            },
+            {
+                "row": 13,
+                "price": ""
+            },
+            {
+                "row": 14,
+                "price": ""
+            },
+            {
+                "row": 15,
+                "price": ""
+            },
+            {
+                "row": 16,
+                "price": ""
+            },
+            {
+                "row": 17,
+                "price": ""
+            },
+            {
+                "row": 18,
+                "price": ""
+            },
+            {
+                "row": 19,
+                "price": ""
+            },
+            {
+                "row": 20,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 14,
+        "price": [
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            },
+            {
+                "row": 13,
+                "price": ""
+            },
+            {
+                "row": 14,
+                "price": ""
+            },
+            {
+                "row": 15,
+                "price": ""
+            },
+            {
+                "row": 16,
+                "price": ""
+            },
+            {
+                "row": 17,
+                "price": ""
+            },
+            {
+                "row": 18,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 15,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            },
+        ]
+    },
+    {
+        "section": 16,
+        "price": [
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+        ]
+    },
+    {
+        "section": 17,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 18,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 19,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 20,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 21,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 22,
+        "price": [
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+        ]
+    },
+    {
+        "section": 23,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 24,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 25,
+        "price": [
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+        ]
+    },
+    {
+        "section": 26,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 27,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 28,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 29,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 30,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 31,
+        "price": [
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+        ]
+    },
+    {
+        "section": 32,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 33,
+        "price": [
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            },
+            {
+                "row": 13,
+                "price": ""
+            },
+            {
+                "row": 14,
+                "price": ""
+            },
+            {
+                "row": 15,
+                "price": ""
+            },
+            {
+                "row": 16,
+                "price": ""
+            },
+            {
+                "row": 17,
+                "price": ""
+            },
+            {
+                "row": 18,
+                "price": ""
+            },
+        ]
+    },
+    {
+        "section": 34,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            },
+            {
+                "row": 13,
+                "price": ""
+            },
+            {
+                "row": 14,
+                "price": ""
+            },
+            {
+                "row": 15,
+                "price": ""
+            },
+            {
+                "row": 16,
+                "price": ""
+            },
+            {
+                "row": 17,
+                "price": ""
+            },
+            {
+                "row": 18,
+                "price": ""
+            },
+            {
+                "row": 19,
+                "price": ""
+            },
+            {
+                "row": 20,
+                "price": ""
+            },
+        ]
+    },
+    {
+        "section": 35,
+        "price": [
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            },
+            {
+                "row": 13,
+                "price": ""
+            },
+            {
+                "row": 14,
+                "price": ""
+            },
+            {
+                "row": 15,
+                "price": ""
+            },
+            {
+                "row": 16,
+                "price": ""
+            },
+            {
+                "row": 17,
+                "price": ""
+            },
+            {
+                "row": 18,
+                "price": ""
+            },
+            {
+                "row": 19,
+                "price": ""
+            },
+            {
+                "row": 20,
+                "price": ""
+            },
+            {
+                "row": 21,
+                "price": ""
+            },
+        ]
+    },
+    {
+        "section": 36,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            },
+            {
+                "row": 13,
+                "price": ""
+            },
+            {
+                "row": 14,
+                "price": ""
+            },
+            {
+                "row": 15,
+                "price": ""
+            },
+            {
+                "row": 16,
+                "price": ""
+            },
+            {
+                "row": 17,
+                "price": ""
+            },
+            {
+                "row": 18,
+                "price": ""
+            },
+            {
+                "row": 19,
+                "price": ""
+            },
+            {
+                "row": 20,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 37,
+        "price": [
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            },
+            {
+                "row": 13,
+                "price": ""
+            },
+            {
+                "row": 14,
+                "price": ""
+            },
+            {
+                "row": 15,
+                "price": ""
+            },
+            {
+                "row": 16,
+                "price": ""
+            },
+            {
+                "row": 17,
+                "price": ""
+            },
+            {
+                "row": 18,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 38,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            }
+        ]
+    }
+]
+// Aram Xachatryan (1200)
+"price": [
+    {
+        "section": 1,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+        ]
+    },
+    {
+        "section": 2,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 3,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            },
+            {
+                "row": 13,
+                "price": ""
+            },
+            {
+                "row": 14,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 4,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            },
+            {
+                "row": 13,
+                "price": ""
+            },
+            {
+                "row": 14,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 5,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            },
+            {
+                "row": 11,
+                "price": ""
+            },
+            {
+                "row": 12,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 6,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 7,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 8,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 9,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            },
+            {
+                "row": 6,
+                "price": ""
+            },
+            {
+                "row": 7,
+                "price": ""
+            },
+            {
+                "row": 8,
+                "price": ""
+            },
+            {
+                "row": 9,
+                "price": ""
+            },
+            {
+                "row": 10,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 10,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 11,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 12,
+        "price": [
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 13,
+        "price": [
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 14,
+        "price": [
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 15,
+        "price": [
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 16,
+        "price": [
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 17,
+        "price": [
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+    {
+        "section": 18,
+        "price": [
+            {
+                "row": 1,
+                "price": ""
+            },
+            {
+                "row": 2,
+                "price": ""
+            },
+            {
+                "row": 3,
+                "price": ""
+            },
+            {
+                "row": 4,
+                "price": ""
+            },
+            {
+                "row": 5,
+                "price": ""
+            }
+        ]
+    },
+]
