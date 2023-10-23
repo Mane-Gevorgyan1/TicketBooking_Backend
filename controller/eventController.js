@@ -387,7 +387,14 @@ class EventController {
                 filter = {
                     date: {
                         $gte: startDate,
-                        $lt: endDate,
+                        $lte: endDate,
+                    }
+                }
+            } else if (req.body.startDate) {
+                const startDate = new Date(req.body.startDate)
+                filter = {
+                    date: {
+                        $gte: startDate,
                     }
                 }
             }
