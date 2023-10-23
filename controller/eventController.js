@@ -295,7 +295,11 @@ class EventController {
 
     static async search(req, res) {
         const query = {
-            title: { $regex: `^${req.body.search}`, $options: 'i' }
+            $or: [
+                { title: { $regex: `^${req.body.search}`, $options: 'i' } },
+                { title_en: { $regex: `^${req.body.search}`, $options: 'i' } },
+                { title_ru: { $regex: `^${req.body.search}`, $options: 'i' } },
+            ]
         }
 
         await Event.find(query)
