@@ -377,9 +377,9 @@ class EventController {
         const result = validationResult(req)
         if (result.isEmpty()) {
             let filter = {}
-            if (req.body.startDate && req.body.endDate) {
-                const startDate = new Date(req.body.startDate)
-                const endDate = new Date(req.body.endDate)
+            if (req.body.date.startDate && req.body.date.endDate) {
+                const startDate = new Date(req.body.date.startDate)
+                const endDate = new Date(req.body.date.endDate)
                 if (startDate.toDateString() === endDate.toDateString()) {
                     // When startDate and endDate are the same, create a range for the entire day
                     endDate.setDate(endDate.getDate() + 1) // Increment the endDate to the next day
@@ -390,8 +390,8 @@ class EventController {
                         $lte: endDate,
                     }
                 }
-            } else if (req.body.startDate) {
-                const startDate = new Date(req.body.startDate)
+            } else if (req.body.date.startDate) {
+                const startDate = new Date(req.body.date.startDate)
                 filter = {
                     date: {
                         $gte: startDate,
