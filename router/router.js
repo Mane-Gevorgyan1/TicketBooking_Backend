@@ -10,6 +10,8 @@ const multer = require('multer')
 const SponsorController = require("../controller/sponsorController")
 const HallController = require("../controller/hallController")
 const SessionController = require("../controller/sessionController")
+const AdController = require("../controller/adController")
+const FeedbackController = require("../controller/feedbackController")
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'public/images')
@@ -80,5 +82,18 @@ router.get('/getAllSessions', SessionController.getAllSessions)
 router.get('/singleSession/:id', SessionController.singleSession)
 router.delete('/deleteSession', body(['id']).notEmpty().escape(), SessionController.deleteSession)
 router.post('/editSession', SessionController.editSession)
+
+
+// Ads
+router.post('/createMainAd', upload.single('image'), AdController.createMainAd)
+router.get('/getAllAds', AdController.getAllAds)
+router.get('/getSingleAd/:id', AdController.getSingleAd)
+router.patch('/editAd/:id', upload.single('image'), AdController.editAd)
+
+
+// Feedback
+router.post('/createFeedback', FeedbackController.createFeedback)
+router.get('/getFeedback', FeedbackController.getFeedback)
+router.patch('/editFeedback/:id', FeedbackController.editFeedback)
 
 module.exports = router
