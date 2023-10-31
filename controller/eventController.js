@@ -358,8 +358,8 @@ class EventController {
     }
 
     static async eventValidity(req, res) {
-        const valid = await Event.findById('6515818a973806513560ccab')
-        res.send({ valid })
+        const valid = await Event.find()
+        res.send({ valid: valid[0] })
     }
 
     static async deleteEvent(req, res) {
