@@ -15,5 +15,6 @@ db.hall = require('./hall.js')(mongoose)
 db.session = require('./session.js')(mongoose)
 db.ad = require('./ad.js')(mongoose)
 db.feedback = require('./feedback.js')(mongoose)
+db.user = require('./user.js')(mongoose)
 
 module.exports = db

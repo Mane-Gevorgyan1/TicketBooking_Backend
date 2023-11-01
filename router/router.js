@@ -4,14 +4,16 @@ const { body } = require('express-validator')
 const EventController = require("../controller/eventController")
 const TicketController = require("../controller/ticketController")
 const CategoryController = require("../controller/categoryController")
-
-/* Multer */
-const multer = require('multer')
 const SponsorController = require("../controller/sponsorController")
 const HallController = require("../controller/hallController")
 const SessionController = require("../controller/sessionController")
 const AdController = require("../controller/adController")
 const FeedbackController = require("../controller/feedbackController")
+const UserController = require("../controller/userController")
+const { authenticateToken } = require("../middleware/auth")
+
+/* Multer */
+const multer = require('multer')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'public/images')
@@ -95,5 +97,14 @@ router.patch('/editAd/:id', upload.single('image'), AdController.editAd)
 router.post('/createFeedback', FeedbackController.createFeedback)
 router.get('/getFeedback', FeedbackController.getFeedback)
 router.patch('/editFeedback/:id', FeedbackController.editFeedback)
+
+
+// User
+router.post('/createUser', UserController.createUser)
+router.post('/login', UserController.login)
+router.get('/getUsers', authenticateToken, UserController.getUsers)
+router.post('/refreshToken', UserController.refreshToken)
+router.post('/logout', UserController.logout)
+
 
 module.exports = router

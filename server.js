@@ -26,6 +26,7 @@ const corsOptions = {
   origin: '*',
   credentials: true, //access-control-allow-credentials:true
 }
+
 app.use(cookieParser('secretcode'))
 app.use(cors(corsOptions))
 app.use(session({
