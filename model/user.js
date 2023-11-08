@@ -1,6 +1,10 @@
 module.exports = mongoose => {
     const schema = mongoose.Schema(
         {
+            name: {
+                type: String,
+                default: null,
+            },
             username: {
                 type: String,
                 default: null,
@@ -17,10 +21,42 @@ module.exports = mongoose => {
                 type: String,
                 default: null,
             },
-            refreshToken: {
-                type: String,
-                default: null,
-            }
+            // refreshToken: {
+            //     type: String,
+            //     default: null,
+            // },
+            accessToEvents: {
+                type: Boolean,
+                default: false,
+            },
+            accessToCategories: {
+                type: Boolean,
+                default: false,
+            },
+            accessToSponsors: {
+                type: Boolean,
+                default: false,
+            },
+            accessToHalls: {
+                type: Boolean,
+                default: false,
+            },
+            accessToSessions: {
+                type: Boolean,
+                default: false,
+            },
+            accessToAds: {
+                type: Boolean,
+                default: false,
+            },
+            accessToFeedback: {
+                type: Boolean,
+                default: false,
+            },
+            accessToModerators: {
+                type: Boolean,
+                default: false,
+            },
         },
         { timestamps: true },
     );

@@ -6,7 +6,7 @@ const { validationResult } = require('express-validator')
 const QRCode = require('qrcode')
 const { PDFDocument, rgb } = require('pdf-lib')
 const fs = require('fs').promises
-
+const axios = require('axios')
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -340,6 +340,30 @@ class TicketController {
             res.send({ errors: result.array() })
         }
     }
+
+    // static async registerPayment(req, res) {
+    //     const apiEndpoint = 'https://ipay.arca.am/payment/rest/register.do'
+
+    //     const payload = {
+    //         userName: 'YourUserName',
+    //         password: 'YourPassword',
+    //         amount: '100',
+    //         currency: 'AMD',
+    //         orderNumber: 'G87654321',
+    //         returnUrl: 'example.com',
+    //     }
+
+    //     try {
+    //         const response = await axios.post(apiEndpoint, payload);
+    //         const responseData = response.data; // Extract the response data
+
+    //         // Convert the response data to JSON and send it
+    //         res.json(responseData);
+    //     } catch (error) {
+    //         console.error(error);
+    //         res.status(500).json({ error: 'Payment request failed' });
+    //     }
+    // }
 
 }
 

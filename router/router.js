@@ -25,6 +25,11 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage })
 
+
+router.post('/login', UserController.login)
+
+router.use(authenticateToken)
+
 // Ticket Controller
 router.post('/setSeat', body(['row', 'seat', 'price', 'amphitheater', 'lodge', 'seatColor']).notEmpty().escape(), TicketController.setSeat)
 router.post('/singleTicket', body('ticketNumber').notEmpty().escape(), TicketController.singleTicket)
@@ -33,6 +38,7 @@ router.patch('/returnTicket', body('ticketNumber').notEmpty().escape(), TicketCo
 router.get('/getSeats', TicketController.getSeatDetails)
 router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphitheater']).notEmpty().escape(), TicketController.changeAvailability)
 router.post('/buyTicket', TicketController.buyTicket)
+// router.post('/registerPayment', TicketController.registerPayment)
 
 
 // Event Controller
@@ -101,10 +107,13 @@ router.patch('/editFeedback/:id', FeedbackController.editFeedback)
 
 // User
 router.post('/createUser', UserController.createUser)
-router.post('/login', UserController.login)
-router.get('/getUsers', authenticateToken, UserController.getUsers)
-router.post('/refreshToken', UserController.refreshToken)
-router.post('/logout', UserController.logout)
+router.get('/getSingleUser', UserController.getSingleUser)
+// router.post('/refreshToken', UserController.refreshToken)
+router.get('/getAllUsers', UserController.getAllUsers)
+router.post('/logout', UserController.logout) // sa der ogtagorcac chi
+router.patch('/changeUserSettings', UserController.changeUserSettings)
+router.delete('/deleteUser', UserController.deleteUser)
+
 
 
 module.exports = router
