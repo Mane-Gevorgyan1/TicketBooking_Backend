@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 function generateAccessToken(user) {
-    return jwt.sign({ username: user.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
+    return jwt.sign({ username: user.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7d' })
 }
 
 class UserController {
@@ -130,14 +130,13 @@ class UserController {
     // }
 
     static async logout(req, res) {
-        const users = await User.find({ refreshToken: req.body.refreshToken })
+        const users = await User.find({ accessToken: req.body.accessToken })
         if (users.length > 0) {
             const user = users[0]
             user.accessToken = null
-            user.refreshToken = null
             user.save()
-                .then(user => {
-                    res.send({ success: true, user: user, message: 'User logged out' })
+                .then(() => {
+                    res.send({ success: true, message: 'User logged out' })
                 })
                 .catch(error => {
                     res.send({ success: false, error })

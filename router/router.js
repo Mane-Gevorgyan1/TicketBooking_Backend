@@ -108,9 +108,8 @@ router.patch('/editFeedback/:id', FeedbackController.editFeedback)
 // User
 router.post('/createUser', UserController.createUser)
 router.get('/getSingleUser', UserController.getSingleUser)
-// router.post('/refreshToken', UserController.refreshToken)
 router.get('/getAllUsers', UserController.getAllUsers)
-router.post('/logout', UserController.logout) // sa der ogtagorcac chi
+router.post('/logout', UserController.logout)
 router.patch('/changeUserSettings', UserController.changeUserSettings)
 router.delete('/deleteUser', UserController.deleteUser)
 

@@ -21,10 +21,6 @@ module.exports = mongoose => {
                 type: String,
                 default: null,
             },
-            // refreshToken: {
-            //     type: String,
-            //     default: null,
-            // },
             accessToEvents: {
                 type: Boolean,
                 default: false,
