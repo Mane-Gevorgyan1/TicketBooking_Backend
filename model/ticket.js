@@ -65,6 +65,10 @@ module.exports = mongoose => {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'sessions'
             },
+            orderId: {
+                type: String,
+                default: null,
+            },
         },
         { timestamps: true },
     );

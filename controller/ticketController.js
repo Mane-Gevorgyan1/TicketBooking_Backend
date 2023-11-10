@@ -71,7 +71,7 @@ const emailTemplate = (data) => {
     <p>По вопросам звоните по телефону 090 00 00 00</p>
    </body>
    </html>
-`};
+`}
 
 // Function to create a QR code as a Data URI
 async function createQRCode(data) {
@@ -108,7 +108,7 @@ async function createPDFWithQRCode(outputFilePath, qrCodeData) {
         } else if (details?.lodge) {
             tex = 'Lodge'
         }
-        page.drawText(`Event: Buratino`, { x: 10, y: 120, size: 6 })
+        page.drawText(`Event: ${details?.title}`, { x: 10, y: 120, size: 6 })
         page.drawText(`Location: ${details?.country}, ${details?.location}, Karen Demirjyan`, { x: 10, y: 110, size: 6 })
         page.drawText(`Date: ${details?.date.split('T')[0]}`, { x: 10, y: 100, size: 6 })
         page.drawText(`Time: ${details?.time}`, { x: 10, y: 90, size: 6 })
@@ -123,6 +123,12 @@ async function createPDFWithQRCode(outputFilePath, qrCodeData) {
         console.error('Error creating PDF with QR code:', error);
         throw error;
     }
+}
+
+const generateOrderNumber = () => {
+    const timestamp = Date.now()
+    const randomNum = Math.floor(Math.random() * 1000)
+    return `ORD-${timestamp}-${randomNum}`
 }
 
 class TicketController {
@@ -282,7 +288,7 @@ class TicketController {
                         buyerName: req.body?.buyerName,
                         ticketCount,
                         total,
-                        title: session?.eventId[0]?.title
+                        title: session?.eventId?.title
                     })
                     const ticket = await new Ticket({
                         ...element,
@@ -294,17 +300,18 @@ class TicketController {
                         delivery: req.body.delivery,
                         sessionId: req.body.sessionId,
                         ticketNumber: ticketCount,
+                        orderId: req.body.orderId
                     })
                     ticket.save()
 
-                    const outputFilePath = `public/pdf/${ticket._id}.pdf`; // Specify the desired output PDF file path
+                    const outputFilePath = `public/pdf/${ticket._id}.pdf` // Specify the desired output PDF file path
                     const qrCodeData = JSON.stringify({
-                        title: session?.eventId[0]?.title,
-                        country: session?.hallId?.country,
-                        location: session?.hallId?.location,
-                        place: session?.hallId?.place,
+                        title: session?.eventId?.title_en,
+                        country: session?.hallId?.country_en,
+                        location: session?.hallId?.location_en,
+                        place: session?.hallId?.place_en,
                         date: session?.date,
-                        time: session?.time[0], // es petqa zangvac chlini
+                        time: session?.time, // es petqa zangvac chlini
                         ticketNumber: ticketCount,
                         parterre: element?.parterre,
                         amphitheater: element?.amphitheater,
@@ -341,29 +348,36 @@ class TicketController {
         }
     }
 
-    // static async registerPayment(req, res) {
-    //     const apiEndpoint = 'https://ipay.arca.am/payment/rest/register.do'
+    static async registerPayment(req, res) {
+        const myHeaders = new Headers()
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded")
 
-    //     const payload = {
-    //         userName: 'YourUserName',
-    //         password: 'YourPassword',
-    //         amount: '100',
-    //         currency: 'AMD',
-    //         orderNumber: 'G87654321',
-    //         returnUrl: 'example.com',
-    //     }
+        const urlencoded = new URLSearchParams()
+        urlencoded.append("userName", process.env.PAYMENT_USERNAME)
+        urlencoded.append("password", process.env.PAYMENT_PASSWORD)
+        urlencoded.append("orderNumber", generateOrderNumber())
+        urlencoded.append("returnUrl", "https://shinetickets.com/")
+        urlencoded.append("amount", req.body.amount)
 
-    //     try {
-    //         const response = await axios.post(apiEndpoint, payload);
-    //         const responseData = response.data; // Extract the response data
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: urlencoded,
+            redirect: 'follow'
+        }
 
-    //         // Convert the response data to JSON and send it
-    //         res.json(responseData);
-    //     } catch (error) {
-    //         console.error(error);
-    //         res.status(500).json({ error: 'Payment request failed' });
-    //     }
-    // }
+        fetch("https://ipay.arca.am/payment/rest/register.do", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                if (result.error) {
+                    res.send({ success: false, error: result?.errorMessage })
+                } else {
+                    const ress = JSON.parse(result)
+                    res.send({ success: true, orderId: ress?.orderId, formUrl: ress?.formUrl })
+                }
+            })
+            .catch(error => console.log('error', error))
+    }
 
 }
 

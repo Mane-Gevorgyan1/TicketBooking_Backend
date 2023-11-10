@@ -28,7 +28,7 @@ const upload = multer({ storage })
 
 router.post('/login', UserController.login)
 
-router.use(authenticateToken)
+// router.use(authenticateToken)
 
 // Ticket Controller
 router.post('/setSeat', body(['row', 'seat', 'price', 'amphitheater', 'lodge', 'seatColor']).notEmpty().escape(), TicketController.setSeat)
@@ -38,7 +38,7 @@ router.patch('/returnTicket', body('ticketNumber').notEmpty().escape(), TicketCo
 router.get('/getSeats', TicketController.getSeatDetails)
 router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphitheater']).notEmpty().escape(), TicketController.changeAvailability)
 router.post('/buyTicket', TicketController.buyTicket)
-// router.post('/registerPayment', TicketController.registerPayment)
+router.post('/registerPayment', TicketController.registerPayment)
 
 
 // Event Controller
