@@ -29,6 +29,10 @@ module.exports = mongoose => {
                 type: Object,
                 default: null,
             }],
+            soldTickets: [{
+                type: Object,
+                default: false,
+            }],
         },
         { timestamps: true },
     );

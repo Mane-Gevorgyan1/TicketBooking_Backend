@@ -268,6 +268,12 @@ class TicketController {
             let total = 0
             if (session) {
                 req.body.tickets?.forEach(async (element, index) => {
+                    session?.soldTickets.push({
+                        section: element?.section,
+                        row: element?.row,
+                        seat: element?.seat,
+                    })
+
                     let ticketCount = ''
                     ticketCount = await Ticket.countDocuments() + index + 1
                     if (ticketCount <= 9) {
@@ -303,6 +309,7 @@ class TicketController {
                         orderId: req.body.orderId
                     })
                     ticket.save()
+                    session.save()
 
                     const outputFilePath = `public/pdf/${ticket._id}.pdf` // Specify the desired output PDF file path
                     const qrCodeData = JSON.stringify({
