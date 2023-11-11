@@ -369,10 +369,10 @@ class TicketController {
         fetch("https://ipay.arca.am/payment/rest/register.do", requestOptions)
             .then(response => response.text())
             .then(result => {
-                if (result.error) {
-                    res.send({ success: false, error: result?.errorMessage })
+                const ress = JSON.parse(result)
+                if (ress.error) {
+                    res.send({ success: false, error: ress?.errorMessage })
                 } else {
-                    const ress = JSON.parse(result)
                     res.send({ success: true, orderId: ress?.orderId, formUrl: ress?.formUrl })
                 }
             })
