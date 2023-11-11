@@ -53,6 +53,10 @@ module.exports = mongoose => {
                 type: Boolean,
                 default: false,
             },
+            accessToTickets: {
+                type: Boolean,
+                default: false,
+            },
         },
         { timestamps: true },
     );

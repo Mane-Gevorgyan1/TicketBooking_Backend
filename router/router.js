@@ -34,11 +34,14 @@ router.post('/login', UserController.login)
 router.post('/setSeat', body(['row', 'seat', 'price', 'amphitheater', 'lodge', 'seatColor']).notEmpty().escape(), TicketController.setSeat)
 router.post('/singleTicket', body('ticketNumber').notEmpty().escape(), TicketController.singleTicket)
 router.patch('/changePrice', body(['row', 'seat', 'price', 'amphitheater']).notEmpty().escape(), TicketController.changePrice)
-router.patch('/returnTicket', body('ticketNumber').notEmpty().escape(), TicketController.returnTicket)
 router.get('/getSeats', TicketController.getSeatDetails)
-router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphitheater']).notEmpty().escape(), TicketController.changeAvailability)
 router.post('/buyTicket', TicketController.buyTicket)
 router.post('/registerPayment', TicketController.registerPayment)
+router.get('/getAllTickets', TicketController.getAllTickets)
+router.post('/searchTicket', TicketController.searchTicket)
+
+router.patch('/returnTicket', body('ticketNumber').notEmpty().escape(), TicketController.returnTicket)
+router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphitheater']).notEmpty().escape(), TicketController.changeAvailability)
 
 
 // Event Controller

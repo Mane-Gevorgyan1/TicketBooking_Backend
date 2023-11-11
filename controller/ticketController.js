@@ -171,8 +171,9 @@ class TicketController {
         const result = validationResult(req)
         if (result.isEmpty()) {
             await Ticket.find({ ticketNumber: req.body.ticketNumber })
+                .populate('sessionId')
                 .then(ticket => {
-                    res.send({ success: true, ticket })
+                    res.send({ success: true, ticket: ticket[0] })
                 })
                 .catch(error => {
                     res.send({ success: false, error })
@@ -262,16 +263,13 @@ class TicketController {
             const session = await Session.findById(req.body.sessionId)
                 .populate('eventId')
                 .populate('hallId')
-
             let PDFs = []
             let tickets = []
             let total = 0
             if (session) {
                 req.body.tickets?.forEach(async (element, index) => {
                     session?.soldTickets.push({
-                        section: element?.section,
-                        row: element?.row,
-                        seat: element?.seat,
+                        id: element?.seatId
                     })
 
                     let ticketCount = ''
@@ -309,16 +307,15 @@ class TicketController {
                         orderId: req.body.orderId
                     })
                     ticket.save()
-                    session.save()
 
-                    const outputFilePath = `public/pdf/${ticket._id}.pdf` // Specify the desired output PDF file path
+                    const outputFilePath = `public/pdf/${ticket._id}.pdf`
                     const qrCodeData = JSON.stringify({
                         title: session?.eventId?.title_en,
                         country: session?.hallId?.country_en,
                         location: session?.hallId?.location_en,
                         place: session?.hallId?.place_en,
                         date: session?.date,
-                        time: session?.time, // es petqa zangvac chlini
+                        time: session?.time,
                         ticketNumber: ticketCount,
                         parterre: element?.parterre,
                         amphitheater: element?.amphitheater,
@@ -330,6 +327,7 @@ class TicketController {
                     const pdf = await createPDFWithQRCode(outputFilePath, qrCodeData)
                     PDFs.push({ filename: pdf.split('public/pdf/')[1], path: pdf })
                 })
+                session.save()
 
                 setTimeout(() => {
                     const message = {
@@ -384,6 +382,36 @@ class TicketController {
                 }
             })
             .catch(error => console.log('error', error))
+    }
+
+    static async getAllTickets(req, res) {
+        const itemsPerPage = 20
+        const totalTicketCount = await Ticket.countDocuments()
+        const currentPage = parseInt(req.query.currentPage) || 1
+        const totalPages = Math.ceil(totalTicketCount / itemsPerPage)
+        const hasNextPage = currentPage < totalPages
+
+        await Ticket.find()
+            .skip((currentPage - 1) * itemsPerPage)
+            .limit(itemsPerPage)
+            .then(tickets => {
+                res.send({ success: true, tickets, totalTicketCount, currentPage, totalPages, hasNextPage })
+            })
+            .catch(error => {
+                res.send({ success: false, error })
+            })
+    }
+
+    static async searchTicket(req, res) {
+        await Ticket.find({ ticketNumber: { $regex: new RegExp('^' + req.body.search, 'i') } })
+            .then(ticket => {
+                console.log(ticket);
+                res.send({ success: true, ticket })
+            })
+            .catch(error => {
+                console.log(error);
+                res.send({ success: false, error })
+            })
     }
 
 }
