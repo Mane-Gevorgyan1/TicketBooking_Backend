@@ -17,6 +17,10 @@ module.exports = mongoose => {
                 type: String,
                 autoIncrement: true,
             },
+            seatId: {
+                type: Number,
+                default: null,
+            },
             parterre: {
                 type: Boolean,
                 default: false,
@@ -56,6 +60,10 @@ module.exports = mongoose => {
             delivery: {
                 type: Boolean,
                 default: false,
+            },
+            deliveryLocation: {
+                type: String,
+                default: null,
             },
             sessionId: {
                 type: mongoose.Schema.Types.ObjectId,
