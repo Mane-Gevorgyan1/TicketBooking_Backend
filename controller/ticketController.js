@@ -2,6 +2,7 @@ const db = require('../model/model')
 const Ticket = db.ticket
 const Session = db.session
 const ReturnedTickets = db.returnedTickets
+const CurrentTicket = db.currentTicket
 const nodemailer = require('nodemailer')
 const { validationResult } = require('express-validator')
 const QRCode = require('qrcode')
@@ -130,96 +131,6 @@ const generateOrderNumber = () => {
     const timestamp = Date.now()
     const randomNum = Math.floor(Math.random() * 1000)
     return `ORD-${timestamp}-${randomNum}`
-}
-
-async function buyTicket(req) {
-    const session = await Session.findById(req.sessionId)
-        .populate('eventId')
-        .populate('hallId')
-    let PDFs = []
-    let tickets = []
-    let total = 0
-    if (session) {
-        req.tickets?.forEach(async (element, index) => {
-            session?.soldTickets.push({
-                id: element?.seatId
-            })
-
-            let ticketCount = ''
-            ticketCount = await Ticket.countDocuments() + index + 1
-            if (ticketCount <= 9) {
-                ticketCount = '000' + ticketCount
-            } else if (ticketCount <= 99) {
-                ticketCount = '00' + ticketCount
-            } else if (ticketCount <= 999) {
-                ticketCount = '0' + ticketCount
-            }
-            total = + element?.price
-            tickets.push({
-                parterre: element?.parterre,
-                amphitheater: element?.amphitheater,
-                lodge: element?.lodge,
-                row: element?.row,
-                seat: element?.seat,
-                price: element?.price,
-                buyerName: req?.buyerName,
-                ticketCount,
-                total,
-                title: session?.eventId?.title
-            })
-            const ticket = await new Ticket({
-                ...element,
-                buyerName: req.buyerName,
-                buyerEmail: req.buyerEmail,
-                buyerPhone: req.buyerPhone,
-                buyerNotes: req.buyerNotes,
-                paymentMethod: req.paymentMethod,
-                delivery: req.delivery,
-                deliveryLocation: req.deliveryLocation,
-                sessionId: req.sessionId,
-                ticketNumber: ticketCount,
-                orderId: req.orderId
-            })
-            ticket.save()
-
-            const outputFilePath = `public/pdf/${ticket._id}.pdf`
-            const qrCodeData = JSON.stringify({
-                title: session?.eventId?.title_en,
-                country: session?.hallId?.country_en,
-                location: session?.hallId?.location_en,
-                place: session?.hallId?.place_en,
-                date: session?.date,
-                time: session?.time,
-                ticketNumber: ticketCount,
-                parterre: element?.parterre,
-                amphitheater: element?.amphitheater,
-                lodge: element?.lodge,
-                row: element?.row,
-                seat: element?.seat,
-                price: element?.price,
-            })
-            const pdf = await createPDFWithQRCode(outputFilePath, qrCodeData)
-            PDFs.push({ filename: pdf.split('public/pdf/')[1], path: pdf })
-        })
-        session.save()
-
-        setTimeout(() => {
-            const message = {
-                from: process.env.EMAIL,
-                to: req.buyerEmail,
-                subject: 'Shine tickets',
-                attachments: PDFs,
-                html: emailTemplate(tickets),
-            }
-            transporter.sendMail(message, async (err, info) => {
-                if (err) {
-                    // res.send("email is invalid");
-                } else {
-                    // res.send({ success: true, message: 'Ticket is sent to your email' })
-                }
-            })
-        }, 2000)
-    }
 }
 
 class TicketController {
@@ -362,6 +273,37 @@ class TicketController {
             })
     }
 
+    static async createCurrentTicket(req, res) {
+        const ticket = await new CurrentTicket({
+            buyerName: req.body.buyerName,
+            buyerEmail: req.body.buyerEmail,
+            buyerPhone: req.body.buyerPhone,
+            buyerNotes: req.body.buyerNotes,
+            deliveryLocation: req.body.deliveryLocation,
+            orderId: req.body.orderId,
+            paymentMethod: req.body.paymentMethod,
+            sessionId: req.body.sessionId,
+            tickets: req.body.tickets,
+        })
+        ticket.save()
+            .then(() => {
+                res.send({ success: true, ticket })
+            })
+            .catch(error => {
+                res.send({ success: false, error })
+            })
+    }
+
+    static async getCurrentTicket(req, res) {
+        await CurrentTicket.find({ orderId: req.body.orderId })
+            .then(ticket => {
+                res.send({ success: true, ticket: ticket[0] })
+            })
+            .catch(error => {
+                res.send({ success: false, error })
+            })
+    }
+
     static async registerPayment(req, res) {
         const myHeaders = new Headers()
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded")
@@ -381,21 +323,108 @@ class TicketController {
         }
 
         fetch("https://ipay.arca.am/payment/rest/register.do", requestOptions)
-            .then(response => response.text())
+            .then(response => response.json())
             .then(result => {
-                const ress = JSON.parse(result)
-                if (ress.error) {
-                    res.send({ success: false, error: ress?.errorMessage })
+                if (result.error) {
+                    res.send({ success: false, error: result?.errorMessage })
                 } else {
-                    let frontData = req.body.data
-                    frontData.orderId = ress?.orderId
-
-                    buyTicket(frontData)
-
-                    res.send({ success: true, orderId: ress?.orderId, formUrl: ress?.formUrl, data: req.body.data })
+                    res.send({ success: true, orderId: result?.orderId, formUrl: result?.formUrl })
                 }
             })
             .catch(error => console.log('error', error))
+    }
+
+    static async buyTicket(req, res) {
+        console.log(req.body);
+        const session = await Session.findById(req.body?.sessionId)
+            .populate('eventId')
+            .populate('hallId')
+        let PDFs = []
+        let tickets = []
+        let total = 0
+        if (session) {
+            req.body?.tickets?.forEach(async (element, index) => {
+                session?.soldTickets.push({
+                    id: element?.seatId
+                })
+
+                let ticketCount = ''
+                ticketCount = await Ticket.countDocuments() + index + 1
+                if (ticketCount <= 9) {
+                    ticketCount = '000' + ticketCount
+                } else if (ticketCount <= 99) {
+                    ticketCount = '00' + ticketCount
+                } else if (ticketCount <= 999) {
+                    ticketCount = '0' + ticketCount
+                }
+                total = + element?.price
+                tickets.push({
+                    parterre: element?.parterre,
+                    amphitheater: element?.amphitheater,
+                    lodge: element?.lodge,
+                    row: element?.row,
+                    seat: element?.seat,
+                    price: element?.price,
+                    buyerName: req?.body?.buyerName,
+                    ticketCount,
+                    total,
+                    title: session?.eventId?.title
+                })
+                const ticket = await new Ticket({
+                    ...element,
+                    buyerName: req?.body?.buyerName,
+                    buyerEmail: req?.body?.buyerEmail,
+                    buyerPhone: req?.body?.buyerPhone,
+                    buyerNotes: req?.body?.buyerNotes,
+                    paymentMethod: req?.body?.paymentMethod,
+                    delivery: req?.body?.delivery,
+                    deliveryLocation: req?.body?.deliveryLocation,
+                    sessionId: req?.body?.sessionId,
+                    ticketNumber: ticketCount,
+                    orderId: req?.body?.orderId
+                })
+                ticket.save()
+
+                const outputFilePath = `public/pdf/${ticket._id}.pdf`
+                const qrCodeData = JSON.stringify({
+                    title: session?.eventId?.title_en,
+                    country: session?.hallId?.country_en,
+                    location: session?.hallId?.location_en,
+                    place: session?.hallId?.place_en,
+                    date: session?.date,
+                    time: session?.time,
+                    ticketNumber: ticketCount,
+                    parterre: element?.parterre,
+                    amphitheater: element?.amphitheater,
+                    lodge: element?.lodge,
+                    row: element?.row,
+                    seat: element?.seat,
+                    price: element?.price,
+                })
+                const pdf = await createPDFWithQRCode(outputFilePath, qrCodeData)
+                PDFs.push({ filename: pdf.split('public/pdf/')[1], path: pdf })
+            })
+            session.save()
+
+            await CurrentTicket.findOneAndDelete({ orderId: req.body.orderId })
+
+            setTimeout(() => {
+                const message = {
+                    from: process.env.EMAIL,
+                    to: req?.body?.buyerEmail,
+                    subject: 'Shine tickets',
+                    attachments: PDFs,
+                    html: emailTemplate(tickets),
+                }
+                transporter.sendMail(message, async (err, info) => {
+                    if (err) {
+                        res.send("email is invalid");
+                    } else {
+                        res.send({ success: true, message: 'Ticket is sent to your email' })
+                    }
+                })
+            }, 2000)
+        }
     }
 
     static async getAllTickets(req, res) {

@@ -17,5 +17,6 @@ db.ad = require('./ad.js')(mongoose)
 db.feedback = require('./feedback.js')(mongoose)
 db.user = require('./user.js')(mongoose)
 db.returnedTickets = require('./returnedTickets.js')(mongoose)
+db.currentTicket = require('./currentTicket.js')(mongoose)
 
 module.exports = db
