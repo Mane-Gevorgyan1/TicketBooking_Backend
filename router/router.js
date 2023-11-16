@@ -43,6 +43,7 @@ router.get('/getReturnedTickets', TicketController.getReturnedTickets)
 router.delete('/deleteReturnTicket', TicketController.deleteReturnTicket)
 router.post('/createCurrentTicket', TicketController.createCurrentTicket)
 router.post('/getCurrentTicket', TicketController.getCurrentTicket)
+router.post('/registerTelcellPayment', TicketController.registerTelcellPayment)
 
 router.patch('/returnTicket', body('ticketNumber').notEmpty().escape(), TicketController.returnTicket)
 router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphitheater']).notEmpty().escape(), TicketController.changeAvailability)
