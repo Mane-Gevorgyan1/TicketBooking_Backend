@@ -10,6 +10,7 @@ const { PDFDocument, rgb } = require('pdf-lib')
 const fs = require('fs').promises
 const axios = require('axios')
 const crypto = require('crypto')
+const { log } = require('console')
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -407,7 +408,7 @@ class TicketController {
             })
             session.save()
 
-            await CurrentTicket.findOneAndDelete({ orderId: req.body.orderId })
+            await CurrentTicket.findOneAndDelete({ orderId: req.body?.orderId })
 
             setTimeout(() => {
                 const message = {
