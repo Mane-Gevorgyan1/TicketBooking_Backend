@@ -134,7 +134,7 @@ class EventController {
             .skip((currentPage - 1) * itemsPerPage)
             .limit(itemsPerPage)
             .then(events => {
-                res.send({ success: true, events, totalPages, hasNextPage })
+                res.send({ success: true, events, currentPage, totalPages, hasNextPage })
             })
             .catch(error => {
                 res.send({ success: false, error })

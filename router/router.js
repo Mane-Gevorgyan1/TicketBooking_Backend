@@ -28,7 +28,7 @@ const upload = multer({ storage })
 
 router.post('/login', UserController.login)
 
-// router.use(authenticateToken)
+router.use(authenticateToken)
 
 // Ticket Controller
 router.post('/setSeat', body(['row', 'seat', 'price', 'amphitheater', 'lodge', 'seatColor']).notEmpty().escape(), TicketController.setSeat)
@@ -43,7 +43,6 @@ router.get('/getReturnedTickets', TicketController.getReturnedTickets)
 router.delete('/deleteReturnTicket', TicketController.deleteReturnTicket)
 router.post('/createCurrentTicket', TicketController.createCurrentTicket)
 router.post('/getCurrentTicket', TicketController.getCurrentTicket)
-router.post('/registerTelcellPayment', TicketController.registerTelcellPayment)
 
 router.patch('/returnTicket', body('ticketNumber').notEmpty().escape(), TicketController.returnTicket)
 router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphitheater']).notEmpty().escape(), TicketController.changeAvailability)
@@ -51,10 +50,10 @@ router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphit
 
 // Event Controller
 router.post('/createEvent', upload.single('image'), body([
-    'title', 'topEvent', 'generalEvent', 'description', 'category', 'subcategories', 'sponsors',
+    'title', 'topEvent', 'generalEvent', 'category', 'subcategories'
 ]).notEmpty().escape(), EventController.createEvent)
 router.patch('/editEvent', upload.single('image'), body([
-    'id', 'title', 'topEvent', 'generalEvent', 'description', 'category', 'subcategories', 'sponsors',
+    'id', 'title', 'topEvent', 'generalEvent', 'category', 'subcategories'
 ]).notEmpty().escape(), EventController.editEvent)
 router.delete('/deleteEvent', body(['id']).notEmpty().escape(), EventController.deleteEvent)
 router.get('/getGeneralEvents', EventController.getGeneralEvents)
@@ -105,6 +104,7 @@ router.post('/createMainAd', upload.single('image'), AdController.createMainAd)
 router.get('/getAllAds', AdController.getAllAds)
 router.get('/getSingleAd/:id', AdController.getSingleAd)
 router.patch('/editAd/:id', upload.single('image'), AdController.editAd)
+router.delete('/deleteAd/:id', AdController.deleteAd)
 
 
 // Feedback

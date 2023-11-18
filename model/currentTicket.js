@@ -41,6 +41,6 @@ module.exports = mongoose => {
         { timestamps: true },
     );
 
-    const CurrentTicket = mongoose.model("CurrentTicket", schema)
+    const CurrentTicket = mongoose.model("currentTicket", schema)
     return CurrentTicket;
 }; 

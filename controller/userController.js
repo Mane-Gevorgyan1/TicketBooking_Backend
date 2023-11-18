@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 function generateAccessToken(user) {
-    return jwt.sign({ username: user.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7d' })
+    return jwt.sign({ username: user.username }, '825656ca2c2a02b581028dbe47797afb08e181630d35875fb998b4e757efb7395af3b00426d81a97e27d5d710051526af64447fb09eca3bc239e9a787f4946ad', { expiresIn: '7d' })
 }
 
 class UserController {
@@ -47,7 +47,11 @@ class UserController {
         const token = req.headers.authorization.split(' ')[1]
         await User.find({ accessToken: token })
             .then(user => {
-                res.send({ success: true, user: user[0] })
+                if (user?.length > 0) {
+                    res.send({ success: true, user: user[0] })
+                } else {
+                    res.send({ success: false, message: 'No User Found' })
+                }
             })
             .catch(error => {
                 res.send({ success: false, error })

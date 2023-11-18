@@ -8,15 +8,12 @@ const { validationResult } = require('express-validator')
 const QRCode = require('qrcode')
 const { PDFDocument, rgb } = require('pdf-lib')
 const fs = require('fs').promises
-const axios = require('axios')
-const crypto = require('crypto')
-const { log } = require('console')
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD
+        user: 'mailforspammessages@gmail.com',
+        pass: 'ztyunsgnsyhneocd'
     }
 })
 
@@ -311,10 +308,10 @@ class TicketController {
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded")
 
         const urlencoded = new URLSearchParams()
-        urlencoded.append("userName", process.env.ACBA_PAYMENT_USERNAME)
-        urlencoded.append("password", process.env.ACBA_PAYMENT_PASSWORD)
+        urlencoded.append("userName", '34558153_api')
+        urlencoded.append("password", '8FJvGc28NAZ4a5E')
         urlencoded.append("orderNumber", generateOrderNumber())
-        urlencoded.append("returnUrl", "https://shinetickets.com/StatusPage")
+        urlencoded.append("returnUrl", "http://localhost:3000/StatusPage")
         urlencoded.append("amount", req.body.amount)
 
         const requestOptions = {
@@ -333,11 +330,10 @@ class TicketController {
                     res.send({ success: true, orderId: result?.orderId, formUrl: result?.formUrl })
                 }
             })
-            .catch(error => console.log('error', error))
+            .catch(error => res.send({ error }))
     }
 
     static async buyTicket(req, res) {
-        console.log(req.body);
         const session = await Session.findById(req.body?.sessionId)
             .populate('eventId')
             .populate('hallId')
@@ -412,7 +408,7 @@ class TicketController {
 
             setTimeout(() => {
                 const message = {
-                    from: process.env.EMAIL,
+                    from: 'mailforspammessages@gmail.com',
                     to: req?.body?.buyerEmail,
                     subject: 'Shine tickets',
                     attachments: PDFs,
@@ -426,6 +422,8 @@ class TicketController {
                     }
                 })
             }, 2000)
+        } else {
+            res.send({ success: false })
         }
     }
 
@@ -465,110 +463,6 @@ class TicketController {
             .catch(() => {
                 res.send({ success: false })
             })
-    }
-
-    static async registerTelcellPayment(req, res) {
-        const valid_days = 1
-        const encodedProduct = Buffer.from(req.body.product).toString('base64')
-        const encodedIssuerId = Buffer.from(req.body.issuer_id).toString('base64')
-
-        const securityCode = crypto
-            .createHash('md5')
-            .update(process.env.SHOP_KEY + "interproducts@mail.ru" + "֏" + req.body.price + encodedProduct + valid_days + encodedIssuerId)
-            .digest('hex')
-
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Cookie", "connect.sid=s%3AFyf2HLl1D09jYISaAnEiS8pBdX1Fia6i.bCPsp5qTD3xulkjqsMmKSBgsmqQOITLvDxBydS8JaBo");
-
-        var raw = JSON.stringify({
-            "action": "PostInvoice",
-            "issuer": "interproducts@mail.ru",
-            "currency": "֏",
-            "price": "2000",
-            "product": "0KLQvtCy0LDRgA==",
-            "issuer_id": "MTcwMDA0Mzg2Nw==",
-            "valid_days": "1",
-            "lang": "am",
-            "security_code": "d86be4fc497dd469985c0a70623523dd"
-        });
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch("http://localhost:8080/registerTelcellPayment", requestOptions)
-            .then(response => response.text())
-            .then(result => res.send(result))
-            .catch(error => console.log('error', error));
-
-        // urlencoded.append("action", "PostInvoice");
-        // urlencoded.append("issuer", "interproducts@mail.ru");
-        // urlencoded.append("currency", "֏");
-        // // urlencoded.append("price", req.body.price);
-        // urlencoded.append("price", '200');
-        // // urlencoded.append("product", encodedProduct);
-        // urlencoded.append("product", '0KLQvtCy0LDRgA==');
-        // // urlencoded.append("issuer_id", encodedIssuerId);
-        // urlencoded.append("issuer_id", 'MTcwMDA0Mzg2Nw==');
-        // urlencoded.append("valid_days", '1');
-        // urlencoded.append("lang", "am");
-        // // urlencoded.append("security_code", securityCode);
-        // urlencoded.append("security_code", 'd86be4fc497dd469985c0a70623523dd');
-
-        // var requestOptions = {
-        //     method: 'POST',
-        //     headers: myHeaders,
-        //     body: raw,
-        //     redirect: 'follow'
-        // };
-
-        // fetch("https://telcellmoney.am/invoices", requestOptions)
-        //     .then(response => response.text())
-        //     .then(result => res.send(result))
-        //     .catch(error => res.send(error));
-
-
-
-        // var myHeaders = new Headers()
-        // myHeaders.append("Content-Type", "application/x-www-form-urlencoded")
-
-        // // urlencoded.append("issuer_id", "TVRVNU1UWTFORFkzTXc9PQ%3D%3D")
-        // // urlencoded.append("product", "MEtMUXZ0Q3kwTERSZ0E9PQ%3D%3D")
-        // var urlencoded = new URLSearchParams()
-        // urlencoded.append("Issuer", process.env.ISSUER)
-        // urlencoded.append("issuer_id", encodedIssuerId) // random hamar a, unique
-        // urlencoded.append("product", encodedProduct) // description 
-        // urlencoded.append("price", req.body.price) 
-        // urlencoded.append("sum", req.body.price) 
-        // urlencoded.append("security_code", securityCode)
-        // urlencoded.append("action", "PostInvoice")
-        // urlencoded.append("currency", process.env.CURRENCY)
-        // urlencoded.append("valid_days", valid_days)
-        // // urlencoded.append("description", req.body.description)
-        // urlencoded.append("lang", 'am')
-
-        // var requestOptions = {
-        //     method: 'POST',
-        //     headers: myHeaders,
-        //     body: urlencoded,
-        //     redirect: 'follow'
-        // }
-
-        // fetch("https://telcellmoney.am/invoices", requestOptions)
-        //     .then(response => response.text())
-        //     .then(result => {
-        //         res.send(result)
-        //     })
-        //     .catch(error => {
-        //         res.send({ success: false, error })
-        //     })
-
-
-
     }
 
 }

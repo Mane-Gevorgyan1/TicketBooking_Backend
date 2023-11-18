@@ -60,6 +60,16 @@ class AdController {
             })
     }
 
+    static async deleteAd(req, res) {
+        await Ad.findOneAndDelete({ _id: req.params.id })
+            .then(() => {
+                res.send({ success: true })
+            })
+            .catch(error => {
+                res.send({ error })
+            })
+    }
+    
 }
 
 module.exports = AdController
