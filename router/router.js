@@ -45,6 +45,7 @@ router.post('/createCurrentTicket', TicketController.createCurrentTicket)
 router.post('/getCurrentTicket', TicketController.getCurrentTicket)
 router.post('/telcellData', TicketController.telcellData)
 router.post('/getTicketStatus', TicketController.getTicketStatus)
+router.get('/soldTickets', TicketController.soldTickets)
 
 router.patch('/returnTicket', body('ticketNumber').notEmpty().escape(), TicketController.returnTicket)
 router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphitheater']).notEmpty().escape(), TicketController.changeAvailability)

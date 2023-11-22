@@ -609,6 +609,32 @@ class TicketController {
             })
     }
 
+    static async soldTickets(req, res) {
+        const itemsPerPage = 20
+        const totalTicketCount = await Ticket.countDocuments()
+        const currentPage = parseInt(req.query.currentPage) || 1
+        const totalPages = Math.ceil(totalTicketCount / itemsPerPage)
+        const hasNextPage = currentPage < totalPages
+
+        await Ticket.find()
+            .skip((currentPage - 1) * itemsPerPage)
+            .limit(itemsPerPage)
+            .populate({
+                path: 'sessionId',
+                populate: { path: 'eventId' }
+            })
+            .populate({
+                path: 'sessionId',
+                populate: { path: 'hallId' }
+            })
+            .then(tickets => {
+                res.send({ success: true, tickets, currentPage, totalPages, hasNextPage })
+            })
+            .catch(error => {
+                res.send({ success: false, error })
+            })
+    }
+
 }
 
 module.exports = TicketController

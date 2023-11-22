@@ -372,6 +372,7 @@ class EventController {
                 .catch(error => {
                     res.send({ success: false, error })
                 })
+            await Session.findOneAndDelete({ eventId: req.body.id })
         } else {
             res.send({ errors: result.array() })
         }
