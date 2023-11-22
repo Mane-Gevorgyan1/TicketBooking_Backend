@@ -539,6 +539,7 @@ class TicketController {
                                     deliveryLocation: ticket?.deliveryLocation,
                                     sessionId: ticket?.sessionId,
                                     paymentVerified: data?.text?.status,
+                                    ticketNumber: ticketCount
                                 })
                                 newTicket.save()
 
@@ -564,7 +565,6 @@ class TicketController {
 
                             session.save()
                             await CurrentTicket.findOneAndDelete({ orderId: data?.text?.issuer_id })
-
 
                             setTimeout(() => {
                                 const message = {
