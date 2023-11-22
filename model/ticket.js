@@ -54,7 +54,7 @@ module.exports = mongoose => {
                 default: null,
             },
             paymentVerified: {
-                type: Boolean,
+                type: String,
                 default: false,
             },
             delivery: {

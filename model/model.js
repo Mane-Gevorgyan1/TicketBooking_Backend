@@ -18,5 +18,6 @@ db.feedback = require('./feedback.js')(mongoose)
 db.user = require('./user.js')(mongoose)
 db.returnedTickets = require('./returnedTickets.js')(mongoose)
 db.currentTicket = require('./currentTicket.js')(mongoose)
+db.telcellData = require('./telcellLog.js')(mongoose)
 
 module.exports = db

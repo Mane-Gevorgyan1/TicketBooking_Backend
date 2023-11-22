@@ -36,7 +36,11 @@ module.exports = mongoose => {
             orderId: {
                 type: String,
                 default: null
-            }
+            },
+            delivery: {
+                type: Boolean,
+                default: false,
+            },
         },
         { timestamps: true },
     );

@@ -43,6 +43,8 @@ router.get('/getReturnedTickets', TicketController.getReturnedTickets)
 router.delete('/deleteReturnTicket', TicketController.deleteReturnTicket)
 router.post('/createCurrentTicket', TicketController.createCurrentTicket)
 router.post('/getCurrentTicket', TicketController.getCurrentTicket)
+router.post('/telcellData', TicketController.telcellData)
+router.post('/getTicketStatus', TicketController.getTicketStatus)
 
 router.patch('/returnTicket', body('ticketNumber').notEmpty().escape(), TicketController.returnTicket)
 router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphitheater']).notEmpty().escape(), TicketController.changeAvailability)
@@ -120,7 +122,6 @@ router.get('/getAllUsers', UserController.getAllUsers)
 router.post('/logout', UserController.logout)
 router.patch('/changeUserSettings', UserController.changeUserSettings)
 router.delete('/deleteUser', UserController.deleteUser)
-
 
 
 module.exports = router
