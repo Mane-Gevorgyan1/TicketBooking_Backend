@@ -33,6 +33,10 @@ module.exports = mongoose => {
                 type: Boolean,
                 default: false,
             },
+            stage: {
+                type: Boolean,
+                default: false,
+            },
             buyerName: {
                 type: String,
                 default: null,

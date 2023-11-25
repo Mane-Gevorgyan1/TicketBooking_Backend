@@ -30,6 +30,8 @@ const generateTableRows = (data) => {
             tex = 'Амфитеатр'
         } else if (item?.lodge) {
             tex = 'Лодж'
+        } else if (item?.stage) {
+            tex = 'Ярус'
         }
         total += item?.total
         tableRows += `
@@ -110,9 +112,11 @@ async function createPDFWithQRCode(outputFilePath, qrCodeData) {
             tex = 'Amphitheater'
         } else if (details?.lodge) {
             tex = 'Lodge'
+        } else if (details?.stage) {
+            tex = 'Stage'
         }
         page.drawText(`Event: ${details?.title}`, { x: 10, y: 120, size: 6 })
-        page.drawText(`Location: ${details?.country}, ${details?.location}, Karen Demirjyan`, { x: 10, y: 110, size: 6 })
+        page.drawText(`Location: ${details?.country}, ${details?.location}, ${details?.place}`, { x: 10, y: 110, size: 6 })
         page.drawText(`Date: ${details?.date.split('T')[0]}`, { x: 10, y: 100, size: 6 })
         page.drawText(`Time: ${details?.time}`, { x: 10, y: 90, size: 6 })
         page.drawText(`Ticket Number: ${details?.ticketNumber}`, { x: 10, y: 80, size: 6 })
@@ -246,14 +250,16 @@ class TicketController {
         const result = validationResult(req)
         if (result.isEmpty()) {
             const session = await Session.findById(req.body.sessionId)
-            session.soldTickets = session?.soldTickets?.filter(e => e.id != req.body.seatId)
-            session.save()
+            if (session) {
+                session.soldTickets = session?.soldTickets?.filter(e => e.id != req.body.seatId)
+                session.save()
+            }
 
             const newReturn = await new ReturnedTickets({ orderId: req.body.orderId })
             newReturn.save()
 
             await Ticket.findOneAndDelete({ ticketNumber: req.body.ticketNumber })
-                .then((ticket) => {
+                .then(() => {
                     res.send({ success: true })
                 })
                 .catch(() => {
@@ -313,7 +319,7 @@ class TicketController {
         urlencoded.append("userName", '34558153_api')
         urlencoded.append("password", '8FJvGc28NAZ4a5E')
         urlencoded.append("orderNumber", generateOrderNumber())
-        urlencoded.append("returnUrl", "http://localhost:3000/StatusACBA")
+        urlencoded.append("returnUrl", "https://shinetickets.com/StatusACBA")
         urlencoded.append("amount", req.body.amount)
 
         const requestOptions = {
@@ -348,20 +354,13 @@ class TicketController {
                     id: element?.seatId
                 })
 
-                let ticketCount = ''
-                ticketCount = await Ticket.countDocuments() + index + 1
-                if (ticketCount <= 9) {
-                    ticketCount = '000' + ticketCount
-                } else if (ticketCount <= 99) {
-                    ticketCount = '00' + ticketCount
-                } else if (ticketCount <= 999) {
-                    ticketCount = '0' + ticketCount
-                }
+                let ticketCount = '' + Math.floor(1000 + Math.random() * 900000)
                 total = +element?.price
                 tickets.push({
                     parterre: element?.parterre,
                     amphitheater: element?.amphitheater,
                     lodge: element?.lodge,
+                    stage: element?.stage,
                     row: element?.row,
                     seat: element?.seat,
                     price: element?.price,
@@ -397,6 +396,7 @@ class TicketController {
                     parterre: element?.parterre,
                     amphitheater: element?.amphitheater,
                     lodge: element?.lodge,
+                    stage: element?.stage,
                     row: element?.row,
                     seat: element?.seat,
                     price: element?.price,
@@ -502,22 +502,13 @@ class TicketController {
                                 session?.soldTickets.push({
                                     id: element?.seatId
                                 })
-
-                                let ticketCount = ''
-                                ticketCount = await Ticket.countDocuments() + index + 1
-                                if (ticketCount <= 9) {
-                                    ticketCount = '000' + ticketCount
-                                } else if (ticketCount <= 99) {
-                                    ticketCount = '00' + ticketCount
-                                } else if (ticketCount <= 999) {
-                                    ticketCount = '0' + ticketCount
-                                }
-
+                                let ticketCount = '' + Math.floor(1000 + Math.random() * 900000)
                                 total = +element?.price
                                 myTickets.push({
                                     parterre: element?.parterre,
                                     amphitheater: element?.amphitheater,
                                     lodge: element?.lodge,
+                                    stage: element?.stage,
                                     row: element?.row,
                                     seat: element?.seat,
                                     price: element?.price,
@@ -555,6 +546,7 @@ class TicketController {
                                     parterre: element?.parterre,
                                     amphitheater: element?.amphitheater,
                                     lodge: element?.lodge,
+                                    stage: element?.stage,
                                     row: element?.row,
                                     seat: element?.seat,
                                     price: element?.price,
@@ -565,23 +557,26 @@ class TicketController {
 
                             session.save()
                             await CurrentTicket.findOneAndDelete({ orderId: data?.text?.issuer_id })
-
-                            setTimeout(() => {
-                                const message = {
-                                    from: 'mailforspammessages@gmail.com',
-                                    to: ticket?.buyerEmail,
-                                    subject: 'Shine tickets',
-                                    attachments: PDFs,
-                                    html: emailTemplate(myTickets),
-                                }
-                                transporter.sendMail(message, async (err, info) => {
-                                    if (err) {
-                                        console.log("email is invalid");
-                                    } else {
-                                        console.log({ success: true, message: 'Ticket is sent to your email' })
+                            let sent = true
+                            if (sent) {
+                                setTimeout(() => {
+                                    const message = {
+                                        from: 'mailforspammessages@gmail.com',
+                                        to: ticket?.buyerEmail,
+                                        subject: 'Shine tickets',
+                                        attachments: PDFs,
+                                        html: emailTemplate(myTickets),
                                     }
-                                })
-                            }, 2000)
+                                    transporter.sendMail(message, async (err, info) => {
+                                        if (err) {
+                                            console.log("email is invalid");
+                                        } else {
+                                            console.log({ success: true, message: 'Ticket is sent to your email' })
+                                        }
+                                    })
+                                    sent = false
+                                }, 2000)
+                            }
                         } else {
                             console.log("Rejected")
                         }
@@ -623,16 +618,38 @@ class TicketController {
                 path: 'sessionId',
                 populate: { path: 'eventId' }
             })
-            .populate({
-                path: 'sessionId',
-                populate: { path: 'hallId' }
-            })
             .then(tickets => {
-                res.send({ success: true, tickets, currentPage, totalPages, hasNextPage })
+                const duplicates = {};
+                const result = [];
+                let temp = []
+                tickets?.forEach(element => {
+                    temp.push(element?.sessionId?.eventId?.title)
+                })
+
+                temp.forEach(item => {
+                    if (duplicates[item]) {
+                        duplicates[item]++;
+                    } else {
+                        duplicates[item] = 1;
+                    }
+                });
+
+                for (const key in duplicates) {
+                    if (duplicates[key] > 1) {
+                        result.push({
+                            value: key,
+                            count: duplicates[key]
+                        });
+                    }
+                }
+
+                res.send({ success: true, result, currentPage, totalPages, hasNextPage })
             })
             .catch(error => {
                 res.send({ success: false, error })
             })
+
+
     }
 
 }

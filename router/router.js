@@ -31,7 +31,7 @@ router.post('/login', UserController.login)
 router.use(authenticateToken)
 
 // Ticket Controller
-router.post('/setSeat', body(['row', 'seat', 'price', 'amphitheater', 'lodge', 'seatColor']).notEmpty().escape(), TicketController.setSeat)
+router.post('/setSeat', body(['row', 'seat', 'price', 'amphitheater', 'lodge', 'stage', 'seatColor']).notEmpty().escape(), TicketController.setSeat)
 router.post('/singleTicket', body('ticketNumber').notEmpty().escape(), TicketController.singleTicket)
 router.patch('/changePrice', body(['row', 'seat', 'price', 'amphitheater']).notEmpty().escape(), TicketController.changePrice)
 router.get('/getSeats', TicketController.getSeatDetails)
@@ -46,8 +46,9 @@ router.post('/getCurrentTicket', TicketController.getCurrentTicket)
 router.post('/telcellData', TicketController.telcellData)
 router.post('/getTicketStatus', TicketController.getTicketStatus)
 router.get('/soldTickets', TicketController.soldTickets)
-
 router.patch('/returnTicket', body('ticketNumber').notEmpty().escape(), TicketController.returnTicket)
+
+
 router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphitheater']).notEmpty().escape(), TicketController.changeAvailability)
 
 

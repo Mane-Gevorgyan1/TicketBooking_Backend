@@ -286,7 +286,8 @@ class EventController {
                         time: newSession?.time,
                     })
                 })
-                res.send({ success: true, event: event[0], recomended, sessions })
+                const filteredRecomended = recomended.filter(e => !e._id?.toString().includes(req.params.id))
+                res.send({ success: true, event: event[0], recomended: filteredRecomended, sessions })
             })
             .catch(error => {
                 res.send({ success: false, error })
