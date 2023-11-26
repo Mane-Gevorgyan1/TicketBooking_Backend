@@ -7,15 +7,15 @@ module.exports = mongoose => {
             },
             text: {
                 type: String,
-                default: null,
+                default: '',
             },
             text_en: {
                 type: String,
-                default: null,
+                default: '',
             },
             text_ru: {
                 type: String,
-                default: null,
+                default: '',
             },
         },
         { timestamps: true },

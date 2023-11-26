@@ -26,8 +26,8 @@ class FeedbackController {
 
     static async editFeedback(req, res) {
         await Feedback.findByIdAndUpdate(req.params.id, { ...req.body }, { new: true })
-            .then(feedback => {
-                res.send({ success: true, feedback })
+            .then(() => {
+                res.send({ success: true })
             })
             .catch(error => {
                 res.send({ success: false, error })

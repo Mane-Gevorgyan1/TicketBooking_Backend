@@ -6,8 +6,8 @@ class AdController {
     static async createMainAd(req, res) {
         const ad = new Ad({ ...req.body, image: req.file.filename })
         await ad.save()
-            .then(newAd => {
-                res.send({ success: true, ad: newAd })
+            .then(() => {
+                res.send({ success: true, message: 'Main ad created' })
             })
             .catch(error => {
                 res.send({ success: false, error })
@@ -69,7 +69,7 @@ class AdController {
                 res.send({ error })
             })
     }
-    
+
 }
 
 module.exports = AdController
