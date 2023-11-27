@@ -3,7 +3,7 @@ module.exports = mongoose => {
         {
             name: {
                 type: String,
-                default: null,
+                default: ' ',
             },
             image: {
                 type: String,

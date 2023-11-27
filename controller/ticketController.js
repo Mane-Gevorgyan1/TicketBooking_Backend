@@ -255,8 +255,35 @@ class TicketController {
                 session.save()
             }
 
-            const newReturn = await new ReturnedTickets({ orderId: req.body.orderId })
-            newReturn.save()
+            await Ticket.find({ ticketNumber: req.body.ticketNumber })
+                .then(async tickets => {
+                    const ticket = tickets[0]
+                    const newReturn = await new ReturnedTickets({
+                        orderId: req.body.orderId,
+                        row: ticket?.row,
+                        seat: ticket?.seat,
+                        price: ticket?.price,
+                        seatId: ticket?.seatId,
+                        parterre: ticket?.parterre,
+                        amphitheater: ticket?.amphitheater,
+                        lodge: ticket?.lodge,
+                        stage: ticket?.stage,
+                        buyerName: ticket?.buyerName,
+                        buyerEmail: ticket?.buyerEmail,
+                        buyerPhone: ticket?.buyerPhone,
+                        buyerNotes: ticket?.buyerNotes,
+                        paymentMethod: ticket?.paymentMethod,
+                        paymentVerified: ticket?.paymentVerified,
+                        delivery: ticket?.delivery,
+                        deliveryLocation: ticket?.deliveryLocation,
+                        ticketNumber: ticket?.ticketNumber,
+                        sessionId: ticket?.sessionId,
+                    })
+                    newReturn.save()
+                })
+                .catch(() => {
+                    res.send({ success: false })
+                })
 
             await Ticket.findOneAndDelete({ ticketNumber: req.body.ticketNumber })
                 .then(() => {
@@ -623,23 +650,23 @@ class TicketController {
                 const result = [];
                 let temp = []
                 tickets?.forEach(element => {
-                    temp.push(element?.sessionId?.eventId?.title)
+                    temp.push(`${element?.sessionId?.eventId?.title}/${element?.sessionId?._id}`)
                 })
 
                 temp.forEach(item => {
                     if (duplicates[item]) {
-                        duplicates[item]++;
+                        duplicates[item]++
                     } else {
-                        duplicates[item] = 1;
+                        duplicates[item] = 1
                     }
-                });
+                })
 
                 for (const key in duplicates) {
                     if (duplicates[key] > 1) {
                         result.push({
                             value: key,
-                            count: duplicates[key]
-                        });
+                            count: duplicates[key],
+                        })
                     }
                 }
 
@@ -649,7 +676,40 @@ class TicketController {
                 res.send({ success: false, error })
             })
 
+    }
 
+    static async getSingleReturnedTicket(req, res) {
+        await ReturnedTickets.find({ _id: req.params.id })
+            .populate({ path: 'sessionId', populate: { path: 'eventId' } })
+            .populate({ path: 'sessionId', populate: { path: 'hallId' } })
+            .then(ticket => {
+                res.send({ success: true, ticket: ticket[0] })
+            })
+            .catch(error => {
+                res.send({ success: false, error })
+            })
+    }
+
+    static async deleteReturnedTicket(req, res) {
+        await ReturnedTickets.findOneAndDelete({ _id: req.body.id })
+            .then(() => {
+                res.send({ success: true })
+            })
+            .catch(() => {
+                res.send({ success: false })
+            })
+    }
+
+    static async singleSessionTicketCount(req, res) {
+        await Session.find({ _id: req.params.id })
+            .populate('hallId')
+            .populate('eventId')
+            .then(ticket => {
+                res.send({ success: true, ticket: ticket[0] })
+            })
+            .catch(error => {
+                res.send({ success: false, error })
+            })
     }
 
 }

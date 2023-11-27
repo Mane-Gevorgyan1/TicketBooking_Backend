@@ -5,22 +5,17 @@ const { validationResult } = require('express-validator')
 class SponsorController {
 
     static async createSponsor(req, res) {
-        const result = validationResult(req)
-        if (result.isEmpty()) {
-            if (req.file) {
-                const sponsor = await new Sponsor({ name: req.body.name, image: req.file.filename })
-                sponsor.save()
-                    .then(() => {
-                        res.send({ success: true, sponsor })
-                    })
-                    .catch(err => {
-                        res.send({ success: false, err })
-                    })
-            } else {
-                res.send({ success: false, message: 'image field is required' })
-            }
+        if (req.file) {
+            const sponsor = await new Sponsor({ name: req.body.name, image: req.file.filename })
+            sponsor.save()
+                .then(() => {
+                    res.send({ success: true, sponsor })
+                })
+                .catch(err => {
+                    res.send({ success: false, err })
+                })
         } else {
-            res.send({ errors: result.array() })
+            res.send({ success: false, message: 'image field is required' })
         }
     }
 

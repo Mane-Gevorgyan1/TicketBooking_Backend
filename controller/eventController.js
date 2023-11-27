@@ -59,14 +59,16 @@ class EventController {
     }
 
     static async getTopEvents(req, res) {
-        const result = validationResult(req)
         await Event.find({ topEvent: true })
-            .populate('subcategories')
             .populate('sponsors')
-            .populate('sessions')
             .populate({
                 path: 'category',
                 populate: { path: 'subcategories' }
+            })
+            .populate('subcategories')
+            .populate({
+                path: 'sessions',
+                populate: { path: 'hallId' }
             })
             .then(events => {
                 res.send({ success: true, events })
@@ -333,9 +335,9 @@ class EventController {
             if (req.body.title_ru) event.title_ru = req.body.title_ru
             if (req.body.topEvent) event.topEvent = req.body.topEvent
             if (req.body.generalEvent) event.generalEvent = req.body.generalEvent
-            if (req.body.description) event.description = req.body.description
-            if (req.body.description_en) event.description_en = req.body.description_en
-            if (req.body.description_ru) event.description_ru = req.body.description_ru
+            event.description = req.body.description
+            event.description_en = req.body.description_en
+            event.description_ru = req.body.description_ru
             if (req.body.category) event.category = req.body.category
             if (req.body.subcategories) event.subcategories = req.body.subcategories
 

@@ -47,7 +47,9 @@ router.post('/telcellData', TicketController.telcellData)
 router.post('/getTicketStatus', TicketController.getTicketStatus)
 router.get('/soldTickets', TicketController.soldTickets)
 router.patch('/returnTicket', body('ticketNumber').notEmpty().escape(), TicketController.returnTicket)
-
+router.get('/getSingleReturnedTicket/:id', TicketController.getSingleReturnedTicket)
+router.delete('/deleteReturnedTicket', TicketController.deleteReturnedTicket)
+router.get('/singleSessionTicketCount/:id', TicketController.singleSessionTicketCount)
 
 router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphitheater']).notEmpty().escape(), TicketController.changeAvailability)
 
@@ -72,7 +74,7 @@ router.post('/search', EventController.search)
 router.post('/filterEvents', EventController.filterEvents)
 
 // Sponsor Controller
-router.post('/createSponsor', upload.single('image'), body(['name']).notEmpty().escape(), SponsorController.createSponsor)
+router.post('/createSponsor', upload.single('image'), SponsorController.createSponsor)
 router.get('/getAllSponsors', SponsorController.getAllSponsors)
 router.delete('/deleteSponsor', body(['id']).notEmpty().escape(), SponsorController.deleteSponsor)
 

@@ -7,15 +7,15 @@ module.exports = mongoose => {
             },
             title: {
                 type: String,
-                default: null,
+                default: ' ',
             },
             title_en: {
                 type: String,
-                default: null,
+                default: ' ',
             },
             title_ru: {
                 type: String,
-                default: null,
+                default: ' ',
             },
             topEvent: {
                 type: Boolean,
@@ -27,15 +27,15 @@ module.exports = mongoose => {
             },
             description: {
                 type: String,
-                default: null,
+                default: ' ',
             },
             description_en: {
                 type: String,
-                default: null,
+                default: ' ',
             },
             description_ru: {
                 type: String,
-                default: null,
+                default: ' ',
             },
             category: {
                 type: mongoose.Schema.Types.ObjectId,
