@@ -313,6 +313,7 @@ class TicketController {
             buyerEmail: req.body.buyerEmail,
             buyerPhone: req.body.buyerPhone,
             buyerNotes: req.body.buyerNotes,
+            delivery: req.body.delivery,
             deliveryLocation: req.body.deliveryLocation,
             orderId: req.body.orderId,
             paymentMethod: req.body.paymentMethod,
@@ -331,7 +332,11 @@ class TicketController {
     static async getCurrentTicket(req, res) {
         await CurrentTicket.find({ orderId: req.body.orderId })
             .then(ticket => {
-                res.send({ success: true, ticket: ticket[0] })
+                if (ticket?.length) {
+                    res.send({ success: true, ticket: ticket[0] })
+                } else {
+                    res.send({ success: false, message: 'ticket not found' })
+                }
             })
             .catch(error => {
                 res.send({ success: false, error })
@@ -662,12 +667,10 @@ class TicketController {
                 })
 
                 for (const key in duplicates) {
-                    if (duplicates[key] > 1) {
-                        result.push({
-                            value: key,
-                            count: duplicates[key],
-                        })
-                    }
+                    result.push({
+                        value: key,
+                        count: duplicates[key],
+                    })
                 }
 
                 res.send({ success: true, result, currentPage, totalPages, hasNextPage })
@@ -712,6 +715,21 @@ class TicketController {
             })
     }
 
+    static async changePaymentVerified(req, res) {
+        let newTicket = await Ticket.find({ ticketNumber: req.body.ticketNumber })
+        if (newTicket?.length) {
+            newTicket[0].paymentVerified = "PAID"
+            newTicket[0].save()
+                .then(() => {
+                    res.send({ success: true, message: 'payment is verified' })
+                })
+                .catch(error => {
+                    res.send({ success: false, error })
+                })
+        } else {
+            res.send({ success: false, message: 'ticket not found' })
+        }
+    }
 }
 
 module.exports = TicketController

@@ -50,6 +50,7 @@ router.patch('/returnTicket', body('ticketNumber').notEmpty().escape(), TicketCo
 router.get('/getSingleReturnedTicket/:id', TicketController.getSingleReturnedTicket)
 router.delete('/deleteReturnedTicket', TicketController.deleteReturnedTicket)
 router.get('/singleSessionTicketCount/:id', TicketController.singleSessionTicketCount)
+router.patch('/changePaymentVerified', TicketController.changePaymentVerified)
 
 router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphitheater']).notEmpty().escape(), TicketController.changeAvailability)
 
