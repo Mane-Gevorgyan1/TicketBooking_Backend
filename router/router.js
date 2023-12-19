@@ -27,6 +27,7 @@ const upload = multer({ storage })
 
 
 router.post('/login', UserController.login)
+// router.post('/test', TicketController.test)
 
 router.use(authenticateToken)
 
@@ -56,10 +57,10 @@ router.patch('/changeAvailability', body(['row', 'seat', 'availability', 'amphit
 
 
 // Event Controller
-router.post('/createEvent', upload.single('image'), body([
+router.post('/createEvent', upload.array('image'), body([
     'title', 'topEvent', 'generalEvent', 'category', 'subcategories'
 ]).notEmpty().escape(), EventController.createEvent)
-router.patch('/editEvent', upload.single('image'), body([
+router.patch('/editEvent', upload.array('image'), body([
     'id', 'title', 'topEvent', 'generalEvent', 'category', 'subcategories'
 ]).notEmpty().escape(), EventController.editEvent)
 router.delete('/deleteEvent', body(['id']).notEmpty().escape(), EventController.deleteEvent)

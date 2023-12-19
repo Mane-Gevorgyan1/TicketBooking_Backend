@@ -26,8 +26,8 @@ class EventController {
     static async createEvent(req, res) {
         const result = validationResult(req);
         if (result.isEmpty()) {
-            if (req.file) {
-                const event = await new Event({ ...req.body, image: req.file.filename })
+            if (req.files) {
+                const event = await new Event({ ...req.body, image: req.files[0].filename, largeImage: req.files[1].filename })
                 event.save()
                 res.send({ success: true, event })
             } else {
@@ -79,6 +79,12 @@ class EventController {
     }
 
     static async randomEvents(req, res) {
+        const itemsPerPage = 12
+        const totalEvents = await Event.countDocuments()
+        const currentPage = parseInt(req.query.currentPage) || 1
+        const totalPages = Math.ceil(totalEvents / itemsPerPage)
+        const hasNextPage = currentPage < totalPages
+
         const allEvents = await Event.find()
             .populate('sponsors')
             .populate('subcategories')
@@ -87,35 +93,33 @@ class EventController {
                 path: 'category',
                 // populate: { path: 'subcategories' }
             })
-        const shuffledEvents = shuffleArray(allEvents)
-        const randomEvents = shuffledEvents.slice(0, 12)
-        res.send({ success: true, randomEvents })
+        // const shuffledEvents = shuffleArray(allEvents)
+        // const randomEvents = shuffledEvents.slice(0, 12)
+        res.send({ success: true, allEvents, currentPage, totalPages, hasNextPage })
     }
 
     static async getAllEvents(req, res) {
         let filter = {}
-        if (req.body.place && req.body.startDate && req.body.endDate && req.body.category) {
-            filter = {
-                place: req.body.place,
-                date: {
-                    $gte: req.body.startDate,
-                    $lte: req.body.endDate,
-                },
-                category: req.body.category,
+        if (req?.body?.date?.startDate && req?.body?.date?.endDate) {
+            const startDate = new Date(req.body.date.startDate)
+            const endDate = new Date(req.body.date.endDate)
+            if (startDate.toDateString() === endDate.toDateString()) {
+                // When startDate and endDate are the same, create a range for the entire day
+                endDate.setDate(endDate.getDate() + 1) // Increment the endDate to the next day
             }
-        } else if (req.body.place) {
-            filter = {
-                place: req.body.place,
-            }
-        } else if (req.body.startDate && req.body.endDate) {
             filter = {
                 date: {
-                    $gte: req.body.startDate,
-                    $lte: req.body.endDate,
-                },
+                    $gte: startDate,
+                    $lte: endDate,
+                }
             }
-        } else if (req.body.category) {
-            filter = { category: req.body.category }
+        } else if (req?.body?.date?.startDate) {
+            const startDate = new Date(req.body.date.startDate)
+            filter = {
+                date: {
+                    $gte: startDate,
+                }
+            }
         }
 
         const itemsPerPage = 21
@@ -326,8 +330,13 @@ class EventController {
             if (!event) {
                 return res.send({ success: false, message: 'Event not found' });
             }
-            if (req.file) {
-                event.image = req.file.filename
+            if (req.body.fileLength == 3) {
+                event.image = req.files[0]?.filename
+                event.largeImage = req.files[1]?.filename
+            } else if (req.body.fileLength == 2) {
+                event.largeImage = req.files[0]?.filename
+            } else if (req.body.fileLength == 1) {
+                event.image = req.files[0]?.filename
             }
 
             if (req.body.title) event.title = req.body.title
@@ -418,14 +427,22 @@ class EventController {
                     path: 'eventId',
                     populate: { path: 'sponsors' },
                 })
+                .populate({
+                    path: 'eventId',
+                    populate: { path: 'category' },
+                })
                 .populate('hallId')
 
             let eventsToShow = []
             sessions?.forEach(session => {
-                if (req.body.subcategory && session?.eventId?.subcategories.toHexString() == req.body.subcategory) {
+                if (req.body.subcategory.includes('all')) {
                     eventsToShow.push(session)
-                } else if (!req.body.subcategory && session?.eventId?.category.toHexString() == req.body.category) {
-                    eventsToShow.push(session)
+                } else {
+                    if (req.body.subcategory && session?.eventId?.subcategories.toHexString() == req.body.subcategory) {
+                        eventsToShow.push(session)
+                    } else if (!req.body.subcategory && session?.eventId?.category.toHexString() == req.body.category) {
+                        eventsToShow.push(session)
+                    }
                 }
             })
             if (req.body.hall) {

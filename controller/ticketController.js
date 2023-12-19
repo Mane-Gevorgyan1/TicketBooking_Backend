@@ -10,14 +10,33 @@ const QRCode = require('qrcode')
 const { PDFDocument, rgb } = require('pdf-lib')
 const fs = require('fs').promises
 const CryptoJS = require('crypto-js')
+const smtpTransport = require('nodemailer-smtp-transport')
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
+// const transporter = nodemailer.createTransport({
+//     host: 'mail.shinetickets.com',
+//     secureConnection: false,
+//     tls: {
+//         rejectUnauthorized: false
+//     },
+//     auth: {
+//         user: 'd@shinetickets.com',
+//         pass: 'O,QRh9W6g9$g'
+//     },
+// })
+
+const transporter = nodemailer.createTransport(smtpTransport({
+    service: 'webmail', 
+    host: 'mail.shinetickets.com',
+    secureConnection: false,
+    tls: {
+        rejectUnauthorized: false
+    },
+    port: 995,
     auth: {
-        user: 'mailforspammessages@gmail.com',
-        pass: 'ztyunsgnsyhneocd'
+        user: `d@shinetickets.com`,
+        pass: `O,QRh9W6g9$g`,
     }
-})
+}))
 
 const generateTableRows = (data) => {
     let tableRows = '';
@@ -144,6 +163,23 @@ class TicketController {
     // if (result.isEmpty()) {
     // } else {
     //     res.send({ errors: result.array() })
+    // }
+
+    // static async test(req, res) {
+    //     const message = {
+    //         from: 'd@shinetickets.com',
+    //         to: 'manegevorgyan1@gmail.com',
+    //         subject: 'Shine tickets',
+    //         html: `Hello Mane`,
+    //     }
+
+    //     transporter.sendMail(message, async (err, info) => {
+    //         if (err) {
+    //             res.send({ message: 'email is invalid' })
+    //         } else {
+    //             res.send({ success: true, message: 'Ticket is sent to your email' })
+    //         }
+    //     })
     // }
 
     static async setSeat(req, res) {
@@ -380,6 +416,7 @@ class TicketController {
         let PDFs = []
         let tickets = []
         let total = 0
+        let paymentMethod = ''
         if (session) {
             req.body?.tickets?.forEach(async (element, index) => {
                 session?.soldTickets.push({
@@ -414,6 +451,7 @@ class TicketController {
                     ticketNumber: ticketCount,
                     orderId: req?.body?.orderId
                 })
+                paymentMethod = req.body.paymentMethod
                 ticket.save()
 
                 const outputFilePath = `public/pdf/${ticket._id}.pdf`
@@ -441,12 +479,23 @@ class TicketController {
             await CurrentTicket.findOneAndDelete({ orderId: req.body?.orderId })
 
             setTimeout(() => {
-                const message = {
-                    from: 'mailforspammessages@gmail.com',
-                    to: req?.body?.buyerEmail,
-                    subject: 'Shine tickets',
-                    attachments: PDFs,
-                    html: emailTemplate(tickets),
+                let message = {}
+                if (paymentMethod === 'CASH') {
+                    message = {
+                        from: 'd@shinetickets.com',
+                        to: 'd@shinetickets.com',
+                        subject: 'Shine tickets',
+                        attachments: PDFs,
+                        html: emailTemplate(tickets),
+                    }
+                } else {
+                    message = {
+                        from: 'd@shinetickets.com',
+                        to: req?.body?.buyerEmail,
+                        subject: 'Shine tickets',
+                        attachments: PDFs,
+                        html: emailTemplate(tickets),
+                    }
                 }
                 transporter.sendMail(message, async (err, info) => {
                     if (err) {
@@ -527,6 +576,7 @@ class TicketController {
                     let PDFs = []
                     let myTickets = []
                     let total = 0
+                    let paymentMethod = ''
 
                     if (myCheckSum === data?.text?.checksum) {
                         if (data?.text?.status === 'PAID') {
@@ -565,6 +615,7 @@ class TicketController {
                                     ticketNumber: ticketCount
                                 })
                                 newTicket.save()
+                                paymentMethod = ticket?.paymentMethod
 
                                 const outputFilePath = `public/pdf/${newTicket?._id}.pdf`
                                 const qrCodeData = JSON.stringify({
@@ -592,12 +643,23 @@ class TicketController {
                             let sent = true
                             if (sent) {
                                 setTimeout(() => {
-                                    const message = {
-                                        from: 'mailforspammessages@gmail.com',
-                                        to: ticket?.buyerEmail,
-                                        subject: 'Shine tickets',
-                                        attachments: PDFs,
-                                        html: emailTemplate(myTickets),
+                                    let message = {}
+                                    if (paymentMethod === 'CASH') {
+                                        message = {
+                                            from: 'd@shinetickets.com',
+                                            to: 'd@shinetickets.com',
+                                            subject: 'Shine tickets',
+                                            attachments: PDFs,
+                                            html: emailTemplate(myTickets),
+                                        }
+                                    } else {
+                                        message = {
+                                            from: 'd@shinetickets.com',
+                                            to: ticket?.buyerEmail,
+                                            subject: 'Shine tickets',
+                                            attachments: PDFs,
+                                            html: emailTemplate(myTickets),
+                                        }
                                     }
                                     transporter.sendMail(message, async (err, info) => {
                                         if (err) {
