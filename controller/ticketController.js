@@ -12,31 +12,13 @@ const fs = require('fs').promises
 const CryptoJS = require('crypto-js')
 const smtpTransport = require('nodemailer-smtp-transport')
 
-// const transporter = nodemailer.createTransport({
-//     host: 'mail.shinetickets.com',
-//     secureConnection: false,
-//     tls: {
-//         rejectUnauthorized: false
-//     },
-//     auth: {
-//         user: 'd@shinetickets.com',
-//         pass: 'O,QRh9W6g9$g'
-//     },
-// })
-
-const transporter = nodemailer.createTransport(smtpTransport({
-    service: 'webmail', 
-    host: 'mail.shinetickets.com',
-    secureConnection: false,
-    tls: {
-        rejectUnauthorized: false
-    },
-    port: 995,
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
     auth: {
-        user: `d@shinetickets.com`,
-        pass: `O,QRh9W6g9$g`,
+        user: 'mailforspammessages@gmail.com',
+        pass: 'ztyunsgnsyhneocd'
     }
-}))
+})
 
 const generateTableRows = (data) => {
     let tableRows = '';

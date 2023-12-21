@@ -25,9 +25,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage })
 
-
 router.post('/login', UserController.login)
-// router.post('/test', TicketController.test)
 
 router.use(authenticateToken)
 

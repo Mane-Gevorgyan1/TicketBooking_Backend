@@ -27,9 +27,15 @@ class EventController {
         const result = validationResult(req);
         if (result.isEmpty()) {
             if (req.files) {
-                const event = await new Event({ ...req.body, image: req.files[0].filename, largeImage: req.files[1].filename })
-                event.save()
-                res.send({ success: true, event })
+                if (req.body.fileLength == 2) {
+                    const event = await new Event({ ...req.body, image: req.files[0].filename, largeImage: req.files[1].filename })
+                    event.save()
+                    res.send({ success: true, event })
+                } else if (req.body.fileLength == 1) {
+                    const event = await new Event({ ...req.body, image: req.files[0].filename })
+                    event.save()
+                    res.send({ success: true, event })
+                }
             } else {
                 res.send({ success: false, message: 'image field is required' })
             }
@@ -39,19 +45,15 @@ class EventController {
     }
 
     static async getGeneralEvents(req, res) {
-        await Event.find({ generalEvent: true })
-            .populate('sponsors')
-            .populate('subcategories')
-            .populate({
-                path: 'sessions',
-                populate: { path: 'hallId' }
-            })
-            .populate({
-                path: 'category',
-                // populate: { path: 'subcategories' }
-            })
+        await Session.find()
+            .populate('eventId')
             .then(events => {
-                res.send({ success: true, events })
+                if (events?.length) {
+                    const generalEvents = events?.filter(e => e.eventId?.generalEvent)
+                    res.send({ success: true, events: generalEvents })
+                } else {
+                    res.send({ success: true, events })
+                }
             })
             .catch(err => {
                 res.send({ success: false, err })
