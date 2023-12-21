@@ -433,6 +433,10 @@ class EventController {
                     path: 'eventId',
                     populate: { path: 'category' },
                 })
+                .populate({
+                    path: 'eventId',
+                    populate: { path: 'subcategories' },
+                })
                 .populate('hallId')
 
             let eventsToShow = []
@@ -440,9 +444,9 @@ class EventController {
                 if (req.body.subcategory.includes('all')) {
                     eventsToShow.push(session)
                 } else {
-                    if (req.body.subcategory && session?.eventId?.subcategories.toHexString() == req.body.subcategory) {
+                    if (req.body.subcategory && session?.eventId?.subcategories?._id?.toHexString() == req.body.subcategory) {
                         eventsToShow.push(session)
-                    } else if (!req.body.subcategory && session?.eventId?.category.toHexString() == req.body.category) {
+                    } else if (!req.body.subcategory && session?.eventId?.category?._id?.toHexString() == req.body.category) {
                         eventsToShow.push(session)
                     }
                 }
@@ -450,7 +454,6 @@ class EventController {
             if (req.body.hall) {
                 eventsToShow = eventsToShow?.filter(session => session?.hallId?._id == req.body.hall)
             }
-
             res.send({ success: true, sessions: eventsToShow, totalPages, hasNextPage })
         } else {
             res.send({ errors: result.array() })
