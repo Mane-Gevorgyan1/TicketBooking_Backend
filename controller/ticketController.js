@@ -12,13 +12,19 @@ const fs = require('fs').promises
 const CryptoJS = require('crypto-js')
 const smtpTransport = require('nodemailer-smtp-transport')
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
+const transporter = nodemailer.createTransport(smtpTransport({
+    host: 'mail.shinetickets.com',
+    secureConnection: true,
+    secure: true,
+    tls: {
+        rejectUnauthorized: false
+    },
+    port: 465,
     auth: {
-        user: 'mailforspammessages@gmail.com',
-        pass: 'ztyunsgnsyhneocd'
+        user: 'info@shinetickets.com',
+        pass: 'bH@kSZdW{R~C',
     }
-})
+}));
 
 const generateTableRows = (data) => {
     let tableRows = '';
@@ -140,29 +146,6 @@ const generateOrderNumber = () => {
 }
 
 class TicketController {
-
-    // const result = validationResult(req)
-    // if (result.isEmpty()) {
-    // } else {
-    //     res.send({ errors: result.array() })
-    // }
-
-    // static async test(req, res) {
-    //     const message = {
-    //         from: 'd@shinetickets.com',
-    //         to: 'manegevorgyan1@gmail.com',
-    //         subject: 'Shine tickets',
-    //         html: `Hello Mane`,
-    //     }
-
-    //     transporter.sendMail(message, async (err, info) => {
-    //         if (err) {
-    //             res.send({ message: 'email is invalid' })
-    //         } else {
-    //             res.send({ success: true, message: 'Ticket is sent to your email' })
-    //         }
-    //     })
-    // }
 
     static async setSeat(req, res) {
         const result = validationResult(req)
@@ -464,15 +447,15 @@ class TicketController {
                 let message = {}
                 if (paymentMethod === 'CASH') {
                     message = {
-                        from: 'd@shinetickets.com',
-                        to: 'd@shinetickets.com',
+                        from: 'info@shinetickets.com',
+                        to: 'info@shinetickets.com',
                         subject: 'Shine tickets',
                         attachments: PDFs,
                         html: emailTemplate(tickets),
                     }
                 } else {
                     message = {
-                        from: 'd@shinetickets.com',
+                        from: 'info@shinetickets.com',
                         to: req?.body?.buyerEmail,
                         subject: 'Shine tickets',
                         attachments: PDFs,
@@ -628,15 +611,15 @@ class TicketController {
                                     let message = {}
                                     if (paymentMethod === 'CASH') {
                                         message = {
-                                            from: 'd@shinetickets.com',
-                                            to: 'd@shinetickets.com',
+                                            from: 'info@shinetickets.com',
+                                            to: 'info@shinetickets.com',
                                             subject: 'Shine tickets',
                                             attachments: PDFs,
                                             html: emailTemplate(myTickets),
                                         }
                                     } else {
                                         message = {
-                                            from: 'd@shinetickets.com',
+                                            from: 'info@shinetickets.com',
                                             to: ticket?.buyerEmail,
                                             subject: 'Shine tickets',
                                             attachments: PDFs,
