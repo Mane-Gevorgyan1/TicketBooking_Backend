@@ -42,12 +42,14 @@ class AdController {
                 text: req.body.text,
                 text_en: req.body.text_en,
                 text_ru: req.body.text_ru,
+                url: req.body.url,
             }
         } else {
             body = {
                 text: req.body.text,
                 text_en: req.body.text_en,
                 text_ru: req.body.text_ru,
+                url: req.body.url,
             }
         }
 

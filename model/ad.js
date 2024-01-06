@@ -17,6 +17,10 @@ module.exports = mongoose => {
                 type: String,
                 default: '',
             },
+            url: {
+                type: String,
+                default: ''
+            }
         },
         { timestamps: true },
     );
